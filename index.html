@@ -1,1579 +1,1973 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SmartFlix — assistência técnica e acessórios para celular em Porto Velho. Orçamento rápido no WhatsApp, diagnóstico gratuito e atendimento confiável." />
-  <meta name="theme-color" content="#071120" />
-  <title>SmartFlix — Assistência Técnica & Acessórios</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="SmartFlix — assistência técnica premium e acessórios para celular em Porto Velho. Diagnóstico gratuito, orçamento rápido e acessórios selecionados.">
+<meta name="theme-color" content="#070b14">
+<title>SmartFlix — Assistência Técnica & Acessórios Premium</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  --bg:#070b14;
+  --bg2:#0b1120;
+  --bg3:#0f1728;
+  --panel:rgba(255,255,255,.035);
+  --panel2:rgba(255,255,255,.05);
+  --line:rgba(255,255,255,.08);
+  --line2:rgba(255,255,255,.14);
 
-  <style>
-    :root{
-      --bg:#071120;
-      --bg-2:#0b1726;
-      --bg-3:#102033;
-      --panel:#0f1d30;
-      --panel-2:#12243a;
-      --line:rgba(255,255,255,.08);
-      --line-strong:rgba(255,255,255,.14);
-      --text:#f5f7fa;
-      --muted:rgba(245,247,250,.68);
-      --muted-2:rgba(245,247,250,.44);
-      --blue:#2f80ed;
-      --blue-dark:#1f6ad0;
-      --blue-soft:#69a7ff;
-      --cyan:#56ccf2;
-      --green:#2ecc71;
-      --gold:#f2c94c;
-      --danger:#eb5757;
-      --radius:20px;
-      --radius-sm:14px;
-      --shadow:0 18px 44px rgba(0,0,0,.26);
-      --container:1180px;
-    }
+  --white:#f5f7fb;
+  --text:#e8edf6;
+  --muted:rgba(232,237,246,.68);
+  --muted2:rgba(232,237,246,.42);
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(47,128,237,.08), transparent 30%),
-        linear-gradient(180deg, #071120 0%, #091423 100%);
-      color:var(--text);
-      overflow-x:hidden;
-      -webkit-tap-highlight-color:transparent;
-    }
-    a{text-decoration:none;color:inherit}
-    button,input,select,textarea{font:inherit}
-    button{border:none;cursor:pointer}
-    img{display:block;max-width:100%}
-    ul{list-style:none}
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:var(--bg)}
-    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:999px}
+  --blue:#3b82f6;
+  --blue2:#60a5fa;
+  --cyan:#38bdf8;
+  --green:#34d399;
+  --gold:#fbbf24;
+  --red:#f87171;
 
-    .container{width:min(var(--container),calc(100% - 32px));margin:0 auto}
-    .section{padding:88px 0}
-    .section-head{margin-bottom:34px}
-    .eyebrow{
-      display:inline-block;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--blue-soft);
-      margin-bottom:12px;
-    }
-    .title{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:clamp(30px,4vw,48px);
-      line-height:1.06;
-      letter-spacing:-1.6px;
-      margin-bottom:12px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.75;
-      max-width:680px;
-    }
+  --grad-main:linear-gradient(135deg,#3b82f6 0%, #38bdf8 100%);
+  --grad-deep:linear-gradient(135deg,#0f1f42 0%, #142d5f 45%, #123a6c 100%);
+  --grad-soft:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:14px 22px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:700;
-      transition:.22s ease;
-      white-space:nowrap;
-    }
-    .btn-primary{
-      background:var(--blue);
-      color:#fff;
-    }
-    .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
-    .btn-secondary{
-      background:transparent;
-      color:var(--text);
-      border:1px solid var(--line-strong);
-    }
-    .btn-secondary:hover{background:rgba(255,255,255,.03)}
-    .btn-whats{
-      background:#25d366;
-      color:#fff;
-    }
-    .btn-whats:hover{filter:brightness(.96);transform:translateY(-1px)}
+  --radius:22px;
+  --radius-sm:14px;
 
-    .announce{
-      background:#0d1b2a;
-      border-bottom:1px solid var(--line);
-      color:var(--text);
-      font-size:13px;
-    }
-    .announce .container{
-      min-height:44px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      text-align:center;
-      padding:10px 0;
-    }
-    .announce strong{color:#fff}
-    .announce a{color:var(--blue-soft);font-weight:700}
+  --shadow:0 20px 60px rgba(0,0,0,.42);
+  --shadow-soft:0 12px 30px rgba(0,0,0,.26);
+}
 
-    .nav{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background:rgba(7,17,32,.88);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      min-height:74px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .brand-badge{
-      width:38px;height:38px;
-      border-radius:12px;
-      background:#10243e;
-      border:1px solid rgba(255,255,255,.08);
-      display:flex;align-items:center;justify-content:center;
-      font-size:18px;
-      flex-shrink:0;
-    }
-    .brand-text{
-      min-width:0;
-    }
-    .brand-name{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:-.6px;
-      line-height:1;
-    }
-    .brand-sub{
-      font-size:11px;
-      color:var(--muted-2);
-      margin-top:4px;
-      white-space:nowrap;
-    }
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      flex-wrap:wrap;
-    }
-    .nav-links a{
-      padding:10px 14px;
-      border-radius:999px;
-      color:var(--muted);
-      font-size:14px;
-      font-weight:600;
-      transition:.2s ease;
-    }
-    .nav-links a:hover{
-      color:var(--text);
-      background:rgba(255,255,255,.04);
-    }
-    .nav-links .cta{
-      background:var(--blue);
-      color:#fff;
-    }
-    .nav-links .cta:hover{background:var(--blue-dark)}
+/* ═══════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 85% 10%, rgba(59,130,246,.14), transparent 0 26%),
+    radial-gradient(circle at 10% 85%, rgba(56,189,248,.08), transparent 0 22%),
+    linear-gradient(180deg, #070b14 0%, #0b1120 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;outline:none}
+input,select,textarea{font-family:inherit;outline:none}
+ul{list-style:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:999px}
 
-    .hero{
-      padding:78px 0 64px;
-      position:relative;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:36px;
-      align-items:center;
-    }
-    .hero-copy .eyebrow{
-      background:rgba(47,128,237,.09);
-      border:1px solid rgba(47,128,237,.2);
-      padding:8px 14px;
-      border-radius:999px;
-      letter-spacing:.08em;
-      text-transform:none;
-      font-size:12px;
-      font-weight:700;
-      color:#a8c9ff;
-      margin-bottom:22px;
-    }
-    .hero h1{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:clamp(42px,6vw,76px);
-      line-height:1.02;
-      letter-spacing:-2.4px;
-      max-width:760px;
-      margin-bottom:18px;
-    }
-    .hero h1 span{color:#7fb3ff}
-    .hero p{
-      max-width:620px;
-      color:var(--muted);
-      font-size:17px;
-      line-height:1.8;
-      margin-bottom:28px;
-    }
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-bottom:34px;
-    }
-    .hero-metrics{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:16px;
-      max-width:760px;
-    }
-    .metric{
-      padding:16px 18px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.025);
-      border-radius:16px;
-    }
-    .metric strong{
-      display:block;
-      font-family:'Space Grotesk',sans-serif;
-      font-size:24px;
-      letter-spacing:-1px;
-      margin-bottom:6px;
-    }
-    .metric span{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.5;
-    }
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+@media(min-width:769px){
+  body{cursor:none}
+  #cur{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--blue2);
+    position:fixed;pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);
+    transition:transform .12s,background .18s,width .2s,height .2s
+  }
+  #cur-r{
+    width:30px;height:30px;border-radius:50%;
+    border:1.5px solid rgba(96,165,250,.32);
+    position:fixed;pointer-events:none;z-index:9997;
+    transform:translate(-50%,-50%);
+    transition:width .22s,height .22s,border-color .22s,background .22s
+  }
+  body.hov #cur{
+    transform:translate(-50%,-50%) scale(2.2);
+    background:#fff
+  }
+  body.hov #cur-r{
+    width:50px;height:50px;
+    border-color:rgba(96,165,250,.18);
+    background:rgba(59,130,246,.04)
+  }
+}
+@media(max-width:768px){#cur,#cur-r{display:none}}
 
-    .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-    .hero-card-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:18px;
-    }
-    .hero-card-top strong{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:19px;
-      letter-spacing:-.6px;
-    }
-    .hero-card-top span{
-      font-size:13px;
-      color:var(--muted);
-    }
-    .device-visual{
-      height:360px;
-      border-radius:22px;
-      background:
-        linear-gradient(135deg, rgba(47,128,237,.24), rgba(86,204,242,.08)),
-        #0d1a2a;
-      border:1px solid rgba(255,255,255,.08);
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .device-visual::before{
-      content:"";
-      position:absolute;
-      inset:22px;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .device-main{
-      width:180px;
-      height:320px;
-      border-radius:34px;
-      background:linear-gradient(180deg,#1a2c46,#0b1420);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 18px 38px rgba(0,0,0,.28);
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:54px;
-    }
-    .device-main::before{
-      content:"";
-      position:absolute;
-      top:12px;
-      left:50%;
-      transform:translateX(-50%);
-      width:78px;
-      height:12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-    }
-    .floating-chip{
-      position:absolute;
-      padding:12px 14px;
-      border-radius:14px;
-      background:rgba(7,17,32,.92);
-      border:1px solid var(--line);
-      font-size:13px;
-      color:var(--text);
-      box-shadow:0 12px 24px rgba(0,0,0,.18);
-    }
-    .chip-a{top:30px;left:28px}
-    .chip-b{right:22px;top:76px}
-    .chip-c{left:30px;bottom:34px}
-    .chip-d{right:22px;bottom:56px}
-    .floating-chip strong{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:4px;
-      font-weight:600;
-    }
+/* ═══════════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════════ */
+#prog{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--grad-main);
+  z-index:10000;width:0;transition:width .06s linear
+}
 
-    .trust-strip{
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      background:#0a1624;
-    }
-    .trust-row{
-      min-height:66px;
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:18px;
-      align-items:center;
-    }
-    .trust-item{
-      color:var(--muted);
-      font-size:14px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      white-space:nowrap;
-    }
+/* ═══════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════ */
+#ldr{
+  position:fixed;inset:0;z-index:99999;
+  background:linear-gradient(180deg,#070b14,#0b1120);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .85s ease,visibility .85s
+}
+#ldr.out{opacity:0;visibility:hidden;pointer-events:none}
+.ldr-ring{
+  width:62px;height:62px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.08);
+  border-top-color:var(--blue2);
+  animation:spin .9s linear infinite;
+  margin-bottom:26px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ldr-logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(26px,5vw,40px);font-weight:700;letter-spacing:-1.2px;
+  background:linear-gradient(90deg,#fff 0%, #8db9ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.ldr-sub{
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted2);margin-top:10px
+}
+.ldr-line{
+  width:110px;height:1px;background:rgba(255,255,255,.08);margin-top:24px;overflow:hidden
+}
+.ldr-fill{
+  width:0;height:100%;background:var(--grad-main);animation:fill 1.8s ease forwards
+}
+@keyframes fill{to{width:100%}}
 
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:26px;
-    }
-    .chip-btn{
-      padding:10px 16px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-      transition:.2s ease;
-    }
-    .chip-btn.active,.chip-btn:hover{
-      background:#10243e;
-      color:#fff;
-      border-color:#21456e;
-    }
+/* ═══════════════════════════════════════════
+   ANNOUNCE
+═══════════════════════════════════════════ */
+#announce{
+  background:linear-gradient(90deg,#0d1730 0%, #102445 50%, #0d1730 100%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  color:#fff;text-align:center;
+  padding:10px 46px;
+  font-size:12.5px;font-weight:500;letter-spacing:.02em;
+  position:relative;display:flex;align-items:center;justify-content:center;gap:8px
+}
+#announce a{color:#cfe1ff;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+#announce-close{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;line-height:1;padding:2px 6px
+}
+#announce-close:hover{color:#fff}
+#announce.gone{display:none}
 
-    .grid-products{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:18px;
-    }
-    .card{
-      background:rgba(255,255,255,.025);
-      border:1px solid var(--line);
-      border-radius:22px;
-      overflow:hidden;
-      transition:.22s ease;
-    }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 14px 28px rgba(0,0,0,.18);
-      border-color:var(--line-strong);
-    }
-    .product-media{
-      height:180px;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:52px;
-      background:#0d1a2a;
-      border-bottom:1px solid var(--line);
-    }
-    .product-badge{
-      position:absolute;
-      top:14px;
-      left:14px;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
-    .badge-hot{background:#223a5f;color:#d6e7ff}
-    .badge-sale{background:#4a3710;color:#ffe6a4}
-    .badge-new{background:#113b2d;color:#bff2dc}
-    .product-body{
-      padding:18px;
-    }
-    .product-name{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:17px;
-      line-height:1.25;
-      letter-spacing:-.5px;
-      margin-bottom:8px;
-    }
-    .product-desc{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.7;
-      min-height:66px;
-      margin-bottom:16px;
-    }
-    .product-bottom{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-    }
-    .price-box small{
-      display:block;
-      color:var(--muted-2);
-      text-decoration:line-through;
-      font-size:11px;
-      margin-bottom:3px;
-      min-height:14px;
-    }
-    .price-box strong{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:24px;
-      letter-spacing:-1px;
-      line-height:1;
-    }
-    .price-box span{
-      display:block;
-      color:var(--muted);
-      font-size:11px;
-      margin-top:4px;
-    }
-    .mini-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:11px 16px;
-      border-radius:999px;
-      background:var(--blue);
-      color:#fff;
-      font-size:13px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .mini-btn:hover{background:var(--blue-dark)}
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:16px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .35s
+}
+nav.with-bar{top:41px}
+nav.scrolled{
+  background:rgba(7,11,20,.78);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:12px 28px
+}
+nav.scrolled.with-bar{top:0}
 
-    .promo{
-      padding-top:0;
-    }
-    .promo-box{
-      background:#0f1d30;
-      border:1px solid var(--line);
-      border-radius:26px;
-      padding:34px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:22px;
-      flex-wrap:wrap;
-    }
-    .promo-tag{
-      display:inline-block;
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(242,201,76,.1);
-      border:1px solid rgba(242,201,76,.16);
-      color:#f6d980;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:14px;
-    }
-    .promo-box h3{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:clamp(24px,3vw,34px);
-      letter-spacing:-1px;
-      line-height:1.12;
-      margin-bottom:10px;
-    }
-    .promo-box p{
-      color:var(--muted);
-      max-width:520px;
-      line-height:1.75;
-      font-size:15px;
-    }
-    .promo-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+.nav-logo{
+  display:flex;align-items:center;gap:11px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:19px;letter-spacing:-.6px
+}
+.nav-logo .logo-chip{
+  width:34px;height:34px;border-radius:11px;
+  background:linear-gradient(135deg,#13284e,#153c72);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)
+}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{
+  font-size:13px;font-weight:600;color:var(--muted);
+  padding:8px 14px;border-radius:999px;transition:all .2s
+}
+.nav-links a:hover{
+  color:#fff;background:rgba(255,255,255,.05)
+}
+.nav-cta-link{
+  background:var(--grad-main)!important;color:#fff!important;
+  box-shadow:0 10px 24px rgba(59,130,246,.22)
+}
+.nav-cta-link:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.nav-burger{
+  display:none;flex-direction:column;gap:5px;padding:6px
+}
+.nav-burger span{
+  width:22px;height:2px;border-radius:2px;background:#fff;display:block
+}
+@media(max-width:930px){.nav-links{display:none}.nav-burger{display:flex}}
 
-    .services{
-      background:#091423;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-    }
-    .grid-services{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-    }
-    .service-card{
-      padding:24px;
-    }
-    .service-icon{
-      width:48px;height:48px;
-      border-radius:14px;
-      background:#10243e;
-      border:1px solid rgba(255,255,255,.08);
-      display:flex;align-items:center;justify-content:center;
-      font-size:22px;
-      margin-bottom:18px;
-    }
-    .service-name{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:20px;
-      letter-spacing:-.7px;
-      margin-bottom:10px;
-    }
-    .service-desc{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.75;
-      margin-bottom:18px;
-      min-height:118px;
-    }
-    .service-meta{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-    .service-price small{
-      display:block;
-      color:var(--muted);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:4px;
-    }
-    .service-price strong{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:24px;
-      letter-spacing:-1px;
-      color:#d8f6e7;
-    }
+/* ═══════════════════════════════════════════
+   MOBILE MENU
+═══════════════════════════════════════════ */
+#mob-menu{
+  position:fixed;inset:0;
+  background:rgba(7,11,20,.97);
+  backdrop-filter:blur(22px);
+  z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  opacity:0;pointer-events:none;transition:opacity .3s
+}
+#mob-menu.open{opacity:1;pointer-events:all}
+#mob-menu a{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(21px,5.4vw,30px);
+  font-weight:700;color:var(--muted);
+  padding:12px 32px;border-radius:14px;
+  transition:all .2s;text-align:center;width:100%;max-width:320px
+}
+#mob-menu a:hover,#mob-menu a:active{color:#fff;background:rgba(255,255,255,.05)}
+.mob-cta{
+  background:var(--grad-main)!important;
+  color:#fff!important;
+  margin-top:10px
+}
+#mob-close{
+  position:absolute;top:22px;right:22px;
+  font-size:26px;color:var(--muted);background:none;border:none;padding:4px 8px
+}
 
-    .stats{
-      background:#0b1726;
-      border-bottom:1px solid var(--line);
-    }
-    .stats-row{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:18px;
-    }
-    .stat-box{
-      padding:28px 18px;
-      text-align:center;
-    }
-    .stat-box strong{
-      display:block;
-      font-family:'Space Grotesk',sans-serif;
-      font-size:42px;
-      letter-spacing:-1.6px;
-      margin-bottom:8px;
-    }
-    .stat-box span{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero{
+  min-height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  padding:130px 24px 80px;
+  position:relative;overflow:hidden
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(90px)
+}
+.orb1{
+  width:520px;height:520px;
+  background:rgba(59,130,246,.14);
+  top:-180px;right:-180px;
+  animation:drift 10s ease-in-out infinite
+}
+.orb2{
+  width:420px;height:420px;
+  background:rgba(56,189,248,.10);
+  bottom:-140px;left:-120px;
+  animation:drift 13s ease-in-out infinite reverse
+}
+.orb3{
+  width:260px;height:260px;
+  background:rgba(96,165,250,.08);
+  top:48%;left:34%;
+  animation:drift 8s ease-in-out infinite 1.4s
+}
+@keyframes drift{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(20px,-14px)}
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 88% 88% at 50% 50%,black 0%,transparent 100%);
+  opacity:.55
+}
+.hero-inner{
+  max-width:1160px;width:100%;
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1.06fr .94fr;
+  gap:42px;align-items:center
+}
 
-    .brands{
-      padding:60px 0;
-    }
-    .brands-label{
-      text-align:center;
-      color:var(--muted-2);
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:11px;
-      font-weight:800;
-      margin-bottom:22px;
-    }
-    .brand-list{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-    }
-    .brand-item{
-      padding:12px 18px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.02);
-      color:var(--muted);
-      font-size:14px;
-      font-weight:700;
-    }
+.hero-copy{max-width:640px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(59,130,246,.08);
+  border:1px solid rgba(96,165,250,.16);
+  border-radius:999px;padding:8px 16px;
+  margin-bottom:24px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#bdd7ff
+}
+.hero-eyebrow .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#34d399;animation:pulse 1.6s ease infinite;flex-shrink:0
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.58)}}
 
-    .grid-why{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-    }
-    .why-card{
-      padding:24px;
-    }
-    .why-icon{
-      font-size:28px;
-      margin-bottom:14px;
-    }
-    .why-title{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:19px;
-      margin-bottom:10px;
-      letter-spacing:-.6px;
-    }
-    .why-desc{
-      color:var(--muted);
-      line-height:1.75;
-      font-size:14px;
-    }
+.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(40px,7vw,82px);
+  line-height:1.02;letter-spacing:-2.5px;
+  margin-bottom:20px
+}
+.hero-title .hl{
+  background:linear-gradient(90deg,#fff 0%, #7fb3ff 85%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.hero-sub{
+  font-size:17px;color:var(--muted);line-height:1.8;
+  max-width:560px;margin-bottom:34px
+}
+.hero-btns{
+  display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px
+}
+.btn-hero-primary{
+  background:var(--grad-main);color:#fff;
+  padding:16px 28px;border-radius:999px;font-weight:700;font-size:15px;
+  display:inline-flex;align-items:center;gap:9px;
+  transition:all .28s;
+  box-shadow:0 14px 34px rgba(59,130,246,.24)
+}
+.btn-hero-primary:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.btn-hero-ghost{
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.12);
+  color:#fff;padding:16px 28px;border-radius:999px;
+  font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:9px;
+  transition:all .28s;backdrop-filter:blur(10px)
+}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.055);transform:translateY(-2px)}
 
-    .form-wrap{
-      max-width:820px;
-      margin:0 auto;
-    }
-    .form-card{
-      padding:30px;
-    }
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .field.full{grid-column:1/-1}
-    .field label{
-      font-size:11px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      color:var(--muted);
-    }
-    .field input,
-    .field select,
-    .field textarea{
-      background:#0d1a2a;
-      color:var(--text);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px 16px;
-    }
-    .field input::placeholder,
-    .field textarea::placeholder{color:var(--muted-2)}
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus{
-      outline:none;
-      border-color:#2f80ed;
-      box-shadow:0 0 0 3px rgba(47,128,237,.12);
-    }
-    .field textarea{
-      resize:vertical;
-      min-height:120px;
-      line-height:1.7;
-    }
-    .form-submit{
-      width:100%;
-      margin-top:18px;
-      padding:16px 20px;
-      border-radius:16px;
-      background:var(--blue);
-      color:#fff;
-      font-size:15px;
-      font-weight:800;
-    }
-    .form-submit:hover{background:var(--blue-dark)}
-    .form-note{
-      text-align:center;
-      margin-top:14px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.7;
-    }
+.hero-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  max-width:720px
+}
+.metric{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:18px 16px;
+  backdrop-filter:blur(10px)
+}
+.metric strong{
+  display:block;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:28px;letter-spacing:-1px;color:#fff;
+  margin-bottom:4px
+}
+.metric span{
+  font-size:12px;color:var(--muted);line-height:1.55
+}
 
-    .faq-list{
-      max-width:820px;
-      margin:0 auto;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .faq-item{
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      background:rgba(255,255,255,.02);
-    }
-    .faq-q{
-      width:100%;
-      background:transparent;
-      color:var(--text);
-      text-align:left;
-      padding:18px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:14px;
-      font-weight:700;
-      font-size:15px;
-    }
-    .faq-q span:last-child{
-      color:var(--blue-soft);
-      font-size:18px;
-      line-height:1;
-      flex-shrink:0;
-    }
-    .faq-a{
-      display:none;
-      padding:0 20px 18px;
-      color:var(--muted);
-      line-height:1.8;
-      font-size:14px;
-    }
-    .faq-item.open .faq-a{display:block}
+.hero-showcase{
+  position:relative
+}
+.showcase-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  padding:20px;
+  box-shadow:var(--shadow);
+  position:relative;overflow:hidden
+}
+.showcase-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 78% 18%, rgba(96,165,250,.10), transparent 42%);
+  pointer-events:none
+}
+.showcase-top{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-bottom:18px
+}
+.showcase-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:#b9d3ff
+}
+.showcase-dots{display:flex;gap:7px}
+.showcase-dots span{
+  width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)
+}
+.showcase-dots span:nth-child(1){background:#f87171}
+.showcase-dots span:nth-child(2){background:#fbbf24}
+.showcase-dots span:nth-child(3){background:#34d399}
 
-    .reviews{
-      background:#091423;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-    }
-    .grid-reviews{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-    }
-    .review-card{
-      padding:24px;
-    }
-    .stars{
-      color:var(--gold);
-      font-size:15px;
-      margin-bottom:14px;
-      letter-spacing:1px;
-    }
-    .review-text{
-      color:var(--muted);
-      line-height:1.85;
-      font-size:14px;
-      margin-bottom:18px;
-    }
-    .review-author{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .avatar{
-      width:42px;height:42px;
-      border-radius:50%;
-      background:#10243e;
-      border:1px solid rgba(255,255,255,.08);
-      display:flex;align-items:center;justify-content:center;
-      font-weight:800;
-      font-size:13px;
-      flex-shrink:0;
-    }
-    .author-name{
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:3px;
-    }
-    .author-role{
-      font-size:12px;
-      color:var(--muted);
-    }
+.device-stage{
+  position:relative;
+  height:430px;border-radius:24px;
+  background:
+    linear-gradient(135deg,rgba(59,130,246,.12),rgba(56,189,248,.04)),
+    #0c1424;
+  border:1px solid rgba(255,255,255,.07);
+  overflow:hidden
+}
+.device-stage::before{
+  content:'';
+  position:absolute;inset:18px;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:18px
+}
+.phone-main{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:205px;height:370px;border-radius:42px;
+  background:linear-gradient(180deg,#1a2a44 0%, #0d1728 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 28px 60px rgba(0,0,0,.38)
+}
+.phone-main::before{
+  content:'';
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:82px;height:14px;border-radius:999px;background:rgba(255,255,255,.08)
+}
+.phone-screen{
+  position:absolute;inset:18px;border-radius:28px;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(96,165,250,.25), transparent 35%),
+    linear-gradient(180deg,#163360 0%, #122643 55%, #102033 100%);
+  overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:18px
+}
+.phone-ui{
+  width:100%;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  padding:14px
+}
+.phone-ui .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.10);margin-bottom:12px}
+.phone-ui .bar.sm{width:58%}
+.phone-ui .bar.md{width:72%}
+.phone-ui .bar.lg{width:100%}
+.phone-ui .cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px
+}
+.phone-ui .cards span{
+  display:block;height:46px;border-radius:12px;background:rgba(255,255,255,.08)
+}
+.float-card{
+  position:absolute;
+  background:rgba(8,15,28,.92);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:16px;
+  padding:14px 16px;
+  box-shadow:0 16px 30px rgba(0,0,0,.24);
+  backdrop-filter:blur(12px)
+}
+.float-card small{
+  display:block;font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px
+}
+.float-card strong{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;letter-spacing:-.4px
+}
+.fc1{top:28px;left:22px}
+.fc2{top:88px;right:20px}
+.fc3{bottom:34px;left:22px}
+.fc4{bottom:70px;right:24px}
 
-    .cta{
-      padding:80px 0;
-    }
-    .cta-box{
-      background:#0f1d30;
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:44px 30px;
-      text-align:center;
-    }
-    .cta-box h2{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:clamp(28px,4vw,46px);
-      line-height:1.08;
-      letter-spacing:-1.5px;
-      margin-bottom:12px;
-    }
-    .cta-box p{
-      color:var(--muted);
-      max-width:620px;
-      margin:0 auto 24px;
-      line-height:1.8;
-      font-size:15px;
-    }
-    .cta-actions{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:12px;
-    }
+/* ═══════════════════════════════════════════
+   TRUST STRIP
+═══════════════════════════════════════════ */
+.trust-strip{
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:#0a1324;
+  padding:20px 24px
+}
+.trust-inner{
+  max-width:1140px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px
+}
+.trust-item{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+  color:var(--muted);font-size:13px;font-weight:600
+}
+.trust-item span{font-size:15px}
 
-    footer{
-      background:#08111d;
-      border-top:1px solid var(--line);
-      padding:60px 0 26px;
-    }
-    .footer-grid{
-      display:grid;
-      grid-template-columns:1.4fr 1fr 1fr;
-      gap:30px;
-      margin-bottom:34px;
-    }
-    .footer-brand p{
-      color:var(--muted);
-      line-height:1.8;
-      font-size:14px;
-      max-width:360px;
-      margin:14px 0 18px;
-    }
-    .footer-col h4{
-      font-family:'Space Grotesk',sans-serif;
-      font-size:16px;
-      margin-bottom:14px;
-      letter-spacing:-.4px;
-    }
-    .footer-col ul{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .footer-col a,
-    .footer-col li{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-    .footer-col a:hover{color:var(--text)}
-    .footer-bottom{
-      border-top:1px solid var(--line);
-      padding-top:18px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-    .footer-bottom p{
-      color:var(--muted-2);
-      font-size:12px;
-      line-height:1.6;
-    }
+/* ═══════════════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════════════ */
+.section{padding:92px 24px}
+.section-inner{max-width:1140px;margin:0 auto}
+.section-header{margin-bottom:44px}
+.section-header.center{text-align:center}
+.section-header.center .section-sub{margin:12px auto 0}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  color:#9cc7ff;margin-bottom:14px
+}
+.section-eyebrow::before{
+  content:'';display:block;width:18px;height:1.5px;background:#7fb3ff
+}
+.center .section-eyebrow{display:flex;justify-content:center}
+.center .section-eyebrow::before{display:none}
+.section-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(30px,4.4vw,50px);
+  font-weight:700;letter-spacing:-1.8px;line-height:1.05
+}
+.section-sub{
+  font-size:16px;color:var(--muted);
+  font-weight:400;margin-top:12px;max-width:560px;line-height:1.8
+}
 
-    .fab{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:900;
-      width:56px;height:56px;
-      border-radius:50%;
-      background:#25d366;
-      color:#fff;
-      display:flex;align-items:center;justify-content:center;
-      font-size:26px;
-      box-shadow:0 12px 28px rgba(37,211,102,.28);
-    }
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn-blue{
+  background:var(--grad-main);color:#fff;
+  padding:13px 24px;border-radius:999px;font-weight:700;font-size:14px;
+  display:inline-flex;align-items:center;gap:8px;transition:all .28s;
+  box-shadow:0 10px 28px rgba(59,130,246,.20)
+}
+.btn-blue:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.btn-outline{
+  background:transparent;border:1px solid rgba(255,255,255,.13);color:#fff;
+  padding:13px 24px;border-radius:999px;font-weight:600;font-size:14px;
+  display:inline-flex;align-items:center;gap:8px;transition:all .28s
+}
+.btn-outline:hover{background:rgba(255,255,255,.05)}
 
-    @media (max-width:1100px){
-      .hero-grid,
-      .grid-products,
-      .grid-services,
-      .grid-why,
-      .grid-reviews{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-      .hero-metrics,
-      .trust-row,
-      .stats-row{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-    }
+/* ═══════════════════════════════════════════
+   CATEGORY TABS
+═══════════════════════════════════════════ */
+.cat-tabs{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px
+}
+.cat-tab{
+  padding:10px 18px;border-radius:999px;font-size:13px;font-weight:700;
+  background:rgba(255,255,255,.03);color:var(--muted);
+  border:1px solid rgba(255,255,255,.08);
+  transition:all .22s;cursor:pointer
+}
+.cat-tab.active,.cat-tab:hover{
+  background:linear-gradient(135deg,#13284e,#153c72);
+  color:#fff;border-color:rgba(96,165,250,.22)
+}
 
-    @media (max-width:820px){
-      .nav-inner{
-        min-height:68px;
-      }
-      .nav-links{
-        display:none;
-      }
-      .hero{
-        padding:56px 0 50px;
-      }
-      .hero-grid,
-      .footer-grid{
-        grid-template-columns:1fr;
-      }
-      .hero-card{
-        order:-1;
-      }
-      .device-visual{
-        height:300px;
-      }
-      .device-main{
-        width:152px;height:270px;
-      }
-      .form-grid{
-        grid-template-columns:1fr;
-      }
-    }
+/* ═══════════════════════════════════════════
+   PRODUCTS
+═══════════════════════════════════════════ */
+.prod-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:20px
+}
+.prod-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);overflow:hidden;
+  transition:all .3s;position:relative;display:flex;flex-direction:column;
+  box-shadow:0 12px 28px rgba(0,0,0,.15)
+}
+.prod-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(96,165,250,.18);
+  box-shadow:0 22px 42px rgba(0,0,0,.26)
+}
+.prod-img{
+  height:205px;display:flex;align-items:center;justify-content:center;
+  font-size:66px;position:relative;overflow:hidden;
+  background:#0c1424;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.prod-img::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 30%, rgba(96,165,250,.12), transparent 45%)
+}
+.prod-img.capinha{background:linear-gradient(135deg,#0d1630,#172852)}
+.prod-img.protecao{background:linear-gradient(135deg,#0c1d35,#173967)}
+.prod-img.carregador{background:linear-gradient(135deg,#1a102f,#2a225b)}
+.prod-img.cabo{background:linear-gradient(135deg,#0b1c22,#12414c)}
+.prod-img.audio{background:linear-gradient(135deg,#1c102c,#42225f)}
+.prod-img.outro{background:linear-gradient(135deg,#161d12,#324723)}
 
-    @media (max-width:620px){
-      .container{width:min(var(--container),calc(100% - 20px))}
-      .section{padding:72px 0}
-      .hero h1{
-        font-size:42px;
-        letter-spacing:-1.6px;
-      }
-      .hero p{
-        font-size:15px;
-      }
-      .hero-actions{
-        flex-direction:column;
-        align-items:stretch;
-      }
-      .hero-actions .btn{
-        width:100%;
-      }
-      .hero-metrics,
-      .trust-row,
-      .grid-products,
-      .grid-services,
-      .grid-why,
-      .grid-reviews,
-      .stats-row{
-        grid-template-columns:1fr;
-      }
-      .promo-box,
-      .cta-box,
-      .form-card{
-        padding:24px;
-      }
-      .service-desc{
-        min-height:auto;
-      }
-      .product-desc{
-        min-height:auto;
-      }
-      .floating-chip{
-        display:none;
-      }
-      .fab{
-        width:54px;height:54px;
-      }
-    }
-  </style>
+.prod-badge{
+  position:absolute;top:14px;left:14px;
+  padding:5px 11px;border-radius:999px;font-size:10px;font-weight:800;
+  letter-spacing:.05em;z-index:2;text-transform:uppercase
+}
+.badge-hot{background:rgba(96,165,250,.18);color:#dbe9ff;border:1px solid rgba(96,165,250,.22)}
+.badge-sale{background:rgba(251,191,36,.15);color:#ffe6a6;border:1px solid rgba(251,191,36,.22)}
+.badge-new{background:rgba(52,211,153,.14);color:#c4ffe9;border:1px solid rgba(52,211,153,.22)}
+
+.prod-body{
+  padding:18px 18px 20px;flex:1;display:flex;flex-direction:column
+}
+.prod-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;font-weight:700;margin-bottom:7px;line-height:1.32;color:#fff
+}
+.prod-desc{
+  font-size:12.8px;color:var(--muted);line-height:1.68;flex:1
+}
+.prod-footer{
+  display:flex;align-items:end;justify-content:space-between;margin-top:18px;gap:10px
+}
+.prod-price{display:flex;flex-direction:column}
+.prod-price .old{
+  font-size:11px;color:var(--muted2);text-decoration:line-through;line-height:1
+}
+.prod-price .cur{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;font-weight:700;color:#fff;line-height:1.12;letter-spacing:-.8px
+}
+.prod-price .cur em{
+  font-size:11px;font-style:normal;font-weight:500;color:var(--muted)
+}
+.btn-buy{
+  background:var(--grad-main);color:#fff;
+  padding:11px 16px;border-radius:999px;font-size:12.6px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;transition:all .25s;white-space:nowrap;
+  box-shadow:0 10px 24px rgba(59,130,246,.20)
+}
+.btn-buy:hover{transform:translateY(-1px)}
+
+/* ═══════════════════════════════════════════
+   PROMO
+═══════════════════════════════════════════ */
+.promo-wrap{max-width:1140px;margin:0 auto;padding:0 0 82px}
+.promo-banner{
+  border-radius:26px;
+  background:linear-gradient(135deg,#0d1c3b 0%, #153467 55%, #10284b 100%);
+  border:1px solid rgba(96,165,250,.16);
+  padding:46px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-soft)
+}
+.promo-banner::before{
+  content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;
+  background:rgba(96,165,250,.16);border-radius:50%;filter:blur(70px);pointer-events:none
+}
+.promo-banner::after{
+  content:'';position:absolute;bottom:-80px;left:18%;width:220px;height:220px;
+  background:rgba(56,189,248,.10);border-radius:50%;filter:blur(60px);pointer-events:none
+}
+.promo-text{position:relative;z-index:1}
+.promo-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(251,191,36,.12);
+  border:1px solid rgba(251,191,36,.18);
+  color:#ffe08a;padding:6px 13px;border-radius:999px;
+  font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:14px
+}
+.promo-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(24px,3.4vw,34px);
+  font-weight:700;letter-spacing:-1.1px;line-height:1.14;margin-bottom:10px;color:#fff
+}
+.promo-sub{
+  font-size:14px;color:rgba(255,255,255,.72);line-height:1.75;max-width:440px
+}
+.promo-actions{
+  display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1
+}
+
+/* ═══════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════ */
+.svc-section{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.01), rgba(255,255,255,.01)),
+    #0a1324;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px
+}
+.svc-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);padding:28px;
+  transition:all .28s;position:relative;overflow:hidden;cursor:pointer
+}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad-main);opacity:.22
+}
+.svc-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(96,165,250,.18);
+  box-shadow:0 20px 40px rgba(0,0,0,.22)
+}
+.svc-icon{
+  width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,#13284e,#163866);
+  border:1px solid rgba(96,165,250,.16);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:18px
+}
+.svc-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:20px;font-weight:700;margin-bottom:10px;color:#fff;letter-spacing:-.5px
+}
+.svc-desc{
+  font-size:13.5px;color:var(--muted);line-height:1.72;margin-bottom:20px
+}
+.svc-footer{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap
+}
+.svc-price-block .label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted2)
+}
+.svc-price-block .val{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:21px;font-weight:700;color:#ddf9ec;letter-spacing:-.6px
+}
+.btn-svc{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.11);
+  color:#fff;padding:10px 18px;border-radius:999px;
+  font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:all .25s
+}
+.btn-svc:hover{
+  background:linear-gradient(135deg,#13284e,#163866);
+  border-color:rgba(96,165,250,.16)
+}
+
+/* ═══════════════════════════════════════════
+   STATS BAND
+═══════════════════════════════════════════ */
+.stats-band{
+  background:linear-gradient(135deg,#0b1120 0%, #0f1830 50%, #0b1120 100%);
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:56px 24px
+}
+.stats-band-inner{
+  max-width:1140px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:30px
+}
+.stat-item{text-align:center}
+.stat-number{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(38px,6vw,58px);font-weight:700;
+  letter-spacing:-1.8px;line-height:1;
+  background:linear-gradient(90deg,#fff 0%, #8fbaff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.stat-label{
+  font-size:13px;color:var(--muted);margin-top:10px;max-width:130px;line-height:1.6
+}
+.stat-div{width:1px;height:60px;background:rgba(255,255,255,.08)}
+@media(max-width:600px){
+  .stat-div{display:none}
+  .stats-band-inner{gap:24px}
+  .stat-item{flex:0 0 45%}
+}
+
+/* ═══════════════════════════════════════════
+   BRANDS
+═══════════════════════════════════════════ */
+.brands-section{
+  background:#0b1120;
+  padding:56px 24px
+}
+.brands-inner{max-width:1140px;margin:0 auto}
+.brands-label{
+  text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted2);margin-bottom:28px;font-weight:800
+}
+.brands-row{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px
+}
+.brand-chip{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:12px 20px;
+  font-size:13px;font-weight:700;color:var(--muted);
+  transition:all .25s;display:flex;align-items:center;gap:8px;white-space:nowrap
+}
+.brand-chip:hover{
+  border-color:rgba(96,165,250,.16);
+  color:#fff;background:rgba(255,255,255,.05);transform:translateY(-2px)
+}
+
+/* ═══════════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════════ */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.10) 30%,rgba(255,255,255,.10) 70%,transparent)
+}
+
+/* ═══════════════════════════════════════════
+   WHY
+═══════════════════════════════════════════ */
+.why-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px
+}
+.why-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);padding:24px;text-align:left;transition:all .28s
+}
+.why-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(96,165,250,.16);
+  box-shadow:0 18px 34px rgba(0,0,0,.18)
+}
+.why-icon{font-size:30px;margin-bottom:14px;display:block}
+.why-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:-.4px
+}
+.why-desc{
+  font-size:13px;color:var(--muted);line-height:1.72
+}
+
+/* ═══════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════ */
+.form-section{
+  background:#0a1324
+}
+.form-wrap{max-width:760px;margin:0 auto}
+.form-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:26px;padding:clamp(28px,5vw,50px);
+  position:relative;overflow:hidden;box-shadow:var(--shadow-soft)
+}
+.form-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-main)
+}
+.form-steps{
+  display:flex;align-items:center;gap:8px;margin-bottom:28px;flex-wrap:wrap
+}
+.form-step{
+  display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted2)
+}
+.form-step .step-num{
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.16);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;flex-shrink:0
+}
+.form-step.active{color:#fff}
+.form-step.active .step-num{
+  background:var(--grad-main);border:none;color:#fff
+}
+.step-line{
+  flex:1;height:1px;background:rgba(255,255,255,.08);min-width:18px
+}
+.form-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px
+}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{
+  font-size:11.5px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase
+}
+.field input,.field select,.field textarea{
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;padding:14px 16px;
+  font-size:14px;color:#fff;transition:all .22s
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted2)}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:rgba(96,165,250,.26);
+  box-shadow:0 0 0 3px rgba(59,130,246,.14);
+  background:rgba(255,255,255,.045)
+}
+.field select option{background:#0f1728;color:#fff}
+.field textarea{resize:vertical;min-height:108px;line-height:1.7}
+.form-submit{
+  width:100%;background:var(--grad-main);color:#fff;
+  padding:17px;border-radius:16px;font-size:16px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:22px;transition:all .28s;
+  box-shadow:0 14px 34px rgba(59,130,246,.22)
+}
+.form-submit:hover{transform:translateY(-2px)}
+.form-note{
+  text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px;
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap
+}
+.form-note .g{color:#bff5de}
+
+/* ═══════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════ */
+.faq-section{background:#0b1120}
+.faq-wrap{max-width:790px;margin:0 auto}
+.faq-item{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;margin-bottom:10px;overflow:hidden;
+  transition:border-color .25s;background:rgba(255,255,255,.025)
+}
+.faq-item.open{border-color:rgba(96,165,250,.16)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 22px;cursor:pointer;gap:16px;
+  transition:background .2s
+}
+.faq-q:hover{background:rgba(255,255,255,.03)}
+.faq-q span{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;font-weight:700;line-height:1.35;color:#fff;letter-spacing:-.3px
+}
+.faq-arr{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .28s
+}
+.faq-arr svg{
+  width:14px;height:14px;stroke:#9fc7ff;fill:none;stroke-width:2.5;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .28s
+}
+.faq-item.open .faq-arr{
+  background:linear-gradient(135deg,#13284e,#163866);
+  border-color:rgba(96,165,250,.18)
+}
+.faq-item.open .faq-arr svg{transform:rotate(180deg);stroke:#fff}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .38s ease,padding .3s
+}
+.faq-a-inner{
+  padding:0 22px 20px;font-size:14px;color:var(--muted);line-height:1.8
+}
+.faq-item.open .faq-a{max-height:340px}
+
+/* ═══════════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════════ */
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px
+}
+.review-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);padding:24px;transition:all .28s
+}
+.review-card:hover{
+  border-color:rgba(96,165,250,.16);
+  transform:translateY(-4px);
+  box-shadow:0 18px 36px rgba(0,0,0,.18)
+}
+.review-stars{
+  color:#ffd66b;font-size:14px;margin-bottom:14px;letter-spacing:1px
+}
+.review-text{
+  font-size:13.6px;color:rgba(232,237,246,.78);line-height:1.8;margin-bottom:18px;font-style:italic
+}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-av{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;font-family:'Space Grotesk',sans-serif;flex-shrink:0
+}
+.review-name{font-weight:700;font-size:14px;color:#fff}
+.review-role{font-size:11px;color:var(--muted)}
+
+/* ═══════════════════════════════════════════
+   PREFOOTER
+═══════════════════════════════════════════ */
+.prefooter{
+  padding:82px 24px;background:#0a1324
+}
+.prefooter-card{
+  max-width:920px;margin:0 auto;
+  background:linear-gradient(135deg,#0f1d3f,#143267,#10274a);
+  border:1px solid rgba(96,165,250,.16);
+  border-radius:28px;padding:58px 40px;text-align:center;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-soft)
+}
+.prefooter-card::before{
+  content:'';position:absolute;top:-90px;left:50%;transform:translateX(-50%);
+  width:380px;height:380px;background:rgba(96,165,250,.12);border-radius:50%;filter:blur(80px);pointer-events:none
+}
+.prefooter-card h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(28px,4vw,46px);font-weight:700;
+  letter-spacing:-1.5px;margin-bottom:14px;position:relative;color:#fff;line-height:1.08
+}
+.prefooter-card p{
+  font-size:16px;color:rgba(255,255,255,.72);max-width:520px;
+  margin:0 auto 34px;line-height:1.8;position:relative
+}
+.prefooter-btns{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  background:#0b1120;border-top:1px solid rgba(255,255,255,.07);padding:64px 24px 32px
+}
+.footer-inner{max-width:1140px;margin:0 auto}
+.footer-top{
+  display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:54px;margin-bottom:46px
+}
+@media(max-width:820px){.footer-top{grid-template-columns:1fr;gap:34px}}
+.footer-logo{
+  display:flex;align-items:center;gap:11px;
+  font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.6px;margin-bottom:14px
+}
+.footer-logo .lc{
+  width:32px;height:32px;border-radius:10px;
+  background:linear-gradient(135deg,#13284e,#153c72);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0
+}
+.footer-brand p{
+  font-size:13.5px;color:var(--muted);line-height:1.8;max-width:290px;margin-bottom:20px
+}
+.footer-socials{display:flex;gap:10px}
+.soc-btn{
+  width:40px;height:40px;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:all .25s
+}
+.soc-btn:hover{
+  background:rgba(255,255,255,.06);transform:translateY(-2px);border-color:rgba(96,165,250,.16)
+}
+.footer-col h4{
+  font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:18px;color:#fff
+}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{
+  font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px;transition:color .2s
+}
+.footer-col ul li a:hover{color:#fff}
+.footer-hours li{
+  display:flex;justify-content:space-between;font-size:12px;color:var(--muted);
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)
+}
+.footer-hours li.today{color:#c6ffe4;font-weight:700}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+  padding-top:28px;border-top:1px solid rgba(255,255,255,.07)
+}
+.footer-bottom p{font-size:12px;color:var(--muted2)}
+.footer-wpp{
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff;padding:11px 22px;border-radius:999px;font-size:13px;font-weight:800;
+  display:inline-flex;align-items:center;gap:8px;transition:all .28s
+}
+.footer-wpp:hover{transform:translateY(-2px)}
+
+/* ═══════════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* ═══════════════════════════════════════════
+   FABS
+═══════════════════════════════════════════ */
+#wpp-fab{
+  position:fixed;bottom:24px;right:20px;width:56px;height:56px;
+  background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  z-index:600;box-shadow:0 12px 28px rgba(37,211,102,.35);transition:all .28s;text-decoration:none
+}
+#wpp-fab:hover{transform:scale(1.08)}
+#wpp-fab svg{width:28px;height:28px;fill:#fff}
+#btt{
+  position:fixed;bottom:92px;right:20px;width:46px;height:46px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  z-index:600;opacity:0;transform:scale(.86) translateY(12px);pointer-events:none;
+  transition:all .28s;backdrop-filter:blur(12px)
+}
+#btt.show{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
+#btt:hover{background:rgba(255,255,255,.08)}
+#btt svg{
+  width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round
+}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+#toast{
+  position:fixed;bottom:94px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(8,15,28,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:14px;padding:14px 22px;font-size:13.5px;font-weight:600;z-index:9500;
+  opacity:0;pointer-events:none;transition:all .35s;white-space:nowrap;box-shadow:var(--shadow-soft)
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-copy{max-width:none}
+}
+@media(max-width:700px){
+  .hero-metrics{grid-template-columns:1fr 1fr}
+  .trust-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  nav{padding:14px 16px}
+  #announce{font-size:11.5px;padding:9px 38px}
+  .hero{padding:118px 16px 68px}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .hero-metrics{grid-template-columns:1fr}
+  .metric{padding:16px}
+  .trust-inner{grid-template-columns:1fr}
+  .showcase-card{padding:16px}
+  .device-stage{height:350px}
+  .phone-main{width:170px;height:304px}
+  .float-card{display:none}
+  .promo-banner{padding:34px 24px}
+  .prefooter-card{padding:42px 24px}
+}
+</style>
 </head>
 <body>
 
-  <div class="announce">
-    <div class="container">
-      <span>Diagnóstico gratuito e orçamento rápido pelo WhatsApp.</span>
-      <a href="#conserto">Solicitar agora</a>
-    </div>
+<!-- LOADER -->
+<div id="ldr">
+  <div class="ldr-ring"></div>
+  <div class="ldr-logo">SmartFlix</div>
+  <div class="ldr-sub">Assistência Técnica & Acessórios</div>
+  <div class="ldr-line"><div class="ldr-fill"></div></div>
+</div>
+
+<!-- PROGRESS -->
+<div id="prog"></div>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- TOAST -->
+<div id="toast">Abrindo WhatsApp...</div>
+
+<!-- ANNOUNCE -->
+<div id="announce">
+  <span>⚡</span>
+  <span><strong>Diagnóstico gratuito</strong> e orçamento rápido pelo WhatsApp.</span>
+  <a href="#conserto" onclick="closeAnnounce()">Solicitar agora →</a>
+  <button id="announce-close" onclick="closeAnnounce()" aria-label="Fechar">✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav" class="with-bar">
+  <a href="#inicio" class="nav-logo" data-h>
+    <span class="logo-chip">📱</span>
+    SmartFlix
+  </a>
+
+  <div class="nav-links">
+    <a href="#produtos" data-h>Produtos</a>
+    <a href="#servicos" data-h>Serviços</a>
+    <a href="#sobre" data-h>Diferenciais</a>
+    <a href="#faq" data-h>FAQ</a>
+    <a href="#conserto" class="nav-cta-link" data-h>Solicitar orçamento</a>
   </div>
 
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="#inicio" class="brand">
-        <div class="brand-badge">📱</div>
-        <div class="brand-text">
-          <div class="brand-name">SmartFlix</div>
-          <div class="brand-sub">Assistência técnica & acessórios</div>
-        </div>
-      </a>
+  <div class="nav-burger" id="burger" onclick="toggleMenu()" data-h>
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-      <div class="nav-links">
-        <a href="#produtos">Produtos</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#sobre">Diferenciais</a>
-        <a href="#faq">FAQ</a>
-        <a href="#conserto" class="cta">Solicitar orçamento</a>
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button id="mob-close" onclick="toggleMenu()">✕</button>
+  <a href="#produtos" onclick="toggleMenu()" data-h>Produtos</a>
+  <a href="#servicos" onclick="toggleMenu()" data-h>Serviços</a>
+  <a href="#sobre" onclick="toggleMenu()" data-h>Diferenciais</a>
+  <a href="#faq" onclick="toggleMenu()" data-h>FAQ</a>
+  <a href="#depoimentos" onclick="toggleMenu()" data-h>Avaliações</a>
+  <a href="#conserto" class="mob-cta" onclick="toggleMenu()" data-h>Solicitar orçamento</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Assistência premium · Porto Velho, RO
+      </div>
+
+      <h1 class="hero-title">
+        Seu celular com problema?<br>
+        A <span class="hl">SmartFlix resolve.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Assistência técnica e acessórios para celular com apresentação premium, atendimento rápido
+        e uma experiência mais confiável do primeiro clique até o WhatsApp.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#conserto" class="btn-hero-primary" data-h>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L.057 23.428a.75.75 0 0 0 .92.921l5.684-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.708 9.708 0 0 1-4.953-1.355l-.355-.212-3.679.945.974-3.58-.232-.368A9.709 9.709 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Solicitar conserto
+        </a>
+        <a href="#produtos" class="btn-hero-ghost" data-h>
+          Ver acessórios
+        </a>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <strong>+2.400</strong>
+          <span>Clientes atendidos</span>
+        </div>
+        <div class="metric">
+          <strong>98%</strong>
+          <span>Satisfação média</span>
+        </div>
+        <div class="metric">
+          <strong>90 dias</strong>
+          <span>Garantia em serviços</span>
+        </div>
+        <div class="metric">
+          <strong>~2h</strong>
+          <span>Tempo médio de reparo</span>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <section class="hero" id="inicio">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">Assistência técnica e acessórios · Porto Velho, RO</div>
-        <h1>Conserto rápido, acessórios certos e <span>atendimento de verdade.</span></h1>
+    <div class="hero-showcase reveal">
+      <div class="showcase-card">
+        <div class="showcase-top">
+          <div class="showcase-tag">Painel da marca</div>
+          <div class="showcase-dots"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="device-stage">
+          <div class="float-card fc1">
+            <small>Serviço</small>
+            <strong>Troca de tela</strong>
+          </div>
+          <div class="float-card fc2">
+            <small>Status</small>
+            <strong>Orçamento rápido</strong>
+          </div>
+          <div class="float-card fc3">
+            <small>Loja</small>
+            <strong>Acessórios premium</strong>
+          </div>
+          <div class="float-card fc4">
+            <small>Canal</small>
+            <strong>WhatsApp direto</strong>
+          </div>
+
+          <div class="phone-main">
+            <div class="phone-screen">
+              <div class="phone-ui">
+                <div class="bar lg"></div>
+                <div class="bar md"></div>
+                <div class="bar sm"></div>
+                <div class="cards">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item"><span>✓</span> Diagnóstico gratuito</div>
+    <div class="trust-item"><span>✓</span> Atendimento rápido</div>
+    <div class="trust-item"><span>✓</span> Peças de qualidade</div>
+    <div class="trust-item"><span>✓</span> Orçamento via WhatsApp</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="produtos">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Loja de acessórios</div>
+      <h2 class="section-title">Produtos para valorizar seu aparelho</h2>
+      <p class="section-sub">
+        Uma vitrine mais forte, mais premium e ainda prática para o cliente comprar direto no WhatsApp.
+      </p>
+    </div>
+
+    <div class="cat-tabs reveal">
+      <button class="cat-tab active" data-cat="todos" onclick="filterCat('todos',this)">Todos</button>
+      <button class="cat-tab" data-cat="capinha" onclick="filterCat('capinha',this)">Capinhas</button>
+      <button class="cat-tab" data-cat="protecao" onclick="filterCat('protecao',this)">Proteção</button>
+      <button class="cat-tab" data-cat="carregador" onclick="filterCat('carregador',this)">Carregadores</button>
+      <button class="cat-tab" data-cat="cabo" onclick="filterCat('cabo',this)">Cabos</button>
+      <button class="cat-tab" data-cat="audio" onclick="filterCat('audio',this)">Áudio</button>
+      <button class="cat-tab" data-cat="outro" onclick="filterCat('outro',this)">Outros</button>
+    </div>
+
+    <div class="prod-grid" id="prod-grid"></div>
+  </div>
+</section>
+
+<div class="promo-wrap">
+  <div class="promo-banner reveal">
+    <div class="promo-text">
+      <div class="promo-tag">Condição especial</div>
+      <h3 class="promo-title">Troca de tela com película instalada na mesma visita</h3>
+      <p class="promo-sub">
+        Uma chamada mais elegante e mais valiosa para gerar ação sem parecer propaganda genérica.
+      </p>
+    </div>
+
+    <div class="promo-actions">
+      <a href="#conserto" class="btn-blue" data-h>Solicitar orçamento</a>
+      <a href="#servicos" class="btn-outline" data-h>Ver serviços</a>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section svc-section" id="servicos">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Assistência técnica</div>
+      <h2 class="section-title">Serviços mais procurados</h2>
+      <p class="section-sub">
+        A apresentação continua impactante, mas agora mais refinada, mais séria e mais parecida com uma marca real.
+      </p>
+    </div>
+
+    <div class="svc-grid" id="svc-grid"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stats-band-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-count="2400">0</div>
+      <div class="stat-label">Clientes atendidos</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Satisfação média</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number">~2h</div>
+      <div class="stat-label">Tempo médio de reparo</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number">90d</div>
+      <div class="stat-label">Garantia em serviços</div>
+    </div>
+  </div>
+</div>
+
+<!-- BRANDS -->
+<div class="brands-section">
+  <div class="brands-inner">
+    <p class="brands-label">Atendemos as principais marcas</p>
+    <div class="brands-row" id="brands-row"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHY -->
+<section class="section" id="sobre">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Diferenciais</div>
+      <h2 class="section-title">Presença premium, atendimento real</h2>
+      <p class="section-sub">
+        Em vez de parecer só um layout bonito, a SmartFlix agora passa mais sensação de marca séria e desejável.
+      </p>
+    </div>
+
+    <div class="why-grid" id="why-grid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FORM -->
+<section class="section form-section" id="conserto">
+  <div class="section-inner">
+    <div class="section-header center reveal">
+      <div class="section-eyebrow">Solicitar atendimento</div>
+      <h2 class="section-title">Peça seu orçamento</h2>
+      <p class="section-sub">
+        O fluxo continua simples: o cliente preenche e o site abre a mensagem pronta no WhatsApp.
+      </p>
+    </div>
+
+    <div class="form-wrap reveal">
+      <div class="form-card">
+        <div class="form-steps">
+          <div class="form-step active">
+            <div class="step-num">1</div>
+            <span>Seus dados</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="form-step active">
+            <div class="step-num">2</div>
+            <span>Problema</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="form-step active">
+            <div class="step-num">3</div>
+            <span>WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Seu nome *</label>
+            <input type="text" id="f-nome" placeholder="Ex: Maria Silva">
+          </div>
+
+          <div class="field">
+            <label>Modelo do celular *</label>
+            <input type="text" id="f-modelo" placeholder="Ex: iPhone 14, Galaxy S24...">
+          </div>
+
+          <div class="field">
+            <label>Tipo de problema *</label>
+            <select id="f-tipo">
+              <option value="">Selecione o problema</option>
+              <option value="Troca de tela">Troca de tela</option>
+              <option value="Troca de bateria">Troca de bateria</option>
+              <option value="Conector de carga">Conector de carga</option>
+              <option value="Câmera com defeito">Câmera com defeito</option>
+              <option value="Não liga / não carrega">Não liga / não carrega</option>
+              <option value="Queda na água">Queda na água</option>
+              <option value="Limpeza interna">Limpeza interna</option>
+              <option value="Diagnóstico geral">Diagnóstico geral</option>
+              <option value="Outro problema">Outro problema</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Urgência</label>
+            <select id="f-urgencia">
+              <option value="Normal (1–2 dias)">Normal (1–2 dias)</option>
+              <option value="Urgente (mesmo dia)">Urgente (mesmo dia)</option>
+              <option value="Sem pressa">Sem pressa</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Descreva o problema</label>
+            <textarea id="f-desc" placeholder="Explique o que aconteceu e qualquer detalhe útil."></textarea>
+          </div>
+        </div>
+
+        <button class="form-submit" onclick="sendRepairForm()" data-h>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L.057 23.428a.75.75 0 0 0 .92.921l5.684-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.708 9.708 0 0 1-4.953-1.355l-.355-.212-3.679.945.974-3.58-.232-.368A9.709 9.709 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Enviar orçamento pelo WhatsApp
+        </button>
+
+        <div class="form-note">
+          <span class="g">✓ Diagnóstico gratuito</span>
+          <span>·</span>
+          <span class="g">✓ Resposta rápida</span>
+          <span>·</span>
+          <span class="g">✓ Sem compromisso</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-header center reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title">Perguntas frequentes</h2>
+      <p class="section-sub">Informações claras ajudam a vender mais e passam mais confiança.</p>
+    </div>
+
+    <div class="faq-wrap reveal" id="faq-wrap"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVIEWS -->
+<section class="section" id="depoimentos" style="background:#0a1324">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Avaliações</div>
+      <h2 class="section-title">O que os clientes dizem</h2>
+      <p class="section-sub">Prova social forte, sem perder a sobriedade premium da marca.</p>
+    </div>
+
+    <div class="reviews-grid" id="reviews-grid"></div>
+  </div>
+</section>
+
+<!-- PREFOOTER -->
+<div class="prefooter">
+  <div class="prefooter-card reveal">
+    <h2>Pronto para resolver o problema do seu celular?</h2>
+    <p>
+      Entre em contato agora, receba um atendimento rápido e transforme a SmartFlix em uma marca que parece realmente pronta para vender.
+    </p>
+    <div class="prefooter-btns">
+      <a href="#conserto" class="btn-blue" data-h>Solicitar conserto</a>
+      <a href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" class="btn-outline" data-h>Falar no WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="lc">📱</span>
+          SmartFlix
+        </div>
         <p>
-          A SmartFlix reúne assistência técnica para celular e uma seleção de acessórios pensada para quem quer resolver tudo em um só lugar, com clareza, agilidade e suporte via WhatsApp.
+          Assistência técnica e acessórios para celular com visual mais premium, melhor percepção de marca e um fluxo simples para vender via WhatsApp.
         </p>
 
-        <div class="hero-actions">
-          <a href="#conserto" class="btn btn-primary">Solicitar conserto</a>
-          <a href="#produtos" class="btn btn-secondary">Ver acessórios</a>
-        </div>
-
-        <div class="hero-metrics">
-          <div class="metric">
-            <strong>+2.400</strong>
-            <span>Clientes atendidos com histórico de serviço confiável.</span>
-          </div>
-          <div class="metric">
-            <strong>98%</strong>
-            <span>Taxa média de satisfação segundo avaliações recebidas.</span>
-          </div>
-          <div class="metric">
-            <strong>90 dias</strong>
-            <span>Garantia para serviços realizados na assistência.</span>
-          </div>
-          <div class="metric">
-            <strong>~2h</strong>
-            <span>Tempo médio para reparos mais recorrentes.</span>
-          </div>
+        <div class="footer-socials">
+          <a class="soc-btn" href="https://instagram.com" target="_blank" title="Instagram" data-h>📸</a>
+          <a class="soc-btn" href="https://facebook.com" target="_blank" title="Facebook" data-h>👥</a>
+          <a class="soc-btn" href="https://wa.me/5569981133218" target="_blank" title="WhatsApp" data-h>💬</a>
         </div>
       </div>
 
-      <div class="hero-card">
-        <div class="hero-card-top">
-          <div>
-            <strong>Atendimento direto</strong>
-            <span>Compra de acessórios e orçamento técnico</span>
-          </div>
-        </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#produtos" data-h>Produtos</a></li>
+          <li><a href="#servicos" data-h>Serviços</a></li>
+          <li><a href="#sobre" data-h>Diferenciais</a></li>
+          <li><a href="#faq" data-h>FAQ</a></li>
+          <li><a href="#conserto" data-h>Orçamento</a></li>
+          <li><a href="#depoimentos" data-h>Avaliações</a></li>
+        </ul>
+      </div>
 
-        <div class="device-visual">
-          <div class="floating-chip chip-a">
-            <strong>Diagnóstico</strong>
-            Gratuito
-          </div>
-          <div class="floating-chip chip-b">
-            <strong>Garantia</strong>
-            90 dias
-          </div>
-          <div class="floating-chip chip-c">
-            <strong>Atendimento</strong>
-            WhatsApp
-          </div>
-          <div class="floating-chip chip-d">
-            <strong>Entrega</strong>
-            Consulte
-          </div>
-          <div class="device-main">📱</div>
+      <div class="footer-col">
+        <h4>Horários</h4>
+        <ul class="footer-hours" id="footer-hours"></ul>
+        <div style="margin-top:18px;font-size:13px;color:var(--muted);line-height:1.8">
+          📍 Porto Velho, RO<br>
+          <a href="https://wa.me/5569981133218" style="color:#c6ffe4" data-h>(69) 98113-3218</a><br>
+          <a href="mailto:contato@smartflix.com.br" style="color:var(--muted)">contato@smartflix.com.br</a>
         </div>
       </div>
     </div>
-  </section>
 
-  <div class="trust-strip">
-    <div class="container trust-row">
-      <div class="trust-item">✓ Diagnóstico gratuito</div>
-      <div class="trust-item">✓ Atendimento rápido</div>
-      <div class="trust-item">✓ Peças de qualidade</div>
-      <div class="trust-item">✓ Orçamento no WhatsApp</div>
+    <div class="footer-bottom">
+      <p>© <span id="yr"></span> SmartFlix · Todos os direitos reservados</p>
+      <a href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" class="footer-wpp" data-h>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L.057 23.428a.75.75 0 0 0 .92.921l5.684-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.708 9.708 0 0 1-4.953-1.355l-.355-.212-3.679.945.974-3.58-.232-.368A9.709 9.709 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        WhatsApp
+      </a>
     </div>
   </div>
+</footer>
 
-  <section class="section" id="produtos">
-    <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">Loja de acessórios</div>
-        <h2 class="title">Acessórios que valem a compra</h2>
-        <p class="sub">Capinhas, películas, carregadores, cabos e utilidades para o dia a dia. Tudo com visual mais limpo, proposta mais direta e foco real em conversão.</p>
+<!-- FAB -->
+<a id="wpp-fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" title="WhatsApp" data-h>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L.057 23.428a.75.75 0 0 0 .92.921l5.684-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.708 9.708 0 0 1-4.953-1.355l-.355-.212-3.679.945.974-3.58-.232-.368A9.709 9.709 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+</a>
+
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+const WPP = '5569981133218';
+
+/* DATA */
+const PRODUCTS = [
+  { id:1,  name:'Capinha MagSafe iPhone 15 Pro', cat:'capinha', emoji:'📱', price:89.90, old:119.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Compatível MagSafe, acabamento premium e proteção reforçada para uso diário.' },
+  { id:2,  name:'Capinha Samsung S24 Ultra Fosca', cat:'capinha', emoji:'📱', price:79.90, old:null, badge:'new', badgeLabel:'Novo', desc:'Visual mais limpo, boa pegada e acabamento fosco com proteção elegante.' },
+  { id:3,  name:'Capinha Crystal Clear', cat:'capinha', emoji:'📱', price:49.90, old:null, badge:null, badgeLabel:null, desc:'Modelo transparente com visual discreto e proteção para impactos leves.' },
+  { id:4,  name:'Película 3D Vidro Temperado', cat:'protecao', emoji:'🛡️', price:49.90, old:69.90, badge:'sale', badgeLabel:'Oferta', desc:'Cobertura completa com instalação rápida e sensação de produto mais premium.' },
+  { id:5,  name:'Película Privacidade 360°', cat:'protecao', emoji:'🔒', price:59.90, old:null, badge:null, badgeLabel:null, desc:'Ajuda a reduzir o ângulo de visão lateral e aumenta a privacidade no dia a dia.' },
+  { id:6,  name:'Carregador 65W GaN Ultra', cat:'carregador', emoji:'⚡', price:129.90, old:169.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Potência para recarga mais rápida com visual de produto tecnológico mais forte.' },
+  { id:7,  name:'Carregador 20W USB-C', cat:'carregador', emoji:'⚡', price:69.90, old:null, badge:null, badgeLabel:null, desc:'Ideal para quem quer recarga eficiente sem exagero de preço.' },
+  { id:8,  name:'Cabo USB-C Reforçado 2m', cat:'cabo', emoji:'🔌', price:39.90, old:null, badge:null, badgeLabel:null, desc:'Cabo com proposta mais robusta e visual alinhado ao restante da vitrine.' },
+  { id:9,  name:'Cabo Lightning Premium', cat:'cabo', emoji:'🔌', price:44.90, old:59.90, badge:'sale', badgeLabel:'Oferta', desc:'Boa durabilidade e encaixe firme para uso diário e recarga constante.' },
+  { id:10, name:'Fone TWS Pro', cat:'audio', emoji:'🎧', price:189.90, old:249.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Áudio sem fio com cara de produto mais premium e valor percebido maior.' },
+  { id:11, name:'Suporte Veicular Magnético', cat:'outro', emoji:'🚗', price:69.90, old:null, badge:null, badgeLabel:null, desc:'Acessório prático para quem quer fixação firme no carro sem poluir o interior.' },
+  { id:12, name:'Powerbank 20.000mAh', cat:'outro', emoji:'🔋', price:159.90, old:199.90, badge:'new', badgeLabel:'Novo', desc:'Reserva de carga para rotina intensa, viagem ou trabalho fora de casa.' },
+];
+
+const SERVICES = [
+  { icon:'📱', name:'Troca de tela', desc:'Substituição de display com apresentação mais profissional e foco em confiança na execução.', priceVal:'R$ 199', svc:'Troca de tela' },
+  { icon:'🔋', name:'Troca de bateria', desc:'Ideal para aparelhos com descarga rápida, aquecimento ou perda de desempenho ao longo do dia.', priceVal:'R$ 149', svc:'Troca de bateria' },
+  { icon:'🔌', name:'Conector de carga', desc:'Para casos de mau contato, carga intermitente ou aparelho que parou de carregar.', priceVal:'R$ 120', svc:'Conector de carga' },
+  { icon:'📷', name:'Câmera com defeito', desc:'Correção de falhas na câmera frontal ou traseira com abordagem mais clara e objetiva.', priceVal:'R$ 150', svc:'Reparo de câmera' },
+  { icon:'🔍', name:'Diagnóstico gratuito', desc:'Avaliação inicial do aparelho para entender o problema antes de aprovar qualquer serviço.', priceVal:'Grátis', svc:'Diagnóstico gratuito' },
+  { icon:'💧', name:'Dano por água', desc:'Tratamento técnico para aumentar as chances de recuperação do aparelho após contato com líquido.', priceVal:'R$ 199', svc:'Dano por água' },
+  { icon:'🧹', name:'Limpeza interna', desc:'Serviço útil para melhorar conservação, reduzir sujeira interna e revisar o aparelho.', priceVal:'R$ 89', svc:'Limpeza interna' },
+  { icon:'🔘', name:'Troca de botões', desc:'Reparo em botões físicos com foco em acabamento, resposta ao toque e funcionalidade.', priceVal:'R$ 99', svc:'Troca de botão' },
+];
+
+const WHY = [
+  { icon:'⚡', title:'Agilidade real', desc:'O site transmite rapidez sem exagerar na promessa e mantém cara de operação profissional.' },
+  { icon:'🔒', title:'Garantia clara', desc:'A marca passa mais confiança quando a garantia aparece de forma simples e objetiva.' },
+  { icon:'🧩', title:'Peças de qualidade', desc:'Mensagem mais forte e mais séria para reforçar valor sem parecer texto genérico.' },
+  { icon:'💬', title:'Contato fácil', desc:'Fluxo direto para WhatsApp reduz atrito e faz o cliente agir mais rápido.' },
+  { icon:'💳', title:'Mais conversão', desc:'O layout valoriza compra de acessórios e solicitação de orçamento no mesmo ecossistema.' },
+  { icon:'📍', title:'Marca local', desc:'Porto Velho aparece como referência real de negócio, não só como detalhe no rodapé.' },
+];
+
+const REVIEWS = [
+  { stars:5, text:'O visual ficou bem mais profissional e o atendimento pelo WhatsApp foi direto. Passa muito mais confiança.', name:'Ana Cláudia', role:'Cliente · troca de tela', avatar:'AC', color:'#1d4ed8' },
+  { stars:5, text:'Gostei porque parece realmente uma assistência premium e não um site genérico. Ficou mais forte e bonito.', name:'Marcos Vinicius', role:'Cliente · acessórios', avatar:'MV', color:'#065f46' },
+  { stars:5, text:'A navegação está clara, os produtos estão melhores de ver e a parte de orçamento ficou muito mais séria.', name:'Juliana Ferreira', role:'Cliente · orçamento', avatar:'JF', color:'#7c2d12' },
+  { stars:5, text:'Agora o site passa mais valor. Antes estava muito com cara de template, agora está mais elegante.', name:'Roberto Santos', role:'Cliente · percepção de marca', avatar:'RS', color:'#4c1d95' },
+  { stars:5, text:'A parte de serviços ficou bem organizada e fácil de entender. Dá vontade de chamar no WhatsApp.', name:'Fernanda Lima', role:'Cliente · serviços', avatar:'FL', color:'#164e63' },
+  { stars:5, text:'O hero chama atenção, mas sem ficar exagerado. Achei a identidade bem melhor trabalhada.', name:'Carlos Eduardo', role:'Cliente · primeira impressão', avatar:'CE', color:'#78350f' },
+];
+
+const FAQS = [
+  { q:'O diagnóstico é realmente gratuito?', a:'Sim. O site foi construído para comunicar isso com clareza logo na primeira navegação. O cliente pode entrar em contato, explicar o problema e receber a avaliação inicial antes de aprovar qualquer serviço.' },
+  { q:'Quanto tempo demora um conserto?', a:'Depende do caso. Serviços simples podem ser resolvidos no mesmo dia, enquanto situações mais complexas exigem mais análise. O importante é que o site já posiciona a SmartFlix como uma assistência ágil e organizada.' },
+  { q:'Vocês trabalham com peças de qualidade?', a:'Sim. A apresentação da marca reforça isso de forma mais premium e menos genérica, ajudando a aumentar a confiança no momento da decisão.' },
+  { q:'Posso pedir orçamento direto pelo WhatsApp?', a:'Pode. Todo o fluxo do formulário foi pensado para abrir uma mensagem pronta no WhatsApp, reduzindo o atrito e facilitando a conversão.' },
+  { q:'A SmartFlix vende acessórios e também faz conserto?', a:'Sim. Esse é um dos pontos fortes do site: unir vitrine de acessórios e assistência técnica em um mesmo ambiente, com mais valor percebido para a marca.' },
+];
+
+const BRANDS = ['Apple','Samsung','Motorola','Xiaomi','LG','Asus','Realme','Google Pixel','OnePlus','Sony'];
+
+const HOURS = [
+  {day:'Segunda', range:'08:00 – 18:00'},
+  {day:'Terça', range:'08:00 – 18:00'},
+  {day:'Quarta', range:'08:00 – 18:00'},
+  {day:'Quinta', range:'08:00 – 18:00'},
+  {day:'Sexta', range:'08:00 – 18:00'},
+  {day:'Sábado', range:'08:00 – 13:00'},
+  {day:'Domingo', range:'Fechado'},
+];
+
+/* UTILS */
+const WPP_BASE = `https://wa.me/${WPP}?text=`;
+
+function showToast(msg='Abrindo WhatsApp...'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function buyProduct(name, price){
+  const msg = `Olá! Vim pelo site da SmartFlix e tenho interesse em:\n\n🛒 ${name}\n💰 R$ ${price.toFixed(2).replace('.',',')}\n\nAinda está disponível?`;
+  showToast('Abrindo pedido no WhatsApp...');
+  setTimeout(()=>window.open(WPP_BASE + encodeURIComponent(msg),'_blank'),350);
+}
+
+function requestService(svc, price){
+  const msg = `Olá! Vim pelo site da SmartFlix e quero solicitar:\n\n🔧 ${svc}\n💰 ${price}\n\nPode me passar mais detalhes e disponibilidade?`;
+  showToast('Abrindo solicitação...');
+  setTimeout(()=>window.open(WPP_BASE + encodeURIComponent(msg),'_blank'),350);
+}
+
+function sendRepairForm(){
+  const nome = document.getElementById('f-nome').value.trim();
+  const modelo = document.getElementById('f-modelo').value.trim();
+  const tipo = document.getElementById('f-tipo').value;
+  const urgencia = document.getElementById('f-urgencia').value;
+  const desc = document.getElementById('f-desc').value.trim();
+
+  if(!nome){ alert('Informe seu nome.'); return; }
+  if(!modelo){ alert('Informe o modelo do celular.'); return; }
+  if(!tipo){ alert('Selecione o problema.'); return; }
+
+  let msg = `Olá! Vim pelo site da SmartFlix e quero um orçamento.\n\n`;
+  msg += `👤 Nome: ${nome}\n`;
+  msg += `📱 Modelo: ${modelo}\n`;
+  msg += `🔧 Problema: ${tipo}\n`;
+  msg += `⏱️ Urgência: ${urgencia}\n`;
+  if(desc) msg += `📝 Detalhes: ${desc}\n`;
+
+  showToast('Enviando para WhatsApp...');
+  setTimeout(()=>window.open(WPP_BASE + encodeURIComponent(msg),'_blank'),350);
+}
+
+/* ANNOUNCE */
+function closeAnnounce(){
+  const bar = document.getElementById('announce');
+  bar.classList.add('gone');
+  document.getElementById('nav').classList.remove('with-bar');
+  sessionStorage.setItem('annDismissed','1');
+}
+
+/* PRODUCTS */
+function renderProducts(cat){
+  const grid = document.getElementById('prod-grid');
+  const items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+
+  grid.innerHTML = items.map(p => `
+    <div class="prod-card reveal" data-h>
+      <div class="prod-img ${p.cat}">
+        <span>${p.emoji}</span>
+        ${p.badge ? `<span class="prod-badge badge-${p.badge}">${p.badgeLabel}</span>` : ''}
       </div>
-
-      <div class="chips" id="filterChips">
-        <button class="chip-btn active" onclick="filterProducts('todos', this)">Todos</button>
-        <button class="chip-btn" onclick="filterProducts('capinha', this)">Capinhas</button>
-        <button class="chip-btn" onclick="filterProducts('protecao', this)">Proteção</button>
-        <button class="chip-btn" onclick="filterProducts('carregador', this)">Carregadores</button>
-        <button class="chip-btn" onclick="filterProducts('cabo', this)">Cabos</button>
-        <button class="chip-btn" onclick="filterProducts('audio', this)">Áudio</button>
-        <button class="chip-btn" onclick="filterProducts('outro', this)">Outros</button>
-      </div>
-
-      <div class="grid-products" id="productsGrid"></div>
-    </div>
-  </section>
-
-  <section class="section promo">
-    <div class="container">
-      <div class="promo-box">
-        <div>
-          <div class="promo-tag">Oferta ativa</div>
-          <h3>Troca de tela com película instalada na mesma visita.</h3>
-          <p>Uma condição pensada para aumentar conversão sem exagero visual. Você pode ajustar depois para o que realmente fizer sentido na sua loja.</p>
-        </div>
-        <div class="promo-actions">
-          <a href="#conserto" class="btn btn-primary">Pedir orçamento</a>
-          <a href="#servicos" class="btn btn-secondary">Ver serviços</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section services" id="servicos">
-    <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">Assistência técnica</div>
-        <h2 class="title">Serviços mais procurados</h2>
-        <p class="sub">A ideia aqui é parecer uma assistência real: nome claro do serviço, descrição objetiva, preço inicial e botão direto para contato.</p>
-      </div>
-
-      <div class="grid-services" id="servicesGrid"></div>
-    </div>
-  </section>
-
-  <section class="section stats">
-    <div class="container stats-row">
-      <div class="stat-box">
-        <strong>+2.400</strong>
-        <span>Clientes atendidos</span>
-      </div>
-      <div class="stat-box">
-        <strong>98%</strong>
-        <span>Satisfação média</span>
-      </div>
-      <div class="stat-box">
-        <strong>~2h</strong>
-        <span>Tempo médio de reparo</span>
-      </div>
-      <div class="stat-box">
-        <strong>90d</strong>
-        <span>Garantia em serviços</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="brands">
-    <div class="container">
-      <div class="brands-label">Atendimento para diferentes marcas</div>
-      <div class="brand-list" id="brandsList"></div>
-    </div>
-  </section>
-
-  <section class="section" id="sobre">
-    <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">Diferenciais</div>
-        <h2 class="title">Atendimento sério, serviço bem feito</h2>
-        <p class="sub">Sem excesso de promessas e sem cara de template futurista. O objetivo é transmitir confiança e clareza comercial.</p>
-      </div>
-
-      <div class="grid-why" id="whyGrid"></div>
-    </div>
-  </section>
-
-  <section class="section" id="conserto">
-    <div class="container">
-      <div class="section-head" style="text-align:center">
-        <div class="eyebrow">Solicitar orçamento</div>
-        <h2 class="title">Fale com a SmartFlix pelo WhatsApp</h2>
-        <p class="sub" style="margin-inline:auto">Preencha os dados abaixo. O formulário gera uma mensagem pronta com as informações do aparelho e do problema.</p>
-      </div>
-
-      <div class="form-wrap">
-        <div class="card form-card">
-          <div class="form-grid">
-            <div class="field">
-              <label>Seu nome</label>
-              <input type="text" id="f-nome" placeholder="Ex: Maria Silva" />
-            </div>
-            <div class="field">
-              <label>Modelo do celular</label>
-              <input type="text" id="f-modelo" placeholder="Ex: iPhone 14, Galaxy S23..." />
-            </div>
-            <div class="field">
-              <label>Tipo de problema</label>
-              <select id="f-tipo">
-                <option value="">Selecione</option>
-                <option>Troca de tela</option>
-                <option>Troca de bateria</option>
-                <option>Conector de carga</option>
-                <option>Câmera com defeito</option>
-                <option>Não liga / não carrega</option>
-                <option>Queda na água</option>
-                <option>Limpeza interna</option>
-                <option>Diagnóstico geral</option>
-                <option>Outro problema</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Urgência</label>
-              <select id="f-urgencia">
-                <option>Normal (1–2 dias)</option>
-                <option>Urgente (mesmo dia)</option>
-                <option>Sem pressa</option>
-              </select>
-            </div>
-            <div class="field full">
-              <label>Descreva o problema</label>
-              <textarea id="f-desc" placeholder="Descreva o que aconteceu, quando começou e qualquer detalhe útil."></textarea>
-            </div>
+      <div class="prod-body">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-desc">${p.desc}</div>
+        <div class="prod-footer">
+          <div class="prod-price">
+            ${p.old ? `<span class="old">R$ ${p.old.toFixed(2).replace('.',',')}</span>` : ''}
+            <span class="cur">R$ ${p.price.toFixed(2).replace('.',',')}<em> à vista</em></span>
           </div>
-
-          <button class="form-submit" onclick="sendRepairForm()">Enviar orçamento pelo WhatsApp</button>
-          <div class="form-note">Diagnóstico gratuito · Sem compromisso · Resposta rápida</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section-head" style="text-align:center">
-        <div class="eyebrow">FAQ</div>
-        <h2 class="title">Perguntas frequentes</h2>
-        <p class="sub" style="margin-inline:auto">Uma seção simples, útil e com cara de negócio real.</p>
-      </div>
-
-      <div class="faq-list" id="faqList"></div>
-    </div>
-  </section>
-
-  <section class="section reviews" id="depoimentos">
-    <div class="container">
-      <div class="section-head">
-        <div class="eyebrow">Avaliações</div>
-        <h2 class="title">O que os clientes comentam</h2>
-        <p class="sub">Depoimentos ajudam a dar autoridade sem apelar para efeitos visuais exagerados.</p>
-      </div>
-
-      <div class="grid-reviews" id="reviewsGrid"></div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <div class="container">
-      <div class="cta-box">
-        <h2>Precisa comprar um acessório ou resolver um problema no celular?</h2>
-        <p>A SmartFlix foi pensada para unir loja e assistência em um fluxo simples. O cliente escolhe, pergunta, compra ou pede orçamento sem sair do site.</p>
-        <div class="cta-actions">
-          <a href="#produtos" class="btn btn-secondary">Ver produtos</a>
-          <a href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" class="btn btn-whats">Falar no WhatsApp</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand">
-            <div class="brand-badge">📱</div>
-            <div class="brand-text">
-              <div class="brand-name">SmartFlix</div>
-              <div class="brand-sub">Assistência técnica & acessórios</div>
-            </div>
-          </div>
-          <p>
-            Loja e assistência para celular com atendimento direto, orçamento rápido e uma apresentação mais madura, mais limpa e mais confiável.
-          </p>
-          <a href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" class="btn btn-whats">WhatsApp</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navegação</h4>
-          <ul>
-            <li><a href="#produtos">Produtos</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#sobre">Diferenciais</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#conserto">Orçamento</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <ul>
-            <li>Porto Velho, RO</li>
-            <li>(69) 98113-3218</li>
-            <li>contato@smartflix.com.br</li>
-            <li>Seg–Sex: 08h às 18h</li>
-            <li>Sáb: 08h às 13h</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>© <span id="year"></span> SmartFlix. Todos os direitos reservados.</p>
-        <p>Site de loja e assistência técnica para celular.</p>
-      </div>
-    </div>
-  </footer>
-
-  <a class="fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" aria-label="WhatsApp">💬</a>
-
-  <script>
-    const WPP = '5569981133218';
-    const WPP_BASE = `https://wa.me/${WPP}?text=`;
-
-    const PRODUCTS = [
-      { id:1, name:'Capinha MagSafe iPhone 15 Pro', cat:'capinha', emoji:'📱', price:89.90, old:119.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Modelo reforçado, compatibilidade MagSafe e acabamento mais premium.' },
-      { id:2, name:'Capinha Samsung S24 Ultra Fosca', cat:'capinha', emoji:'📱', price:79.90, old:null, badge:'new', badgeLabel:'Novo', desc:'Visual limpo, boa pegada e proteção para uso diário.' },
-      { id:3, name:'Película 3D Vidro Temperado', cat:'protecao', emoji:'🛡️', price:49.90, old:69.90, badge:'sale', badgeLabel:'Promoção', desc:'Proteção frontal com instalação rápida na loja.' },
-      { id:4, name:'Película Privacidade 360°', cat:'protecao', emoji:'🛡️', price:59.90, old:null, badge:null, badgeLabel:null, desc:'Reduz o ângulo de visão lateral e ajuda na privacidade.' },
-      { id:5, name:'Carregador 65W GaN', cat:'carregador', emoji:'⚡', price:129.90, old:169.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Carregamento rápido para celular e outros dispositivos.' },
-      { id:6, name:'Carregador 20W USB-C', cat:'carregador', emoji:'⚡', price:69.90, old:null, badge:null, badgeLabel:null, desc:'Opção prática para quem quer recarga eficiente no dia a dia.' },
-      { id:7, name:'Cabo USB-C trançado 2m', cat:'cabo', emoji:'🔌', price:39.90, old:null, badge:null, badgeLabel:null, desc:'Cabo reforçado, mais resistente ao uso frequente.' },
-      { id:8, name:'Cabo Lightning premium', cat:'cabo', emoji:'🔌', price:44.90, old:59.90, badge:'sale', badgeLabel:'Oferta', desc:'Boa durabilidade e encaixe firme para recarga diária.' },
-      { id:9, name:'Fone TWS com ANC', cat:'audio', emoji:'🎧', price:189.90, old:249.90, badge:'hot', badgeLabel:'Mais vendido', desc:'Áudio sem fio com proposta mais avançada para rotina e chamadas.' },
-      { id:10, name:'Suporte veicular magnético', cat:'outro', emoji:'🚗', price:69.90, old:null, badge:null, badgeLabel:null, desc:'Acessório útil para uso no carro, com fixação firme.' },
-      { id:11, name:'Powerbank 20.000mAh', cat:'outro', emoji:'🔋', price:159.90, old:199.90, badge:'new', badgeLabel:'Novo', desc:'Reserva de carga para quem precisa passar o dia fora.' },
-      { id:12, name:'Capinha Crystal Clear', cat:'capinha', emoji:'📱', price:49.90, old:null, badge:null, badgeLabel:null, desc:'Modelo transparente com proposta simples e boa proteção.' }
-    ];
-
-    const SERVICES = [
-      { icon:'📱', name:'Troca de tela', price:'R$ 199', short:'A partir de', service:'Troca de tela', desc:'Substituição de display com avaliação técnica, teste final e entrega com funcionamento conferido.' },
-      { icon:'🔋', name:'Troca de bateria', price:'R$ 149', short:'A partir de', service:'Troca de bateria', desc:'Ideal para celulares com descarga rápida, aquecimento ou queda de desempenho ao longo do dia.' },
-      { icon:'🔌', name:'Conector de carga', price:'R$ 120', short:'A partir de', service:'Conector de carga', desc:'Para casos de mau contato, recarga intermitente ou aparelho que parou de carregar.' },
-      { icon:'📷', name:'Reparo de câmera', price:'R$ 150', short:'A partir de', service:'Reparo de câmera', desc:'Correção de falhas em câmera frontal ou traseira, incluindo imagem preta, borrada ou travando.' },
-      { icon:'💧', name:'Dano por água', price:'R$ 199', short:'A partir de', service:'Dano por água', desc:'Limpeza técnica e processo de recuperação para tentar reduzir danos causados por contato com líquido.' },
-      { icon:'🔍', name:'Diagnóstico geral', price:'Grátis', short:'Consulta', service:'Diagnóstico geral', desc:'Avaliação inicial do aparelho para identificar o defeito antes de aprovar qualquer serviço.' }
-    ];
-
-    const WHY = [
-      { icon:'⚡', title:'Agilidade real', desc:'A proposta é resolver os serviços mais comuns no menor tempo possível, sem prometer o impossível.' },
-      { icon:'🔒', title:'Garantia de serviço', desc:'A apresentação transmite mais confiança quando a garantia aparece de forma clara e objetiva.' },
-      { icon:'🧩', title:'Peças de qualidade', desc:'Sem linguagem exagerada. Apenas reforço do que realmente importa para quem vai contratar.' },
-      { icon:'💬', title:'Contato simples', desc:'WhatsApp como principal canal para reduzir atrito na compra ou no pedido de orçamento.' },
-      { icon:'💳', title:'Facilidade de pagamento', desc:'Você pode adaptar depois para Pix, cartão, parcelamento e retirada conforme sua operação real.' },
-      { icon:'📍', title:'Negócio local', desc:'Porto Velho aparece de forma mais natural para passar sensação de empresa próxima e real.' }
-    ];
-
-    const FAQS = [
-      { q:'O diagnóstico é mesmo gratuito?', a:'Sim. A proposta do site é deixar isso claro sem exagero visual. O cliente pode entrar em contato, explicar o problema e receber a avaliação inicial.' },
-      { q:'Quanto tempo demora um conserto?', a:'Depende do caso. Serviços simples podem ser resolvidos no mesmo dia. Situações mais complexas podem exigir prazo maior.' },
-      { q:'Vocês usam peças originais?', a:'Você pode trabalhar com peça original ou compatível premium, mas o ideal é sempre explicar a opção escolhida antes do serviço.' },
-      { q:'Tem garantia?', a:'Sim, a estrutura do site já comunica garantia nos serviços. Depois você pode ajustar o prazo exato conforme sua operação.' },
-      { q:'Posso pedir orçamento pelo WhatsApp?', a:'Pode. Todo o fluxo do formulário foi feito para abrir uma mensagem pronta no WhatsApp.' }
-    ];
-
-    const REVIEWS = [
-      { stars:5, text:'Atendimento rápido e direto. A troca da tela ficou ótima e o processo foi simples do começo ao fim.', name:'Ana Cláudia', role:'Cliente · troca de tela', avatar:'AC' },
-      { stars:5, text:'Gostei porque o site deixa claro o que vende e o que conserta. Fica mais fácil confiar e chamar no WhatsApp.', name:'Marcos Vinícius', role:'Cliente · acessórios', avatar:'MV' },
-      { stars:5, text:'Levei o aparelho para ver a bateria e fui bem atendida. Tudo explicado de forma simples e sem enrolação.', name:'Juliana Ferreira', role:'Cliente · bateria', avatar:'JF' },
-      { stars:5, text:'Comprei acessório e já aproveitei para pedir orçamento de outro celular. Fluxo muito prático.', name:'Carlos Eduardo', role:'Cliente · loja + assistência', avatar:'CE' },
-      { stars:5, text:'Visual do site passa mais confiança e o contato foi bem rápido. Isso ajuda muito na decisão.', name:'Fernanda Lima', role:'Cliente · atendimento', avatar:'FL' },
-      { stars:5, text:'Consegui pedir o serviço direto pelo celular sem dificuldade. Bem mais simples do que outros sites.', name:'Roberto Santos', role:'Cliente · orçamento', avatar:'RS' }
-    ];
-
-    const BRANDS = ['Apple', 'Samsung', 'Motorola', 'Xiaomi', 'LG', 'Asus', 'Realme', 'Google Pixel'];
-
-    function formatPrice(v){
-      return `R$ ${v.toFixed(2).replace('.',',')}`;
-    }
-
-    function getBadgeClass(type){
-      if(type === 'hot') return 'badge-hot';
-      if(type === 'sale') return 'badge-sale';
-      if(type === 'new') return 'badge-new';
-      return '';
-    }
-
-    function buyProduct(name, price){
-      const msg = `Olá! Vim pelo site da SmartFlix e tenho interesse em:\n\n🛒 ${name}\n💰 ${formatPrice(price)}\n\nAinda está disponível?`;
-      window.open(WPP_BASE + encodeURIComponent(msg), '_blank');
-    }
-
-    function requestService(service, price){
-      const msg = `Olá! Vim pelo site da SmartFlix e quero solicitar:\n\n🔧 ${service}\n💰 ${price}\n\nPode me passar mais detalhes e disponibilidade?`;
-      window.open(WPP_BASE + encodeURIComponent(msg), '_blank');
-    }
-
-    function sendRepairForm(){
-      const nome = document.getElementById('f-nome').value.trim();
-      const modelo = document.getElementById('f-modelo').value.trim();
-      const tipo = document.getElementById('f-tipo').value;
-      const urgencia = document.getElementById('f-urgencia').value;
-      const desc = document.getElementById('f-desc').value.trim();
-
-      if(!nome){
-        alert('Informe seu nome.');
-        return;
-      }
-      if(!modelo){
-        alert('Informe o modelo do celular.');
-        return;
-      }
-      if(!tipo){
-        alert('Selecione o tipo de problema.');
-        return;
-      }
-
-      let msg = `Olá! Vim pelo site da SmartFlix e quero um orçamento.\n\n`;
-      msg += `👤 Nome: ${nome}\n`;
-      msg += `📱 Modelo: ${modelo}\n`;
-      msg += `🔧 Problema: ${tipo}\n`;
-      msg += `⏱️ Urgência: ${urgencia}\n`;
-      if(desc) msg += `📝 Detalhes: ${desc}\n`;
-
-      window.open(WPP_BASE + encodeURIComponent(msg), '_blank');
-    }
-
-    function renderProducts(category = 'todos'){
-      const grid = document.getElementById('productsGrid');
-      const list = category === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === category);
-
-      grid.innerHTML = list.map(p => `
-        <article class="card">
-          <div class="product-media">
-            ${p.badge ? `<div class="product-badge ${getBadgeClass(p.badge)}">${p.badgeLabel}</div>` : ''}
-            <span>${p.emoji}</span>
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">${p.name}</h3>
-            <p class="product-desc">${p.desc}</p>
-            <div class="product-bottom">
-              <div class="price-box">
-                <small>${p.old ? formatPrice(p.old) : '&nbsp;'}</small>
-                <strong>${formatPrice(p.price)}</strong>
-                <span>à vista</span>
-              </div>
-              <button class="mini-btn" onclick="buyProduct('${p.name.replace(/'/g, "\\'")}', ${p.price})">Comprar</button>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function filterProducts(category, button){
-      document.querySelectorAll('.chip-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      renderProducts(category);
-    }
-
-    function renderServices(){
-      document.getElementById('servicesGrid').innerHTML = SERVICES.map(s => `
-        <article class="card service-card">
-          <div class="service-icon">${s.icon}</div>
-          <h3 class="service-name">${s.name}</h3>
-          <p class="service-desc">${s.desc}</p>
-          <div class="service-meta">
-            <div class="service-price">
-              <small>${s.short}</small>
-              <strong>${s.price}</strong>
-            </div>
-            <button class="mini-btn" onclick="requestService('${s.service.replace(/'/g, "\\'")}', '${s.price}')">Solicitar</button>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function renderWhy(){
-      document.getElementById('whyGrid').innerHTML = WHY.map(item => `
-        <article class="card why-card">
-          <div class="why-icon">${item.icon}</div>
-          <h3 class="why-title">${item.title}</h3>
-          <p class="why-desc">${item.desc}</p>
-        </article>
-      `).join('');
-    }
-
-    function renderFAQ(){
-      const wrap = document.getElementById('faqList');
-      wrap.innerHTML = FAQS.map((item, i) => `
-        <div class="faq-item" id="faq-${i}">
-          <button class="faq-q" onclick="toggleFAQ(${i})">
-            <span>${item.q}</span>
-            <span>+</span>
+          <button class="btn-buy" onclick="buyProduct('${p.name.replace(/'/g, "\\'")}',${p.price})">
+            Comprar
           </button>
-          <div class="faq-a">${item.a}</div>
         </div>
-      `).join('');
+      </div>
+    </div>
+  `).join('');
+
+  observeReveal();
+  bindHover();
+}
+
+function filterCat(cat, btn){
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+/* SERVICES */
+function renderServices(){
+  document.getElementById('svc-grid').innerHTML = SERVICES.map(s => `
+    <div class="svc-card reveal" onclick="requestService('${s.svc.replace(/'/g, "\\'")}','${s.priceVal}')" data-h>
+      <div class="svc-icon">${s.icon}</div>
+      <div class="svc-name">${s.name}</div>
+      <p class="svc-desc">${s.desc}</p>
+      <div class="svc-footer">
+        <div class="svc-price-block">
+          <div class="label">A partir de</div>
+          <div class="val">${s.priceVal}</div>
+        </div>
+        <button class="btn-svc">Solicitar</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* WHY */
+function renderWhy(){
+  document.getElementById('why-grid').innerHTML = WHY.map((w,i) => `
+    <div class="why-card reveal reveal-delay-${i%3}">
+      <span class="why-icon">${w.icon}</span>
+      <div class="why-title">${w.title}</div>
+      <p class="why-desc">${w.desc}</p>
+    </div>
+  `).join('');
+}
+
+/* REVIEWS */
+function renderReviews(){
+  document.getElementById('reviews-grid').innerHTML = REVIEWS.map(r => `
+    <div class="review-card reveal">
+      <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-author">
+        <div class="review-av" style="background:${r.color}22;color:${r.color};border:1px solid ${r.color}44">${r.avatar}</div>
+        <div>
+          <div class="review-name">${r.name}</div>
+          <div class="review-role">${r.role}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* FAQ */
+function renderFAQ(){
+  document.getElementById('faq-wrap').innerHTML = FAQS.map((f,i) => `
+    <div class="faq-item" id="faq-${i}">
+      <div class="faq-q" onclick="toggleFAQ(${i})">
+        <span>${f.q}</span>
+        <div class="faq-arr">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div>
+    </div>
+  `).join('');
+}
+
+function toggleFAQ(i){
+  const item = document.getElementById('faq-'+i);
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+/* BRANDS */
+function renderBrands(){
+  document.getElementById('brands-row').innerHTML = BRANDS.map(b => `
+    <div class="brand-chip">${b}</div>
+  `).join('');
+}
+
+/* HOURS */
+function renderHours(){
+  const dayMap = [6,0,1,2,3,4,5];
+  const today = dayMap[new Date().getDay()];
+  document.getElementById('footer-hours').innerHTML = HOURS.map((h,i)=>`
+    <li class="${i===today?'today':''}"><span>${h.day}</span><span>${h.range}</span></li>
+  `).join('');
+}
+
+/* REVEAL */
+function observeReveal(){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:.1});
+
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+
+/* COUNTER */
+function animCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseInt(el.dataset.count);
+    const duration = 1800;
+    const start = performance.now();
+
+    function step(now){
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = '+' + Math.floor(ease * target).toLocaleString('pt-BR');
+      if(progress < 1) requestAnimationFrame(step);
     }
 
-    function toggleFAQ(index){
-      const current = document.getElementById(`faq-${index}`);
-      const isOpen = current.classList.contains('open');
+    requestAnimationFrame(step);
+  });
+}
 
-      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('open'));
-      if(!isOpen) current.classList.add('open');
+const statsObs = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    animCounters();
+    statsObs.disconnect();
+  }
+},{threshold:.35});
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const band = document.querySelector('.stats-band');
+  if(band) statsObs.observe(band);
+});
+
+/* SCROLL */
+window.addEventListener('scroll',()=>{
+  const s = window.scrollY;
+  const n = document.getElementById('nav');
+  n.classList.toggle('scrolled', s > 40);
+  document.getElementById('btt').classList.toggle('show', s > 500);
+
+  const doc = document.documentElement;
+  document.getElementById('prog').style.width = (s / (doc.scrollHeight - doc.clientHeight) * 100) + '%';
+});
+
+/* MENU */
+function toggleMenu(){
+  document.getElementById('mob-menu').classList.toggle('open');
+}
+
+/* CURSOR */
+(function(){
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('cur-r');
+  if(!cur) return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function animR(){
+    rx += (mx-rx)*.11;
+    ry += (my-ry)*.11;
+    curR.style.left=rx+'px';
+    curR.style.top=ry+'px';
+    requestAnimationFrame(animR);
+  })();
+})();
+
+function bindHover(){
+  document.querySelectorAll('[data-h]').forEach(el=>{
+    if(!el._hoverBound){
+      el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+      el._hoverBound = true;
     }
+  });
+}
 
-    function renderReviews(){
-      document.getElementById('reviewsGrid').innerHTML = REVIEWS.map(r => `
-        <article class="card review-card">
-          <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
-          <p class="review-text">"${r.text}"</p>
-          <div class="review-author">
-            <div class="avatar">${r.avatar}</div>
-            <div>
-              <div class="author-name">${r.name}</div>
-              <div class="author-role">${r.role}</div>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
+/* LOADER */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('ldr').classList.add('out'),1400);
+});
 
-    function renderBrands(){
-      document.getElementById('brandsList').innerHTML = BRANDS.map(b => `
-        <div class="brand-item">${b}</div>
-      `).join('');
-    }
+/* ANNOUNCE PERSIST */
+if(sessionStorage.getItem('annDismissed')){
+  document.getElementById('announce').classList.add('gone');
+  document.getElementById('nav').classList.remove('with-bar');
+}
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-    renderProducts();
-    renderServices();
-    renderWhy();
-    renderFAQ();
-    renderReviews();
-    renderBrands();
-  </script>
+/* INIT */
+document.getElementById('yr').textContent = new Date().getFullYear();
+renderProducts('todos');
+renderServices();
+renderWhy();
+renderReviews();
+renderFAQ();
+renderBrands();
+renderHours();
+observeReveal();
+bindHover();
+</script>
 </body>
 </html>
