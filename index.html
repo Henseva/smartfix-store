@@ -1639,6 +1639,8 @@
       height:calc(100dvh - 70px - var(--mobile-nav-h) - env(safe-area-inset-bottom, 0px));
       overflow:hidden;
       isolation:isolate;
+      background:var(--bg);
+      border-radius:24px 24px 0 0;
     }
 
     .mobile-view{
@@ -1657,6 +1659,7 @@
       will-change:transform,opacity;
       padding-bottom:12px;
       scrollbar-width:none;
+      background:var(--bg);
     }
     .mobile-view::-webkit-scrollbar{display:none}
     .mobile-view.active{
@@ -1699,6 +1702,10 @@
       opacity:1;
     }
 
+    .mobile-skeleton{
+      display:grid;
+      gap:10px;
+    }
     .mobile-skeleton-card{
       background:#fff;
       border:1px solid var(--line);
@@ -1781,7 +1788,7 @@
       background:var(--grad-dark);
       color:#fff;
       border-radius:28px;
-      padding:22px 18px;
+      padding:18px 16px;
       position:relative;
       overflow:hidden;
       box-shadow:var(--sh-xl);
@@ -1798,43 +1805,43 @@
     .mobile-home-hero > *{position:relative;z-index:1}
     .mobile-home-title{
       font-family:var(--font-display);
-      font-size:34px;
+      font-size:28px;
       line-height:.96;
-      letter-spacing:-1.3px;
+      letter-spacing:-1px;
       font-style:italic;
-      margin-bottom:10px;
+      margin-bottom:8px;
     }
     .mobile-home-title span{color:#49e583}
     .mobile-home-sub{
       color:rgba(255,255,255,.62);
-      font-size:13px;
-      line-height:1.72;
-      margin-bottom:16px;
+      font-size:12px;
+      line-height:1.68;
+      margin-bottom:14px;
       max-width:280px;
     }
     .mobile-home-mini{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:8px;
-      margin-top:14px;
+      margin-top:12px;
     }
     .mobile-mini-stat{
       background:rgba(255,255,255,.07);
       border:1px solid rgba(255,255,255,.08);
       border-radius:16px;
-      padding:12px;
+      padding:10px;
       backdrop-filter:blur(10px);
     }
     .mobile-mini-stat strong{
       display:block;
       font-family:var(--font-display);
-      font-size:20px;
+      font-size:18px;
       color:#fff;
       margin-bottom:3px;
     }
     .mobile-mini-stat span{
       display:block;
-      font-size:10px;
+      font-size:9px;
       color:rgba(255,255,255,.5);
       line-height:1.5;
       font-weight:600;
@@ -1849,7 +1856,7 @@
       background:#fff;
       border:1px solid var(--line);
       border-radius:20px;
-      padding:14px;
+      padding:12px;
       box-shadow:var(--sh-sm);
       transition:transform .18s ease, box-shadow .18s ease;
       text-align:left;
@@ -1857,24 +1864,24 @@
     }
     .mobile-quick-card:active{transform:scale(.985)}
     .mobile-quick-card-icon{
-      width:40px;height:40px;border-radius:12px;
+      width:36px;height:36px;border-radius:12px;
       background:var(--g-softer);
       border:1px solid rgba(13,145,70,.12);
       display:flex;align-items:center;justify-content:center;
-      font-size:18px;
+      font-size:16px;
       color:var(--g2);
-      margin-bottom:10px;
+      margin-bottom:8px;
     }
     .mobile-quick-card h4{
-      font-size:13px;
+      font-size:12px;
       font-weight:800;
-      margin-bottom:4px;
+      margin-bottom:3px;
       color:var(--text);
     }
     .mobile-quick-card p{
-      font-size:11.5px;
+      font-size:10px;
       color:var(--muted);
-      line-height:1.6;
+      line-height:1.5;
     }
 
     .mobile-list{display:grid;gap:10px}
@@ -2414,7 +2421,7 @@
           <div class="mobile-view active" id="view-home" data-view="home">
             <div class="mobile-stack">
               <div class="mobile-home-hero">
-                <div class="eyebrow" style="margin-bottom:14px;padding:6px 11px;font-size:9px;">
+                <div class="eyebrow" style="margin-bottom:12px;padding:5px 10px;font-size:8px;">
                   <span class="eyebrow-dot"></span>
                   SmartFlix mobile
                 </div>
@@ -2422,7 +2429,7 @@
                   Resolve<br><span>sem enrolação.</span>
                 </div>
                 <p class="mobile-home-sub">Orçamento rápido, produtos premium e conserto confiável. Tudo pelo WhatsApp, sem burocracia.</p>
-                <a class="btn btn-primary" style="width:100%;padding:13px 18px;font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank">Pedir orçamento</a>
+                <a class="btn btn-primary" style="width:100%;padding:12px 16px;font-size:12px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank">Pedir orçamento</a>
 
                 <div class="mobile-home-mini">
                   <div class="mobile-mini-stat"><strong>90d</strong><span>Garantia em serviços</span></div>
@@ -2987,16 +2994,18 @@
     let dragDirection = 0;
     let dragStartTime = 0;
     const mobileViewScroll = {};
-    const mobileHydrated = new Set(['home']);
+    const mobileHydrated = new Set();
     const mobileViewLayer = document.getElementById('mobileViewLayer');
+    let lastBreakpoint = window.innerWidth <= 620;
 
     function isMobileAppMode(){
       return window.innerWidth <= 620;
     }
 
     function syncMobileAppMode(){
+      const nowMobile = isMobileAppMode();
       const body = document.body;
-      if(isMobileAppMode()){
+      if(nowMobile){
         body.classList.add('mobile-app-mode');
         setTimeout(() => positionMobileIndicator(), 20);
       }else{
@@ -3029,8 +3038,10 @@
     function restoreViewScroll(view){
       const el = document.getElementById(`view-${view}`);
       if(!el) return;
-      const saved = mobileViewScroll[view] || 0;
-      requestAnimationFrame(() => { el.scrollTop = saved; });
+      const saved = mobileViewScroll[view];
+      if(saved !== undefined){
+        requestAnimationFrame(() => { el.scrollTop = saved; });
+      }
     }
 
     function hydrateMobileView(view){
@@ -3055,7 +3066,7 @@
     function renderMobileSkeleton(targetId){
       const target = document.getElementById(targetId);
       if(!target) return;
-      target.innerHTML = `
+      target.innerHTML = `<div class="mobile-skeleton">
         <div class="mobile-skeleton-card">
           <div class="mobile-skeleton-top">
             <div class="mobile-skeleton-icon"></div>
@@ -3074,15 +3085,22 @@
             </div>
           </div>
         </div>
-      `;
+      </div>`;
     }
 
     function refreshViewStack(){
       document.querySelectorAll('.mobile-view').forEach(v => {
-        v.classList.remove('before','after');
+        v.classList.remove('active','before','after','dragging');
+        v.style.transform = '';
+        v.style.opacity = '';
+        v.style.filter = '';
+        v.style.transition = '';
       });
 
       const currentIndex = viewsOrder.indexOf(currentMobileView);
+      const currentView = document.getElementById(`view-${currentMobileView}`);
+      if(currentView) currentView.classList.add('active');
+
       const prev = document.getElementById(`view-${viewsOrder[currentIndex - 1]}`);
       const next = document.getElementById(`view-${viewsOrder[currentIndex + 1]}`);
 
@@ -3126,20 +3144,9 @@
       });
 
       setTimeout(() => {
-        document.querySelectorAll('.mobile-view').forEach(v => {
-          v.style.transition = '';
-          v.style.transform = '';
-          v.style.opacity = '';
-          v.style.filter = '';
-          v.classList.remove('active','before','after','dragging');
-        });
-
-        currentMobileView = toView;
-        const currentEl = document.getElementById(`view-${currentMobileView}`);
-        if(currentEl) currentEl.classList.add('active');
-
-        restoreViewScroll(currentMobileView);
         refreshViewStack();
+        currentMobileView = toView;
+        restoreViewScroll(currentMobileView);
         isAnimating = false;
       }, 420);
     }
@@ -3151,8 +3158,9 @@
       hydrateMobileView(view);
 
       isAnimating = true;
+      const fromView = currentMobileView;
       updateMobileNav(view, el);
-      animateMobileViewChange(currentMobileView, view);
+      animateMobileViewChange(fromView, view);
     }
 
     function startSwipe(e){
@@ -3221,11 +3229,8 @@
         v.style.opacity = '';
         v.style.filter = '';
       });
-      const active = document.getElementById(`view-${currentMobileView}`);
-      document.querySelectorAll('.mobile-view').forEach(v => v.classList.remove('active','before','after'));
-      if(active) active.classList.add('active');
-      restoreViewScroll(currentMobileView);
       refreshViewStack();
+      restoreViewScroll(currentMobileView);
     }
 
     function endSwipe(){
@@ -3315,10 +3320,11 @@
       `).join('');
     }
 
-    function renderMobileFaq(targetId){
+    function renderMobileFaq(targetId, limit = null){
       const el = document.getElementById(targetId);
       if(!el) return;
-      el.innerHTML = FAQS.map(f=>`
+      const items = limit ? FAQS.slice(0, limit) : FAQS;
+      el.innerHTML = items.map(f=>`
         <div class="mobile-faq-item">
           <button class="mobile-faq-head" onclick="toggleMobileFaq(this)">
             <div class="mobile-faq-left">
@@ -3347,7 +3353,13 @@
     }
 
     window.addEventListener('resize', () => {
-      syncMobileAppMode();
+      const nowMobile = window.innerWidth <= 620;
+      if(nowMobile !== lastBreakpoint){
+        lastBreakpoint = nowMobile;
+        syncMobileAppMode();
+      }else if(nowMobile){
+        positionMobileIndicator();
+      }
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -3358,7 +3370,8 @@
     renderReviews();
     renderFAQ();
 
-    renderMobileFaq('mobileFaqHome');
+    renderMobileFaq('mobileFaqHome', 2);
+    renderMobileFaq('mobileFaqContact');
     renderMobileSkeleton('mobileProductsList');
     renderMobileSkeleton('mobileServicesList');
 
