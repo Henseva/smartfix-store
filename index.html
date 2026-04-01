@@ -55,7 +55,7 @@
       --r-xl:32px;
       --r-2xl:44px;
 
-      --mobile-nav-h:82px;
+      --mobile-nav-h:92px;
       --view-ease:cubic-bezier(.22,.61,.36,1);
     }
 
@@ -1633,28 +1633,31 @@
       color:var(--text);
     }
 
-    /* ===== MOBILE APP NAV + VIEWS ===== */
+    /* ===== MENU MOBILE V2 ===== */
     .mobile-app-shell{display:none}
     .mobile-view{
       opacity:0;
-      transform:translateY(12px) scale(.985);
+      transform:translateY(14px) scale(.986);
       pointer-events:none;
       position:absolute;
       inset:0;
       transition:
-        opacity .34s var(--view-ease),
-        transform .34s var(--view-ease);
+        opacity .42s var(--view-ease),
+        transform .42s var(--view-ease),
+        filter .42s var(--view-ease);
+      filter:blur(4px);
     }
     .mobile-view.active{
       opacity:1;
       transform:translateY(0) scale(1);
       pointer-events:auto;
       position:relative;
+      filter:blur(0);
     }
     .mobile-view-layer{
       position:relative;
       min-height:calc(100vh - 70px - var(--mobile-nav-h));
-      padding-bottom:14px;
+      padding-bottom:12px;
     }
 
     .mobile-panel{
@@ -1779,9 +1782,7 @@
       box-shadow:var(--sh-sm);
       transition:transform .18s ease, box-shadow .18s ease;
     }
-    .mobile-quick-card:active{
-      transform:scale(.985);
-    }
+    .mobile-quick-card:active{transform:scale(.985)}
     .mobile-quick-card-icon{
       width:40px;height:40px;border-radius:12px;
       background:var(--g-softer);
@@ -1803,10 +1804,7 @@
       line-height:1.6;
     }
 
-    .mobile-list{
-      display:grid;
-      gap:10px;
-    }
+    .mobile-list{display:grid;gap:10px}
     .mobile-card{
       background:#fff;
       border:1px solid var(--line);
@@ -1867,15 +1865,9 @@
       color:var(--text);
       letter-spacing:-.4px;
     }
-    .mobile-card-price.small{
-      color:var(--g2);
-    }
-    .mobile-inline-actions{
-      display:flex;
-      gap:8px;
-    }
-    .mobile-mini-btn,
-    .mobile-ghost-btn{
+    .mobile-card-price.small{color:var(--g2)}
+    .mobile-inline-actions{display:flex;gap:8px}
+    .mobile-mini-btn,.mobile-ghost-btn{
       padding:9px 12px;
       border-radius:999px;
       font-size:11.5px;
@@ -1893,10 +1885,7 @@
       color:var(--text-soft);
     }
 
-    .mobile-about-list{
-      display:grid;
-      gap:10px;
-    }
+    .mobile-about-list{display:grid;gap:10px}
     .mobile-about-card{
       background:#fff;
       border:1px solid var(--line);
@@ -1977,77 +1966,116 @@
       line-height:1.6;
     }
 
-    .mobile-bottom-nav-wrap{
-      display:none;
-    }
+    .mobile-bottom-nav-wrap{display:none}
     .mobile-bottom-nav{
       position:fixed;
       left:50%;
-      bottom:12px;
+      bottom:10px;
       transform:translateX(-50%);
-      width:min(calc(100% - 18px), 460px);
-      background:rgba(255,255,255,.86);
-      backdrop-filter:blur(22px) saturate(1.8);
-      -webkit-backdrop-filter:blur(22px) saturate(1.8);
-      border:1px solid rgba(216,228,218,.95);
-      box-shadow:0 18px 40px rgba(7,14,8,.14), 0 4px 12px rgba(7,14,8,.06);
-      border-radius:28px;
-      padding:10px 10px 12px;
+      width:min(calc(100% - 16px), 470px);
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(24px) saturate(1.9);
+      -webkit-backdrop-filter:blur(24px) saturate(1.9);
+      border:1px solid rgba(216,228,218,.98);
+      box-shadow:
+        0 18px 40px rgba(7,14,8,.14),
+        0 4px 12px rgba(7,14,8,.06),
+        inset 0 1px 0 rgba(255,255,255,.7);
+      border-radius:30px;
+      padding:8px 8px 10px;
       z-index:95;
+      overflow:hidden;
+    }
+    .mobile-bottom-nav::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.35), transparent 32%);
+      pointer-events:none;
     }
     .mobile-bottom-nav .nav-track{
       position:relative;
       display:grid;
       grid-template-columns:repeat(5,1fr);
       align-items:end;
-      gap:4px;
+      gap:0;
+      min-height:66px;
     }
     .mobile-bottom-nav .nav-indicator{
       position:absolute;
-      top:2px;
+      top:1px;
       left:0;
-      width:calc((100% - 16px)/5);
-      height:44px;
-      background:var(--grad-g);
+      width:calc((100% - 8px)/5);
+      height:48px;
+      background:var(--grad-g-vivid);
       border-radius:18px;
-      box-shadow:var(--sh-green-lg);
+      box-shadow:
+        0 14px 32px rgba(13,145,70,.28),
+        0 4px 10px rgba(13,145,70,.16),
+        inset 0 1px 0 rgba(255,255,255,.32);
       transition:
-        transform .42s cubic-bezier(.22,.61,.36,1),
-        width .28s ease;
+        transform .44s cubic-bezier(.22,.61,.36,1),
+        width .28s ease,
+        box-shadow .28s ease;
       pointer-events:none;
     }
+    .mobile-bottom-nav .nav-indicator::after{
+      content:'';
+      position:absolute;
+      left:50%;
+      top:8px;
+      transform:translateX(-50%);
+      width:28px;
+      height:4px;
+      border-radius:999px;
+      background:rgba(255,255,255,.42);
+      opacity:.8;
+    }
+
     .mobile-nav-item{
       position:relative;
       z-index:1;
-      min-height:58px;
+      min-height:64px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-end;
-      gap:6px;
+      gap:5px;
       color:var(--muted);
       padding:4px 2px 0;
-      transition:color .24s ease, transform .24s ease;
+      transition:
+        color .26s ease,
+        transform .26s ease,
+        opacity .26s ease;
+      opacity:.88;
     }
     .mobile-nav-item .mobile-nav-icon{
-      width:34px;height:34px;
-      border-radius:50%;
+      width:36px;height:36px;border-radius:50%;
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:18px;
-      transition:transform .28s cubic-bezier(.22,.61,.36,1), color .24s ease;
+      line-height:1;
+      transition:
+        transform .34s cubic-bezier(.22,.61,.36,1),
+        color .26s ease,
+        background .26s ease;
     }
     .mobile-nav-item .mobile-nav-label{
       font-size:10px;
       font-weight:800;
-      letter-spacing:.02em;
+      letter-spacing:.015em;
       line-height:1;
-      transition:color .24s ease, opacity .24s ease;
+      transition:
+        color .26s ease,
+        opacity .26s ease,
+        transform .26s ease;
+      transform:translateY(0);
     }
     .mobile-nav-item.active{
       color:#fff;
-      transform:translateY(-2px);
+      transform:translateY(-1px);
+      opacity:1;
     }
     .mobile-nav-item.active .mobile-nav-icon{
       transform:translateY(-2px) scale(1.08);
@@ -2055,6 +2083,7 @@
     }
     .mobile-nav-item.active .mobile-nav-label{
       color:#fff;
+      transform:translateY(-1px);
     }
 
     .mobile-faq-shell{display:grid;gap:9px}
@@ -2161,10 +2190,11 @@
       .drawer-actions{flex-direction:column}
       .drawer-actions .btn,.drawer-btn-sec{width:100%}
 
-      /* Mobile app mode */
       body.mobile-app-mode{
         padding-bottom:calc(var(--mobile-nav-h) + 18px);
       }
+
+      body.mobile-app-mode .hero,
       body.mobile-app-mode .quote-fab,
       body.mobile-app-mode .fab,
       body.mobile-app-mode .trust,
@@ -2175,39 +2205,15 @@
       body.mobile-app-mode .cta{
         display:none!important;
       }
-      body.mobile-app-mode .hero{
-        min-height:auto;
-      }
-      body.mobile-app-mode .hero-inner{
-        grid-template-columns:1fr;
-        gap:20px;
-        padding:58px 0 24px;
-      }
-      body.mobile-app-mode .hero-copy .hero-actions,
-      body.mobile-app-mode .hero-copy .lux-strip,
-      body.mobile-app-mode .hero-copy .hero-metrics{
-        display:none;
-      }
-      body.mobile-app-mode .hero-copy .hero-sub{
-        margin-bottom:0;
-        max-width:none;
-      }
-      body.mobile-app-mode .hero-visual{
-        min-height:250px;
-      }
-      body.mobile-app-mode .phone{
-        width:170px;
-        height:330px;
-      }
+
       body.mobile-app-mode .mobile-app-shell{
         display:block;
-        padding:12px 0 0;
+        padding:14px 0 0;
       }
+
       body.mobile-app-mode .mobile-bottom-nav-wrap{
         display:block;
       }
-      .quote-fab{right:14px;left:14px;bottom:80px;text-align:center}
-      .fab{right:14px;bottom:18px}
     }
   </style>
 </head>
@@ -2325,7 +2331,6 @@
       </div>
     </section>
 
-    <!-- MOBILE APP SHELL -->
     <section class="mobile-app-shell" id="mobileAppShell">
       <div class="container">
         <div class="mobile-view-layer">
@@ -2340,7 +2345,7 @@
                 <div class="mobile-home-title">
                   Resolve<br><span>sem complicar.</span>
                 </div>
-                <p class="mobile-home-sub">No celular, a SmartFlix vira uma experiência mais parecida com app: rápida, organizada e sem rolagem cansativa.</p>
+                <p class="mobile-home-sub">Agora a SmartFlix no celular funciona como uma experiência mais próxima de app: navegação viva, menos rolagem e tudo mais direto.</p>
                 <a class="btn btn-primary" style="width:100%;padding:13px 18px;font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank">Pedir orçamento</a>
 
                 <div class="mobile-home-mini">
@@ -2363,7 +2368,7 @@
                 <button class="mobile-quick-card" onclick="setMobileView('about')">
                   <div class="mobile-quick-card-icon">⭐</div>
                   <h4>Diferenciais</h4>
-                  <p>Por que a SmartFlix transmite confiança.</p>
+                  <p>O que faz a SmartFlix parecer mais confiável.</p>
                 </button>
                 <button class="mobile-quick-card" onclick="setMobileView('contact')">
                   <div class="mobile-quick-card-icon">💬</div>
@@ -2390,7 +2395,7 @@
               <div class="mobile-panel-head">
                 <div class="mobile-kicker">Produtos</div>
                 <div class="mobile-panel-title">Acessórios em destaque</div>
-                <div class="mobile-panel-sub">Uma vitrine mais prática para o celular, com foco no que importa.</div>
+                <div class="mobile-panel-sub">Uma vitrine mais prática no celular, com foco no que importa.</div>
               </div>
               <div class="mobile-panel-body">
                 <div class="filters" id="mobileProductFilters">
@@ -2466,7 +2471,6 @@
       </div>
     </section>
 
-    <!-- DESKTOP / TABLET NORMAL STRUCTURE -->
     <section class="trust">
       <div class="container trust-grid">
         <div class="trust-item"><div class="trust-icon">🔍</div><div><b>Diagnóstico gratuito</b><span>Você entende o problema antes de aprovar.</span></div></div>
@@ -2895,7 +2899,6 @@
       }
     });
 
-    /* ===== MOBILE APP MODE ===== */
     let currentMobileView = 'home';
 
     function isMobileAppMode(){
@@ -2936,15 +2939,21 @@
 
       positionMobileIndicator();
 
-      const appShell = document.getElementById('mobileAppShell');
-      if(appShell && isMobileAppMode()){
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      if(isMobileAppMode()){
+        const shellTop = document.getElementById('mobileAppShell');
+        if(shellTop){
+          window.scrollTo({
+            top: shellTop.offsetTop - 8,
+            behavior: 'smooth'
+          });
+        }
       }
     }
 
     function positionMobileIndicator(){
       const indicator = document.getElementById('mobileNavIndicator');
       if(!indicator) return;
+
       const active = document.querySelector('.mobile-nav-item.active');
       const track = document.querySelector('.mobile-bottom-nav .nav-track');
       if(!active || !track) return;
