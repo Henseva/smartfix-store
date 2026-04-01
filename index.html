@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>SmartFlix — Assistência Técnica & Acessórios Premium · Porto Velho</title>
   <meta name="description" content="SmartFlix em Porto Velho: assistência técnica premium para celular, troca de tela, bateria, conector, dano por água e acessórios selecionados." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,7 @@
       --r-xl:32px;
       --r-2xl:44px;
 
-      --mobile-nav-h:92px;
+      --mobile-nav-h:74px;
       --view-ease:cubic-bezier(.22,.61,.36,1);
     }
 
@@ -1633,11 +1633,10 @@
       color:var(--text);
     }
 
-    /* ===== MOBILE APP V5 ===== */
     .mobile-app-shell{display:none}
     .mobile-view-layer{
       position:relative;
-      height:calc(100vh - 70px - var(--mobile-nav-h));
+      height:calc(100dvh - 70px - var(--mobile-nav-h) - env(safe-area-inset-bottom, 0px));
       overflow:hidden;
       isolation:isolate;
     }
@@ -1821,6 +1820,8 @@
       padding:14px;
       box-shadow:var(--sh-sm);
       transition:transform .18s ease, box-shadow .18s ease;
+      text-align:left;
+      width:100%;
     }
     .mobile-quick-card:active{transform:scale(.985)}
     .mobile-quick-card-icon{
@@ -2010,7 +2011,7 @@
     .mobile-bottom-nav{
       position:fixed;
       left:50%;
-      bottom:10px;
+      bottom:max(10px, env(safe-area-inset-bottom, 0px));
       transform:translateX(-50%);
       width:min(calc(100% - 16px), 470px);
       background:rgba(255,255,255,.78);
@@ -2133,6 +2134,7 @@
       border-radius:18px;
       overflow:hidden;
       box-shadow:var(--sh-sm);
+      transition:all .2s ease;
     }
     .mobile-faq-head{
       width:100%;
@@ -2142,6 +2144,7 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      background:transparent;
     }
     .mobile-faq-left{
       display:flex;
@@ -2190,44 +2193,9 @@
       color:var(--muted);
       font-size:12px;
       line-height:1.7;
+      transition:all .2s ease;
     }
     .mobile-faq-item.open .mobile-faq-body{display:block}
-
-    .mobile-skeleton{
-      display:grid;
-      gap:10px;
-    }
-    .mobile-skeleton-card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:14px;
-      box-shadow:var(--sh-sm);
-      position:relative;
-      overflow:hidden;
-    }
-    .mobile-skeleton-card::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      transform:translateX(-100%);
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.9), transparent);
-      animation:skeletonMove 1.2s ease infinite;
-    }
-    .mobile-skeleton-top{display:flex;gap:12px;align-items:center}
-    .mobile-skeleton-icon{
-      width:62px;height:62px;border-radius:16px;
-      background:#e7eee9;
-      flex-shrink:0;
-    }
-    .mobile-skeleton-lines{flex:1}
-    .mobile-skeleton-line{
-      height:10px;border-radius:999px;background:#e7eee9;margin-bottom:8px;
-    }
-    .mobile-skeleton-line.sm{width:54%;height:8px;margin-bottom:0}
-    @keyframes skeletonMove{
-      100%{transform:translateX(100%)}
-    }
 
     @media (max-width:1080px){
       .hero-inner{
@@ -2267,7 +2235,7 @@
       .drawer-actions .btn,.drawer-btn-sec{width:100%}
 
       body.mobile-app-mode{
-        padding-bottom:calc(var(--mobile-nav-h) + 18px);
+        padding-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
       }
 
       body.mobile-app-mode .hero,
@@ -2419,9 +2387,9 @@
                   SmartFlix mobile
                 </div>
                 <div class="mobile-home-title">
-                  Resolve<br><span>sem complicar.</span>
+                  Resolve<br><span>sem enrolação.</span>
                 </div>
-                <p class="mobile-home-sub">Agora a SmartFlix no celular funciona como uma experiência mais próxima de app: navegação viva, menos rolagem e tudo mais direto.</p>
+                <p class="mobile-home-sub">Orçamento rápido, produtos premium e conserto confiável. Tudo pelo WhatsApp, sem burocracia.</p>
                 <a class="btn btn-primary" style="width:100%;padding:13px 18px;font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank">Pedir orçamento</a>
 
                 <div class="mobile-home-mini">
@@ -2434,22 +2402,22 @@
                 <button class="mobile-quick-card" onclick="setMobileView('products')">
                   <div class="mobile-quick-card-icon">🛒</div>
                   <h4>Produtos</h4>
-                  <p>Capinhas, películas, áudio e mais.</p>
+                  <p>Capinhas, películas, carregadores e mais.</p>
                 </button>
                 <button class="mobile-quick-card" onclick="setMobileView('services')">
                   <div class="mobile-quick-card-icon">🔧</div>
                   <h4>Consertos</h4>
-                  <p>Tela, bateria, conector e mais.</p>
+                  <p>Tela, bateria, conector e reparos.</p>
                 </button>
                 <button class="mobile-quick-card" onclick="setMobileView('about')">
                   <div class="mobile-quick-card-icon">⭐</div>
-                  <h4>Diferenciais</h4>
-                  <p>O que faz a SmartFlix parecer mais confiável.</p>
+                  <h4>Por que escolher?</h4>
+                  <p>Confiança, agilidade e peças de verdade.</p>
                 </button>
                 <button class="mobile-quick-card" onclick="setMobileView('contact')">
                   <div class="mobile-quick-card-icon">💬</div>
-                  <h4>Contato</h4>
-                  <p>WhatsApp direto e respostas rápidas.</p>
+                  <h4>Contato direto</h4>
+                  <p>WhatsApp com resposta rápida.</p>
                 </button>
               </div>
 
@@ -2457,7 +2425,7 @@
                 <div class="mobile-panel-head">
                   <div class="mobile-kicker">FAQ rápido</div>
                   <div class="mobile-panel-title">Dúvidas comuns</div>
-                  <div class="mobile-panel-sub">Sem sair da tela inicial, o cliente já entende como a SmartFlix funciona.</div>
+                  <div class="mobile-panel-sub">Respostas diretas para você decidir sem burocracia.</div>
                 </div>
                 <div class="mobile-panel-body">
                   <div class="mobile-faq-shell" id="mobileFaqHome"></div>
@@ -2471,7 +2439,7 @@
               <div class="mobile-panel-head">
                 <div class="mobile-kicker">Produtos</div>
                 <div class="mobile-panel-title">Acessórios em destaque</div>
-                <div class="mobile-panel-sub">Uma vitrine mais prática no celular, com foco no que importa.</div>
+                <div class="mobile-panel-sub">Qualidade que protege e valoriza seu dispositivo.</div>
               </div>
               <div class="mobile-panel-body">
                 <div class="filters" id="mobileProductFilters">
@@ -2493,7 +2461,7 @@
               <div class="mobile-panel-head">
                 <div class="mobile-kicker">Consertos</div>
                 <div class="mobile-panel-title">Serviços principais</div>
-                <div class="mobile-panel-sub">O cliente entra, entende rápido e já solicita o atendimento.</div>
+                <div class="mobile-panel-sub">Diagnóstico gratuito e garantia de 90 dias em todos os reparos.</div>
               </div>
               <div class="mobile-panel-body">
                 <div class="mobile-list" id="mobileServicesList"></div>
@@ -2505,8 +2473,8 @@
             <div class="mobile-panel">
               <div class="mobile-panel-head">
                 <div class="mobile-kicker">Diferenciais</div>
-                <div class="mobile-panel-title">Por que escolher a SmartFlix</div>
-                <div class="mobile-panel-sub">Clareza, confiança e presença de marca em uma experiência mais viva.</div>
+                <div class="mobile-panel-title">Por que a SmartFlix?</div>
+                <div class="mobile-panel-sub">Mais confiança, menos risco. Atendimento que resolve.</div>
               </div>
               <div class="mobile-panel-body">
                 <div class="mobile-about-list" id="mobileAboutList"></div>
@@ -2519,7 +2487,7 @@
               <div class="mobile-contact-card">
                 <div class="mobile-kicker" style="color:#6ee9a0;margin-bottom:12px;">Contato</div>
                 <div class="mobile-contact-title">Atendimento direto,<br>sem enrolação.</div>
-                <div class="mobile-contact-text">Se a pessoa quer orçamento, compra ou tirar dúvida, o WhatsApp vira o caminho principal.</div>
+                <div class="mobile-contact-text">Fale com a gente agora e receba orçamento ou suporte rápido. Estamos aqui para ajudar.</div>
                 <a class="btn btn-primary" style="width:100%;padding:13px 18px;font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank">Falar no WhatsApp</a>
 
                 <div class="mobile-contact-meta">
@@ -2534,7 +2502,7 @@
                 <div class="mobile-panel-head">
                   <div class="mobile-kicker">FAQ</div>
                   <div class="mobile-panel-title">Antes de chamar</div>
-                  <div class="mobile-panel-sub">Mais algumas respostas rápidas para reduzir objeções.</div>
+                  <div class="mobile-panel-sub">Perguntas frequentes para agilizar seu atendimento.</div>
                 </div>
                 <div class="mobile-panel-body">
                   <div class="mobile-faq-shell" id="mobileFaqContact"></div>
@@ -2998,22 +2966,20 @@
       const body = document.body;
       if(isMobileAppMode()){
         body.classList.add('mobile-app-mode');
+        setTimeout(() => positionMobileIndicator(), 20);
       }else{
         body.classList.remove('mobile-app-mode');
         body.style.overflow = '';
       }
-      positionMobileIndicator();
       refreshViewStack();
     }
 
     function positionMobileIndicator(){
       const indicator = document.getElementById('mobileNavIndicator');
       if(!indicator) return;
-
       const active = document.querySelector('.mobile-nav-item.active');
       const track = document.querySelector('.mobile-bottom-nav .nav-track');
       if(!active || !track) return;
-
       const trackRect = track.getBoundingClientRect();
       const activeRect = active.getBoundingClientRect();
       const x = activeRect.left - trackRect.left + 2;
