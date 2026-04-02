@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
   <title>SmartFlix — Assistência Técnica & Acessórios Premium · Porto Velho</title>
   <meta name="description" content="SmartFlix em Porto Velho: assistência técnica premium para celular, troca de tela, bateria, conector, dano por água e acessórios selecionados." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1650,8 +1650,8 @@
       -webkit-overflow-scrolling:touch;
       opacity:0;
       visibility:hidden;
-      transition:opacity .3s var(--view-ease), visibility .3s var(--view-ease);
-      will-change:opacity;
+      transition:opacity .25s var(--view-ease), visibility .25s var(--view-ease);
+      will-change:opacity, visibility;
       padding-bottom:12px;
       scrollbar-width:none;
       background:var(--bg);
@@ -2947,7 +2947,7 @@
 
     const viewsOrder = ['home','products','services','about','contact'];
     let currentMobileView = 'home';
-    let isAnimating = false;
+    let isTransitioning = false;
     const mobileViewScroll = {};
     const mobileHydrated = new Set();
 
@@ -2965,7 +2965,6 @@
         body.classList.remove('mobile-app-mode');
         body.style.overflow = '';
       }
-      refreshViewStack();
     }
 
     function positionMobileIndicator(){
@@ -3041,14 +3040,6 @@
       </div>`;
     }
 
-    function refreshViewStack(){
-      document.querySelectorAll('.mobile-view').forEach(v => {
-        v.classList.remove('active');
-      });
-      const currentView = document.getElementById(`view-${currentMobileView}`);
-      if(currentView) currentView.classList.add('active');
-    }
-
     function updateMobileNav(view, el = null){
       document.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.remove('active'));
       const activeBtn = el || document.querySelector(`.mobile-nav-item[data-view="${view}"]`);
@@ -3057,24 +3048,26 @@
     }
 
     function setMobileView(view, el = null){
-      if(view === currentMobileView || isAnimating) return;
+      if(view === currentMobileView || isTransitioning) return;
 
       saveCurrentViewScroll();
       hydrateMobileView(view);
 
-      const fromView = currentMobileView;
-      currentMobileView = view;
+      isTransitioning = true;
       
-      updateMobileNav(view, el);
-      
-      const fromEl = document.getElementById(`view-${fromView}`);
-      const toEl = document.getElementById(`view-${currentMobileView}`);
+      const fromEl = document.getElementById(`view-${currentMobileView}`);
+      const toEl = document.getElementById(`view-${view}`);
       
       if(fromEl) fromEl.classList.remove('active');
       if(toEl) toEl.classList.add('active');
       
+      currentMobileView = view;
+      updateMobileNav(view, el);
       restoreViewScroll(currentMobileView);
-      refreshViewStack();
+      
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 50);
     }
 
     function renderMobileProducts(cat = 'todos'){
@@ -3196,7 +3189,6 @@
       hydrateMobileView('services');
       hydrateMobileView('about');
       hydrateMobileView('contact');
-      refreshViewStack();
     });
   </script>
 </body>
