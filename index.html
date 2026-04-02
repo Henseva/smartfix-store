@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
@@ -8,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <style>
+    /* ============================================================
+       TOKENS
+    ============================================================ */
     :root {
       --bg: #eef2ee;
       --surface: #ffffff;
@@ -37,378 +41,1284 @@
       --r-xl: 32px;
       --r-2xl: 44px;
       --mobile-nav-h: 84px;
-    }*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body { font-family: var(--font-body); color: var(--text); background: var(--bg); overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
-button { font: inherit; border: none; background: none; cursor: pointer; }
-.container { width: var(--container); margin: 0 auto; }
+    }
 
-.topbar { background: var(--ink); color: rgba(255,255,255,.52); font-size: 12px; font-weight: 500; padding: 11px 0; text-align: center; }
-.topbar strong { color: #5ae490; }
-.nav { position: sticky; top: 0; z-index: 60; background: rgba(238,242,238,.93); backdrop-filter: blur(22px); border-bottom: 1px solid rgba(13,145,70,.09); }
-.nav-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.brand { display: flex; align-items: center; gap: 11px; }
-.brand-badge { width: 40px; height: 40px; border-radius: 12px; background: var(--grad-g); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: var(--sh-green); font-size: 16px; }
-.brand-name { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1; font-style: italic; }
-.brand-name sup { font-size: 8px; font-weight: 800; color: var(--g1); }
-.brand-sub { font-size: 9.5px; color: var(--muted); margin-top: 3px; font-weight: 600; }
-.nav-links { display: flex; align-items: center; gap: 2px; }
-.nav-links a { padding: 8px 13px; border-radius: 999px; color: var(--text-soft); font-size: 13px; font-weight: 700; transition: all 0.2s ease; }
-.nav-links a:active { transform: scale(0.96); }
-.nav-cta { background: var(--grad-g) !important; color: #fff !important; box-shadow: var(--sh-green) !important; padding: 9px 17px !important; }
-.menu-btn { display: none; width: 40px; height: 40px; border-radius: 11px; background: #fff; border: 1px solid var(--line); color: var(--text); font-size: 17px; align-items: center; justify-content: center; transition: transform 0.1s ease; cursor: pointer; }
-.menu-btn:active { transform: scale(0.94); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { font: inherit; border: none; background: none; cursor: pointer; }
+    .container { width: var(--container); margin: 0 auto; }
 
-.hero { background: var(--ink); position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; }
-.hero-inner { position: relative; z-index: 2; width: var(--container); margin: 0 auto; padding: 96px 0 76px; display: grid; grid-template-columns: 1.12fr .88fr; gap: 64px; align-items: center; }
-.eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 13px; border-radius: 999px; background: rgba(13,145,70,.16); border: 1px solid rgba(13,145,70,.32); color: #68eaa0; font-size: 10.5px; font-weight: 800; margin-bottom: 26px; }
-.eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: #3ee07c; animation: blink 2.6s infinite; }
-@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
-.hero-title { font-family: var(--font-display); font-size: clamp(50px,6.2vw,90px); line-height: .88; color: #fff; }
-.hero-title .t-green { color: #3ee07c; }
-.hero-sub { font-size: 16px; line-height: 1.82; color: rgba(255,255,255,.52); max-width: 480px; margin: 22px 0 32px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 800; transition: transform 0.1s ease, box-shadow 0.2s ease; cursor: pointer; }
-.btn:active { transform: scale(0.97); }
-.btn-primary { background: var(--grad-g); color: #fff; box-shadow: var(--sh-green-lg); }
-.btn-ghost-dark { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.84); }
-.hero-metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.06); border-radius: 14px; margin-top: 24px; }
-.metric { padding: 17px 15px; background: rgba(255,255,255,.035); }
-.metric strong { font-family: var(--font-display); font-size: 26px; color: #fff; }
-.metric span { font-size: 10.5px; color: rgba(255,255,255,.42); }
+    /* ============================================================
+       SCROLL PROGRESS BAR
+    ============================================================ */
+    #scrollBar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--grad-g);
+      z-index: 200;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(13,145,70,.6);
+    }
 
-.trust { padding: 36px 0 0; }
-.trust-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-.trust-item { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 16px; display: flex; gap: 13px; transition: transform 0.1s ease; cursor: pointer; }
-.trust-item:active { transform: scale(0.98); }
-.trust-icon { width: 44px; height: 44px; border-radius: 13px; background: var(--g-softer); color: var(--g2); display: flex; align-items: center; justify-content: center; font-size: 19px; }
-.trust-item b { display: block; font-size: 13.5px; font-weight: 800; }
-.trust-item span { font-size: 11.5px; color: var(--muted); }
+    /* ============================================================
+       TOPBAR — marquee
+    ============================================================ */
+    .topbar {
+      background: var(--ink);
+      color: rgba(255,255,255,.52);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 10px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .topbar-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+    .topbar-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 32px;
+      flex-shrink: 0;
+    }
+    .topbar-item strong { color: #5ae490; }
+    .topbar-dot { color: rgba(13,145,70,.6); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
-.section { padding: 36px 0 0; }
-.panel { background: #fff; border: 1px solid var(--line); border-radius: var(--r-2xl); box-shadow: var(--sh-xl); overflow: hidden; }
-.panel-head { padding: 30px 32px; border-bottom: 1px solid var(--line); }
-.panel-title { font-family: var(--font-display); font-size: clamp(28px,3.6vw,48px); line-height: 1.02; margin-bottom: 12px; font-style: italic; }
-.tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 22px; }
-.tab-btn { padding: 9px 16px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); font-size: 12.5px; font-weight: 800; transition: all 0.2s ease; cursor: pointer; }
-.tab-btn:active { transform: scale(0.96); }
-.tab-btn.active { background: var(--grad-g); color: #fff; }
-.panel-body { padding: 26px; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-.filter-btn { padding: 7px 13px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 11.5px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; }
-.filter-btn:active { transform: scale(0.96); }
-.filter-btn.active { background: var(--g-soft); color: var(--g2); }
-.grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-.card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card:active { transform: scale(0.98); }
-.card-media { position: relative; height: 186px; display: flex; align-items: center; justify-content: center; font-size: 54px; border-bottom: 1px solid var(--line); background: linear-gradient(148deg,#e4f7ec,#cef0db); }
-.badge { position: absolute; top: 11px; left: 11px; padding: 4px 9px; border-radius: 999px; font-size: 9px; font-weight: 800; background: #daf5e6; color: #085424; }
-.card-body { padding: 20px 18px; }
-.card-title { font-family: var(--font-display); font-size: 18px; font-style: italic; font-weight: 700; }
-.card-text { color: var(--muted); font-size: 13px; margin: 8px 0 18px; line-height: 1.5; }
-.card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.price strong { font-family: var(--font-display); font-size: 24px; }
-.mini-btn, .ghost-btn { padding: 10px 16px; border-radius: 999px; font-size: 12px; font-weight: 800; cursor: pointer; transition: transform 0.1s ease; }
-.mini-btn:active, .ghost-btn:active { transform: scale(0.96); }
-.mini-btn { background: var(--grad-g); color: #fff; box-shadow: var(--sh-green); }
-.ghost-btn { background: var(--bg); border: 1px solid var(--line); }
-.service-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-.service-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; transition: transform 0.2s ease; }
-.service-card:active { transform: scale(0.98); }
-.service-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
-.service-title { font-family: var(--font-display); font-size: 18px; font-style: italic; font-weight: 700; }
-.service-price strong { font-family: var(--font-display); font-size: 24px; color: var(--g2); }
-.about-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-.about-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; transition: transform 0.1s ease; }
-.about-card:active { transform: scale(0.98); }
-.about-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
-.reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-.review-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; transition: transform 0.2s ease; }
-.review-card:active { transform: scale(0.98); }
-.stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
-.review-text { font-style: italic; font-family: var(--font-display); font-size: 15px; line-height: 1.5; }
-.faq-box { background: #fff; border: 1px solid var(--line); border-radius: var(--r-2xl); padding: 32px; }
-.accordion { display: flex; flex-direction: column; gap: 12px; }
-.acc-item { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.acc-head { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; cursor: pointer; transition: background 0.2s ease; }
-.acc-head:active { background: rgba(0,0,0,0.03); }
-.acc-head-left { display: flex; gap: 15px; align-items: center; }
-.acc-icon { width: 44px; height: 44px; border-radius: 14px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.acc-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; }
-.acc-arrow { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.acc-item.open .acc-arrow { transform: rotate(45deg); background: var(--g1); color: #fff; }
-.acc-body { display: none; padding: 0 24px 24px; overflow: hidden; }
-.acc-item.open .acc-body { display: block; animation: fadeSlideDown 0.25s ease; }
-@keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .nav {
+      position: sticky; top: 0; z-index: 60;
+      background: rgba(238,242,238,.93);
+      backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(13,145,70,.09);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav.scrolled { box-shadow: 0 4px 24px rgba(7,14,8,.08); }
+    .nav-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; }
+    .brand-badge {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--grad-g); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--sh-green); font-size: 16px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .brand:hover .brand-badge { transform: rotate(-8deg) scale(1.1); }
+    .brand-name { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1; font-style: italic; }
+    .brand-name sup { font-size: 8px; font-weight: 800; color: var(--g1); }
+    .brand-sub { font-size: 9.5px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a {
+      padding: 8px 13px; border-radius: 999px;
+      color: var(--text-soft); font-size: 13px; font-weight: 700;
+      transition: all 0.2s ease; position: relative;
+    }
+    .nav-links a:not(.nav-cta):hover { background: var(--g-softer); color: var(--g1); }
+    .nav-cta {
+      background: var(--grad-g) !important;
+      color: #fff !important;
+      box-shadow: var(--sh-green) !important;
+      padding: 9px 17px !important;
+      transition: transform 0.15s ease, box-shadow 0.2s ease !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: var(--sh-green-lg) !important; }
+    .menu-btn {
+      display: none; width: 40px; height: 40px; border-radius: 11px;
+      background: #fff; border: 1px solid var(--line);
+      color: var(--text); font-size: 17px;
+      align-items: center; justify-content: center;
+      transition: transform 0.1s ease; cursor: pointer;
+    }
+    .menu-btn:active { transform: scale(0.94); }
 
-.cta { padding: 48px 0 80px; }
-.cta-box { background: var(--grad-dark); color: #fff; border-radius: var(--r-2xl); padding: 68px 40px; text-align: center; box-shadow: var(--sh-xl); }
-.footer { border-top: 1px solid var(--line); background: #e8ede8; padding: 50px 0 24px; }
-.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 34px; }
-.fab, .quote-fab { position: fixed; right: 18px; z-index: 80; transition: transform 0.1s ease; }
-.fab:active, .quote-fab:active { transform: scale(0.94); }
-.fab { bottom: 18px; width: 54px; height: 54px; border-radius: 50%; background: #1db954; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-.quote-fab { bottom: 82px; padding: 10px 18px; border-radius: 999px; background: var(--grad-g); color: #fff; font-size: 12px; font-weight: 800; box-shadow: var(--sh-green-lg); }
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      background: var(--ink);
+      position: relative; overflow: hidden;
+      min-height: 100vh; display: flex; align-items: center;
+    }
 
-.drawer-overlay { position: fixed; inset: 0; background: rgba(7,14,8,.4); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: .22s; z-index: 90; }
-.drawer-overlay.show { opacity: 1; pointer-events: auto; }
-.drawer { position: fixed; top: 0; right: 0; width: min(416px,100%); height: 100dvh; background: #fff; border-left: 1px solid var(--line); transform: translateX(100%); transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 91; display: flex; flex-direction: column; }
-.drawer.show { transform: translateX(0); }
-.drawer-body { padding: 18px 20px; overflow: auto; }
-.drawer-visual { height: 200px; border-radius: 18px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 58px; margin-bottom: 16px; background: linear-gradient(148deg,#e4f7ec,#cef0db); }
-.drawer-price strong { font-family: var(--font-display); font-size: 32px; }
+    /* Animated gradient orbs */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .hero-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(13,145,70,.35) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      animation: orbFloat1 12s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(24,186,92,.2) 0%, transparent 70%);
+      bottom: -80px; left: 10%;
+      animation: orbFloat2 16s ease-in-out infinite;
+    }
+    .hero-orb-3 {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(7,94,43,.4) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      animation: orbFloat3 10s ease-in-out infinite;
+    }
+    @keyframes orbFloat1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(-40px, 30px) scale(1.05); }
+      66% { transform: translate(20px, -20px) scale(.95); }
+    }
+    @keyframes orbFloat2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(50px, -40px) scale(1.08); }
+    }
+    @keyframes orbFloat3 {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: .5; }
+      50% { transform: translate(-55%,-45%) scale(1.1); opacity: .8; }
+    }
 
-.mobile-app-shell { display: none; }
-.mobile-view-layer {
-  background: var(--bg);
-  min-height: calc(100dvh - 70px - 34px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(var(--mobile-nav-h) + 28px + env(safe-area-inset-bottom, 0px));
-}
-.mobile-view { display: none; }
-.mobile-view.active { display: block; }
-.mobile-header { position: sticky; top: 0; z-index: 10; background: rgba(238,242,238,.96); backdrop-filter: blur(20px); padding: 16px 0 12px; margin-bottom: 12px; border-bottom: 1px solid rgba(13,145,70,.12); }
-.mobile-header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 700; font-style: italic; letter-spacing: -0.5px; color: var(--text); margin: 0; line-height: 1.1; }
-.mobile-panel { background: #fff; border: 1px solid var(--line); border-radius: 26px; margin-bottom: 16px; overflow: hidden; transition: transform 0.1s ease; }
-.mobile-panel:active { transform: scale(0.99); }
-.mobile-panel-head { padding: 20px 18px 16px; background: linear-gradient(155deg,#fff 0%,#f7fbf8 100%); border-bottom: 1px solid var(--line); }
-.mobile-panel-title { font-family: var(--font-display); font-size: 24px; line-height: 1.02; font-style: italic; margin-bottom: 8px; font-weight: 700; }
-.mobile-panel-sub { color: var(--muted); font-size: 13px; }
-.mobile-panel-body { padding: 16px; }
-.mobile-stack { display: flex; flex-direction: column; gap: 16px; }
-.mobile-home-hero { background: var(--grad-dark); color: #fff; border-radius: 28px; padding: 24px 20px; transition: transform 0.1s ease; }
-.mobile-home-hero:active { transform: scale(0.99); }
-.mobile-home-title { font-family: var(--font-display); font-size: 32px; line-height: 1; font-style: italic; margin-bottom: 10px; font-weight: 700; }
-.mobile-home-title span { color: #49e583; }
-.mobile-home-sub { color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
-.mobile-home-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-.mobile-mini-stat { background: rgba(255,255,255,.1); border-radius: 18px; padding: 12px; backdrop-filter: blur(4px); }
-.mobile-mini-stat strong { font-family: var(--font-display); font-size: 20px; color: #fff; display: block; margin-bottom: 4px; }
-.mobile-mini-stat span { font-size: 11px; opacity: 0.8; }
-.mobile-quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.mobile-quick-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 14px; text-align: left; width: 100%; cursor: pointer; transition: transform 0.1s ease; }
-.mobile-quick-card:active { transform: scale(0.97); }
-.mobile-quick-card-icon { width: 40px; height: 40px; border-radius: 14px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 10px; }
-.mobile-quick-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
-.mobile-quick-card p { font-size: 11px; color: var(--muted); }
-.mobile-list { display: flex; flex-direction: column; gap: 14px; }
-.mobile-card { background: #fff; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; transition: transform 0.1s ease; }
-.mobile-card:active { transform: scale(0.98); }
-.mobile-card-top { display: flex; gap: 14px; padding: 16px; }
-.mobile-card-media { width: 66px; height: 66px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; background: linear-gradient(148deg,#e4f7ec,#cef0db); flex: 0 0 66px; }
-.mobile-card-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; margin-bottom: 4px; }
-.mobile-card-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
-.mobile-card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 0 16px 16px; }
-.mobile-card-price { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
-.mobile-inline-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-.mobile-mini-btn, .mobile-ghost-btn { padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; cursor: pointer; transition: transform 0.1s ease; }
-.mobile-mini-btn:active, .mobile-ghost-btn:active { transform: scale(0.96); }
-.mobile-mini-btn { background: var(--grad-g); color: #fff; box-shadow: var(--sh-green); }
-.mobile-ghost-btn { background: var(--bg); border: 1px solid var(--line); }
-.mobile-about-list { display: flex; flex-direction: column; gap: 14px; }
-.mobile-about-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 18px; transition: transform 0.1s ease; }
-.mobile-about-card:active { transform: scale(0.98); }
-.mobile-about-head { display: flex; gap: 14px; margin-bottom: 10px; }
-.mobile-about-icon { width: 44px; height: 44px; border-radius: 14px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.mobile-about-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; }
-.mobile-contact-card { background: var(--grad-dark); color: #fff; border-radius: 28px; padding: 24px 20px; margin-bottom: 16px; transition: transform 0.1s ease; }
-.mobile-contact-card:active { transform: scale(0.99); }
-.mobile-contact-title { font-family: var(--font-display); font-size: 28px; line-height: 1; font-style: italic; font-weight: 700; margin-bottom: 10px; }
-.mobile-contact-text { opacity: 0.8; font-size: 13px; margin-bottom: 20px; }
-.mobile-contact-meta { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-.mobile-contact-item { background: rgba(255,255,255,.1); border-radius: 18px; padding: 14px; font-size: 13px; }
-.mobile-faq-shell { display: flex; flex-direction: column; gap: 12px; }
-.mobile-faq-item { background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; transition: all 0.2s ease; }
-.mobile-faq-head { padding: 16px 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; text-align: left; cursor: pointer; transition: background 0.2s ease; }
-.mobile-faq-head:active { background: rgba(0,0,0,0.02); }
-.mobile-faq-left { display: flex; gap: 12px; align-items: flex-start; }
-.mobile-faq-icon { width: 36px; height: 36px; border-radius: 12px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 16px; flex: 0 0 36px; }
-.mobile-faq-title { font-family: var(--font-display); font-size: 16px; font-style: italic; font-weight: 700; }
-.mobile-faq-arrow { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); background: #fff; flex: 0 0 26px; }
-.mobile-faq-item.open .mobile-faq-arrow { transform: rotate(45deg); background: var(--g1); color: #fff; border-color: transparent; }
-.mobile-faq-body { display: none; padding: 0 16px 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.mobile-faq-item.open .mobile-faq-body { display: block; animation: fadeSlideDown 0.2s ease; }
+    /* Grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(13,145,70,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,145,70,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
 
-.mobile-bottom-nav-wrap {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 95;
-  padding: 0 8px calc(8px + env(safe-area-inset-bottom, 0px)) 8px;
-  background: transparent;
-}
-.mobile-bottom-nav {
-  background: rgba(255,255,255,.95);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(216,228,218,.98);
-  border-radius: 32px;
-  padding: 6px 8px;
-  box-shadow: 0 -2px 12px rgba(0,0,0,0.05);
-}
-.mobile-bottom-nav .nav-track {
-  display: grid;
-  grid-template-columns: repeat(6,1fr);
-  position: relative;
-  gap: 0;
-  align-items: stretch;
-}
-.mobile-bottom-nav .nav-indicator {
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: calc(100% / 6);
-  height: 48px;
-  background: var(--grad-g);
-  border-radius: 24px;
-  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(13,145,70,0.3);
-}
-.mobile-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 8px 0;
-  color: var(--muted);
-  z-index: 1;
-  background: transparent;
-  min-height: 64px;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  min-width: 0;
-}
-.mobile-nav-item .mobile-nav-icon { font-size: 18px; transition: transform 0.2s ease; line-height: 1; }
-.mobile-nav-item:active .mobile-nav-icon { transform: scale(0.92); }
-.mobile-nav-item .mobile-nav-label {
-  font-size: 9px;
-  font-weight: 800;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  padding: 0 2px;
-}
-.mobile-nav-item.active { color: #fff; }
+    /* Grain texture */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: .4;
+    }
 
-.mobile-menu-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,.98); backdrop-filter: blur(28px); border-radius: 32px 32px 0 0; box-shadow: 0 -8px 40px rgba(0,0,0,.12); transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 100; padding: 28px 24px 32px; border-top: 1px solid rgba(13,145,70,.15); }
-.mobile-menu-sheet.open { transform: translateY(0); }
-.mobile-menu-sheet .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
-.mobile-menu-sheet .sheet-header h3 { font-family: var(--font-display); font-size: 24px; font-style: italic; font-weight: 700; color: var(--text); }
-.mobile-menu-sheet .sheet-close { width: 40px; height: 40px; border-radius: 50%; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--g2); transition: transform 0.1s ease; cursor: pointer; }
-.mobile-menu-sheet .sheet-close:active { transform: scale(0.92); }
-.mobile-menu-sheet .sheet-links { display: flex; flex-direction: column; gap: 14px; }
-.mobile-menu-sheet .sheet-links button { padding: 16px 18px; background: var(--bg); border-radius: 20px; font-weight: 700; font-size: 16px; color: var(--text); transition: all 0.2s ease; display: flex; align-items: center; gap: 14px; cursor: pointer; width: 100%; text-align: left; }
-.mobile-menu-sheet .sheet-links button:active { transform: scale(0.98); background: var(--g-soft); }
-.mobile-menu-sheet .sheet-links button .link-icon { font-size: 22px; }
-.mobile-menu-sheet .sheet-cta { margin-top: 24px; background: var(--grad-g); color: #fff; text-align: center; padding: 16px; border-radius: 999px; font-weight: 800; font-size: 16px; display: block; transition: transform 0.1s ease; cursor: pointer; box-shadow: var(--sh-green); }
-.mobile-menu-sheet .sheet-cta:active { transform: scale(0.97); }
-.menu-overlay { position: fixed; inset: 0; background: rgba(7,14,8,.5); backdrop-filter: blur(5px); opacity: 0; pointer-events: none; transition: 0.25s; z-index: 99; }
-.menu-overlay.show { opacity: 1; pointer-events: auto; }
+    .hero-inner {
+      position: relative; z-index: 2;
+      width: var(--container); margin: 0 auto;
+      padding: 96px 0 76px;
+      display: grid; grid-template-columns: 1.12fr .88fr;
+      gap: 64px; align-items: center;
+    }
 
-@media (max-width: 1080px) {
-  .hero-inner { grid-template-columns: 1fr; padding: 76px 0 58px; }
-  .grid, .service-grid, .reviews-grid { grid-template-columns: repeat(2,1fr); }
-  .hero-metrics, .trust-grid { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 760px) {
-  .nav-links { display: none; }
-  .menu-btn { display: flex; }
-  .about-grid, .footer-grid { grid-template-columns: 1fr; }
-  .quote-fab { bottom: 80px; }
-}
-@media (max-width: 620px) {
-  .hero-metrics, .trust-grid, .grid, .service-grid, .reviews-grid { grid-template-columns: 1fr; }
-  .panel-head, .panel-body, .faq-box { padding: 18px; }
-  body.mobile-app-mode .hero,
-  body.mobile-app-mode .quote-fab,
-  body.mobile-app-mode .fab,
-  body.mobile-app-mode .trust,
-  body.mobile-app-mode .section,
-  body.mobile-app-mode .footer,
-  body.mobile-app-mode .panel,
-  body.mobile-app-mode .faq-box,
-  body.mobile-app-mode .cta { display: none !important; }
-  body.mobile-app-mode .mobile-app-shell { display: block; padding: 0; background: var(--bg); }
-  body.mobile-app-mode { background: var(--bg); }
-  .mobile-bottom-nav-wrap { display: block; }
-  .mobile-view-layer { min-height: calc(100dvh - 70px - 34px); }
-  .mobile-card-bottom { flex-direction: column; align-items: flex-start; }
-  .mobile-inline-actions { width: 100%; justify-content: flex-start; }
-}
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 7px 13px; border-radius: 999px;
+      background: rgba(13,145,70,.16); border: 1px solid rgba(13,145,70,.32);
+      color: #68eaa0; font-size: 10.5px; font-weight: 800; margin-bottom: 26px;
+      opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+    .eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #3ee07c; animation: blink 2.6s infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(62,224,124,.4); } 50% { opacity: .5; box-shadow: 0 0 0 5px rgba(62,224,124,0); } }
 
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(50px,6.2vw,90px);
+      line-height: .88; color: #fff;
+    }
+    .hero-title .t-green { color: #3ee07c; }
+
+    .hero-line {
+      opacity: 0;
+      transform: translateY(28px);
+      display: block;
+    }
+    .hero-line.l1 { animation: fadeUp 0.7s 0.35s cubic-bezier(.22,1,.36,1) forwards; }
+    .hero-line.l2 { animation: fadeUp 0.7s 0.5s cubic-bezier(.22,1,.36,1) forwards; }
+    .hero-line.l3 { animation: fadeUp 0.7s 0.65s cubic-bezier(.22,1,.36,1) forwards; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-sub {
+      font-size: 16px; line-height: 1.82;
+      color: rgba(255,255,255,.52); max-width: 480px;
+      margin: 22px 0 32px;
+      opacity: 0; animation: fadeUp 0.7s 0.75s ease forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.9s ease forwards;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 22px; border-radius: 999px;
+      font-size: 13.5px; font-weight: 800;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--grad-g); color: #fff; box-shadow: var(--sh-green-lg); }
+    .btn-primary:hover { box-shadow: 0 22px 60px rgba(13,145,70,.4), 0 8px 24px rgba(13,145,70,.22); }
+    .btn-ghost-dark {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.84);
+    }
+    .btn-ghost-dark:hover { background: rgba(255,255,255,.13); }
+
+    .hero-metrics {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: rgba(255,255,255,.06);
+      border-radius: 14px; margin-top: 24px;
+      opacity: 0; animation: fadeUp 0.7s 1.05s ease forwards;
+      overflow: hidden;
+    }
+    .metric {
+      padding: 17px 15px;
+      background: rgba(255,255,255,.035);
+      transition: background 0.2s ease;
+    }
+    .metric:hover { background: rgba(255,255,255,.07); }
+    .metric strong {
+      font-family: var(--font-display); font-size: 26px; color: #fff;
+      display: block;
+    }
+    .metric span { font-size: 10.5px; color: rgba(255,255,255,.42); margin-top: 4px; display: block; }
+
+    /* Hero visual side — animated phone */
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      opacity: 0; animation: fadeIn 1s 0.6s ease forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .phone-mockup {
+      position: relative;
+      width: 220px; height: 440px;
+      background: linear-gradient(160deg, #1a2e1e 0%, #0d1f11 100%);
+      border-radius: 38px;
+      border: 1.5px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.5),
+        0 40px 80px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.08);
+      overflow: hidden;
+      animation: phoneBob 6s ease-in-out infinite;
+    }
+    @keyframes phoneBob {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+    .phone-screen {
+      position: absolute; inset: 12px;
+      border-radius: 26px;
+      background: linear-gradient(160deg, #0c2814 0%, #071509 100%);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .phone-screen-emoji { font-size: 52px; animation: screenPulse 3s ease-in-out infinite; }
+    @keyframes screenPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    .phone-screen-label { font-size: 11px; color: rgba(255,255,255,.5); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .phone-screen-price { font-family: var(--font-display); font-size: 20px; color: #3ee07c; font-style: italic; }
+    .phone-notch {
+      position: absolute; top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 60px; height: 22px;
+      background: #070e08;
+      border-radius: 0 0 16px 16px;
+      z-index: 2;
+    }
+    .phone-side-btn {
+      position: absolute; right: -3px; top: 100px;
+      width: 4px; height: 40px;
+      background: rgba(255,255,255,.12); border-radius: 2px;
+    }
+
+    /* floating badges around phone */
+    .float-badge {
+      position: absolute;
+      background: rgba(255,255,255,.95);
+      border-radius: 14px;
+      padding: 8px 12px;
+      font-size: 11px; font-weight: 800;
+      color: var(--text); white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    .float-badge-1 {
+      top: 60px; right: -20px;
+      animation: floatBadge1 5s ease-in-out infinite;
+    }
+    .float-badge-2 {
+      bottom: 80px; left: -30px;
+      animation: floatBadge2 7s ease-in-out infinite;
+    }
+    .float-badge-3 {
+      top: 50%; right: -40px;
+      animation: floatBadge3 6s 1s ease-in-out infinite;
+    }
+    @keyframes floatBadge1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes floatBadge2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+    @keyframes floatBadge3 { 0%,100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 8px)); } }
+    .float-badge .fb-icon { font-size: 14px; margin-right: 4px; }
+    .float-badge .fb-green { color: var(--g1); }
+
+    /* ============================================================
+       TRUST
+    ============================================================ */
+    .trust { padding: 36px 0 0; }
+    .trust-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .trust-item {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-lg); padding: 18px 16px;
+      display: flex; gap: 13px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .trust-item:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+    .trust-icon {
+      width: 44px; height: 44px; border-radius: 13px;
+      background: var(--g-softer); color: var(--g2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .trust-item:hover .trust-icon { transform: scale(1.15) rotate(-5deg); }
+    .trust-item b { display: block; font-size: 13.5px; font-weight: 800; }
+    .trust-item span { font-size: 11.5px; color: var(--muted); }
+
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
+    .section { padding: 36px 0 0; }
+    .panel {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-2xl); box-shadow: var(--sh-xl); overflow: hidden;
+    }
+    .panel-head { padding: 30px 32px; border-bottom: 1px solid var(--line); }
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px,3.6vw,48px);
+      line-height: 1.02; margin-bottom: 12px; font-style: italic;
+    }
+    .tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 22px; }
+    .tab-btn {
+      padding: 9px 16px; border-radius: 999px;
+      background: var(--bg); border: 1px solid var(--line);
+      font-size: 12.5px; font-weight: 800;
+      transition: all 0.25s ease; cursor: pointer;
+    }
+    .tab-btn:hover { background: var(--g-softer); border-color: rgba(13,145,70,.3); }
+    .tab-btn.active { background: var(--grad-g); color: #fff; border-color: transparent; box-shadow: var(--sh-green); }
+    .panel-body { padding: 26px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: tabReveal 0.3s ease; }
+    @keyframes tabReveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .filter-btn {
+      padding: 7px 13px; border-radius: 999px;
+      background: #fff; border: 1px solid var(--line);
+      font-size: 11.5px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .filter-btn:hover { background: var(--g-softer); }
+    .filter-btn.active { background: var(--g-soft); color: var(--g2); border-color: rgba(10,117,56,.3); }
+
+    /* ============================================================
+       PRODUCT CARDS — with 3D tilt
+    ============================================================ */
+    .grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-xl); overflow: hidden;
+      transition: box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+      cursor: pointer;
+    }
+    .card:hover { box-shadow: var(--sh-lg); }
+    .card-media {
+      position: relative; height: 186px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 54px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(148deg,#e4f7ec,#cef0db);
+      transition: background 0.3s ease;
+      overflow: hidden;
+    }
+    .card:hover .card-media { background: linear-gradient(148deg,#d0f0e0,#b4eacc); }
+    .card-media-icon {
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+      display: block;
+    }
+    .card:hover .card-media-icon { transform: scale(1.18) translateY(-4px); }
+
+    /* shimmer on card media */
+    .card-media::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0s;
+    }
+    .card:hover .card-media::after {
+      transform: translateX(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .badge {
+      position: absolute; top: 11px; left: 11px;
+      padding: 4px 9px; border-radius: 999px;
+      font-size: 9px; font-weight: 800;
+      background: #daf5e6; color: #085424;
+      animation: badgePop 0.4s cubic-bezier(.34,1.56,.64,1) backwards;
+    }
+    @keyframes badgePop { from { transform: scale(0); opacity: 0; } }
+    .badge.hot { background: #fff0d6; color: #7a4400; }
+    .badge.sale { background: #ffe8e8; color: #7a0000; }
+
+    .card-body { padding: 20px 18px; }
+    .card-title { font-family: var(--font-display); font-size: 18px; font-style: italic; font-weight: 700; }
+    .card-text { color: var(--muted); font-size: 13px; margin: 8px 0 18px; line-height: 1.5; }
+    .card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .price strong { font-family: var(--font-display); font-size: 24px; }
+    .price-old { font-size: 11px; color: var(--muted); text-decoration: line-through; }
+
+    .mini-btn, .ghost-btn {
+      padding: 10px 16px; border-radius: 999px;
+      font-size: 12px; font-weight: 800; cursor: pointer;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+    }
+    .mini-btn:hover { transform: translateY(-1px); box-shadow: var(--sh-green); }
+    .mini-btn:active, .ghost-btn:active { transform: scale(0.96); }
+    .mini-btn { background: var(--grad-g); color: #fff; box-shadow: 0 4px 14px rgba(13,145,70,.2); }
+    .ghost-btn { background: var(--bg); border: 1px solid var(--line); }
+    .ghost-btn:hover { background: var(--g-softer); border-color: rgba(13,145,70,.3); }
+
+    /* ============================================================
+       SERVICE CARDS
+    ============================================================ */
+    .service-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .service-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-xl); padding: 24px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--grad-g);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
+    .service-card:hover::before { opacity: .03; }
+    .service-card > * { position: relative; z-index: 1; }
+
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: var(--g-softer);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 16px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s ease;
+    }
+    .service-card:hover .service-icon { transform: scale(1.12); background: var(--g-soft); }
+
+    .service-title { font-family: var(--font-display); font-size: 18px; font-style: italic; font-weight: 700; }
+    .service-price strong { font-family: var(--font-display); font-size: 24px; color: var(--g2); }
+    .card-actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+
+    /* ============================================================
+       ABOUT CARDS
+    ============================================================ */
+    .about-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .about-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-xl); padding: 24px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+    }
+    .about-card:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+    .about-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: var(--g-softer);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 16px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .about-card:hover .about-icon { transform: rotate(-8deg) scale(1.1); }
+    .about-title { font-family: var(--font-display); font-size: 20px; font-style: italic; font-weight: 700; margin-bottom: 8px; }
+
+    /* ============================================================
+       REVIEWS — auto-scroll carousel
+    ============================================================ */
+    .reviews-outer { overflow: hidden; position: relative; }
+    .reviews-track {
+      display: flex; gap: 14px;
+      animation: reviewSlide 18s linear infinite;
+      width: max-content;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+    @keyframes reviewSlide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .reviews-outer::before, .reviews-outer::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0;
+      width: 60px; z-index: 2; pointer-events: none;
+    }
+    .reviews-outer::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+    .reviews-outer::after { right: 0; background: linear-gradient(-90deg, #fff, transparent); }
+
+    .review-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-xl); padding: 24px;
+      width: 300px; flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+    .stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+    .review-text { font-style: italic; font-family: var(--font-display); font-size: 15px; line-height: 1.5; }
+    .review-author { font-weight: 800; margin-top: 12px; font-size: 13px; }
+    .review-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ============================================================
+       FAQ — enhanced accordion
+    ============================================================ */
+    .faq-box {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--r-2xl); padding: 32px;
+    }
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px,3.2vw,44px);
+      font-style: italic; margin-bottom: 24px;
+    }
+    .accordion { display: flex; flex-direction: column; gap: 12px; }
+    .acc-item {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: var(--r-lg); overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+    .acc-item.open { box-shadow: var(--sh-sm); border-color: rgba(13,145,70,.2); }
+    .acc-head {
+      padding: 20px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; text-align: left; cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .acc-head:hover { background: rgba(13,145,70,.03); }
+    .acc-head-left { display: flex; gap: 15px; align-items: center; }
+    .acc-icon {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: var(--g-softer);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 800; color: var(--g2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .acc-item.open .acc-icon { background: var(--g-soft); transform: scale(1.05); }
+    .acc-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; }
+    .acc-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), background 0.3s ease, color 0.3s ease;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .acc-item.open .acc-arrow { transform: rotate(45deg); background: var(--g1); color: #fff; border-color: transparent; }
+    .acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s cubic-bezier(.22,1,.36,1); }
+    .acc-item.open .acc-body { grid-template-rows: 1fr; }
+    .acc-body-inner { overflow: hidden; }
+    .acc-content { padding: 0 24px 24px; }
+    .acc-text { color: var(--muted); line-height: 1.7; }
+
+    /* ============================================================
+       CTA
+    ============================================================ */
+    .cta { padding: 48px 0 80px; }
+    .cta-box {
+      background: var(--grad-dark); color: #fff;
+      border-radius: var(--r-2xl); padding: 68px 40px;
+      text-align: center; box-shadow: var(--sh-xl);
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(13,145,70,.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(24,186,92,.15) 0%, transparent 60%);
+      animation: ctaGlow 8s ease-in-out infinite;
+    }
+    @keyframes ctaGlow {
+      0%,100% { opacity: 1; }
+      50% { opacity: .6; }
+    }
+    .cta-box > * { position: relative; z-index: 1; }
+    .cta-pill {
+      display: inline-flex; gap: 7px; align-items: center;
+      padding: 6px 13px; background: rgba(13,145,70,.18);
+      border-radius: 999px; margin-bottom: 22px;
+      font-size: 11px; font-weight: 800; color: #68eaa0;
+      border: 1px solid rgba(13,145,70,.3);
+    }
+    .cta-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px,4vw,56px);
+      line-height: 1.05; margin-bottom: 28px; font-style: italic;
+    }
+    .cta-box h2 span { color: #3ee07c; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* pulse ring on CTA primary btn */
+    .btn-pulse { position: relative; }
+    .btn-pulse::after {
+      content: '';
+      position: absolute; inset: -4px;
+      border-radius: 999px;
+      border: 2px solid rgba(62,224,124,.4);
+      animation: pulsering 2.5s ease-out infinite;
+    }
+    @keyframes pulsering {
+      0% { transform: scale(1); opacity: .7; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer { border-top: 1px solid var(--line); background: #e8ede8; padding: 50px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 34px; margin-bottom: 36px; }
+    .footer h4 { font-weight: 800; font-size: 13px; margin-bottom: 14px; color: var(--text-soft); text-transform: uppercase; letter-spacing: .8px; }
+    .footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer ul li { font-size: 13.5px; color: var(--muted); }
+    .footer ul li a { color: var(--muted); transition: color 0.2s ease; }
+    .footer ul li a:hover { color: var(--g1); }
+    .footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { font-size: 12px; color: var(--muted); }
+
+    /* ============================================================
+       FABs — enhanced
+    ============================================================ */
+    .fab, .quote-fab { position: fixed; right: 18px; z-index: 80; transition: transform 0.2s cubic-bezier(.34,1.56,.64,1); }
+    .fab:hover, .quote-fab:hover { transform: scale(1.08); }
+    .fab:active, .quote-fab:active { transform: scale(0.94); }
+    .fab {
+      bottom: 18px; width: 56px; height: 56px; border-radius: 50%;
+      background: #1db954; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 20px rgba(29,185,84,.4), 0 2px 8px rgba(0,0,0,.2);
+    }
+    /* pulse ring on WhatsApp FAB */
+    .fab::before {
+      content: '';
+      position: absolute; inset: -5px;
+      border-radius: 50%;
+      border: 2px solid rgba(29,185,84,.3);
+      animation: pulsering 2.5s 1s ease-out infinite;
+    }
+    .quote-fab {
+      bottom: 86px; padding: 10px 18px;
+      border-radius: 999px; background: var(--grad-g);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: var(--sh-green-lg);
+    }
+
+    /* ============================================================
+       DRAWER
+    ============================================================ */
+    .drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(7,14,8,.4); backdrop-filter: blur(3px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s;
+      z-index: 90;
+    }
+    .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed; top: 0; right: 0;
+      width: min(416px,100%); height: 100dvh;
+      background: #fff; border-left: 1px solid var(--line);
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      z-index: 91; display: flex; flex-direction: column;
+    }
+    .drawer.show { transform: translateX(0); }
+    .drawer-body { padding: 18px 20px; overflow: auto; flex: 1; }
+    .drawer-visual {
+      height: 200px; border-radius: 18px;
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 58px; margin-bottom: 16px;
+      background: linear-gradient(148deg,#e4f7ec,#cef0db);
+      transition: transform 0.3s ease;
+    }
+    .drawer-visual:hover { transform: scale(1.02); }
+    .drawer-price strong { font-family: var(--font-display); font-size: 32px; }
+    .drawer-price small { font-size: 13px; color: var(--muted); text-decoration: line-through; margin-left: 8px; }
+    .drawer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .drawer-list li {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 13px; color: var(--text-soft);
+      padding: 8px 12px; background: var(--g-softer);
+      border-radius: 10px;
+    }
+    .drawer-list li::before { content: '✓'; color: var(--g1); font-weight: 800; flex-shrink: 0; }
+    .drawer-actions { display: flex; gap: 9px; margin-top: 17px; }
+    .drawer-btn-sec {
+      padding: 14px 22px; background: var(--bg);
+      border: 1px solid var(--line); border-radius: 999px;
+      font-weight: 800; cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .drawer-btn-sec:hover { background: var(--g-softer); }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    #toastContainer {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 200; display: flex; flex-direction: column; gap: 8px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--ink); color: #fff;
+      padding: 12px 20px; border-radius: 999px;
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      animation: toastIn 0.4s cubic-bezier(.34,1.56,.64,1);
+      pointer-events: auto; white-space: nowrap;
+    }
+    .toast.out { animation: toastOut 0.3s ease forwards; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(16px) scale(.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes toastOut { to { opacity: 0; transform: translateY(-10px) scale(.9); } }
+
+    /* ============================================================
+       MOBILE APP MODE
+    ============================================================ */
+    .mobile-app-shell { display: none; }
+    .mobile-view-layer {
+      background: var(--bg);
+      min-height: calc(100dvh - 70px - 34px);
+      overflow-y: auto; overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: calc(var(--mobile-nav-h) + 28px + env(safe-area-inset-bottom, 0px));
+    }
+    .mobile-view { display: none; }
+    .mobile-view.active { display: block; animation: tabReveal 0.3s ease; }
+    .mobile-header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(238,242,238,.96); backdrop-filter: blur(20px);
+      padding: 16px 0 12px; margin-bottom: 12px;
+      border-bottom: 1px solid rgba(13,145,70,.12);
+    }
+    .mobile-header h1 {
+      font-family: var(--font-display); font-size: 28px;
+      font-weight: 700; font-style: italic; letter-spacing: -0.5px;
+      color: var(--text); margin: 0; line-height: 1.1;
+    }
+    .mobile-panel {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 26px; margin-bottom: 16px; overflow: hidden;
+      transition: transform 0.1s ease;
+    }
+    .mobile-panel-head {
+      padding: 20px 18px 16px;
+      background: linear-gradient(155deg,#fff 0%,#f7fbf8 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-panel-title { font-family: var(--font-display); font-size: 24px; line-height: 1.02; font-style: italic; margin-bottom: 8px; font-weight: 700; }
+    .mobile-panel-sub { color: var(--muted); font-size: 13px; }
+    .mobile-panel-body { padding: 16px; }
+    .mobile-stack { display: flex; flex-direction: column; gap: 16px; }
+    .mobile-home-hero {
+      background: var(--grad-dark); color: #fff;
+      border-radius: 28px; padding: 24px 20px;
+      transition: transform 0.1s ease; position: relative; overflow: hidden;
+    }
+    .mobile-home-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(13,145,70,.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .mobile-home-hero:active { transform: scale(0.99); }
+    .mobile-home-title { font-family: var(--font-display); font-size: 32px; line-height: 1; font-style: italic; margin-bottom: 10px; font-weight: 700; position: relative; z-index: 1; }
+    .mobile-home-title span { color: #49e583; }
+    .mobile-home-sub { color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.5; margin-bottom: 20px; position: relative; z-index: 1; }
+    .mobile-home-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; position: relative; z-index: 1; }
+    .mobile-mini-stat { background: rgba(255,255,255,.1); border-radius: 18px; padding: 12px; backdrop-filter: blur(4px); }
+    .mobile-mini-stat strong { font-family: var(--font-display); font-size: 20px; color: #fff; display: block; margin-bottom: 4px; }
+    .mobile-mini-stat span { font-size: 11px; opacity: 0.8; }
+    .mobile-quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mobile-quick-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 22px; padding: 14px; text-align: left;
+      width: 100%; cursor: pointer;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+    }
+    .mobile-quick-card:hover { transform: translateY(-3px); box-shadow: var(--sh-sm); }
+    .mobile-quick-card:active { transform: scale(0.97); }
+    .mobile-quick-card-icon { width: 40px; height: 40px; border-radius: 14px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 10px; }
+    .mobile-quick-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+    .mobile-quick-card p { font-size: 11px; color: var(--muted); }
+    .mobile-list { display: flex; flex-direction: column; gap: 14px; }
+    .mobile-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 24px; overflow: hidden;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+    }
+    .mobile-card:hover { transform: translateY(-2px); box-shadow: var(--sh-sm); }
+    .mobile-card:active { transform: scale(0.98); }
+    .mobile-card-top { display: flex; gap: 14px; padding: 16px; }
+    .mobile-card-media { width: 66px; height: 66px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; background: linear-gradient(148deg,#e4f7ec,#cef0db); flex: 0 0 66px; }
+    .mobile-card-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; margin-bottom: 4px; }
+    .mobile-card-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .mobile-card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 0 16px 16px; }
+    .mobile-card-price { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+    .mobile-inline-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .mobile-mini-btn, .mobile-ghost-btn { padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; cursor: pointer; transition: transform 0.2s cubic-bezier(.34,1.56,.64,1); }
+    .mobile-mini-btn:active, .mobile-ghost-btn:active { transform: scale(0.96); }
+    .mobile-mini-btn { background: var(--grad-g); color: #fff; box-shadow: var(--sh-green); }
+    .mobile-ghost-btn { background: var(--bg); border: 1px solid var(--line); }
+    .mobile-about-list { display: flex; flex-direction: column; gap: 14px; }
+    .mobile-about-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 18px; transition: transform 0.1s ease; }
+    .mobile-about-card:active { transform: scale(0.98); }
+    .mobile-about-head { display: flex; gap: 14px; margin-bottom: 10px; align-items: center; }
+    .mobile-about-icon { width: 44px; height: 44px; border-radius: 14px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .mobile-about-title { font-family: var(--font-display); font-size: 17px; font-style: italic; font-weight: 700; }
+    .mobile-contact-card { background: var(--grad-dark); color: #fff; border-radius: 28px; padding: 24px 20px; margin-bottom: 16px; transition: transform 0.1s ease; position: relative; overflow: hidden; }
+    .mobile-contact-card::before { content: ''; position: absolute; bottom: -30px; right: -30px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(13,145,70,.25) 0%, transparent 70%); pointer-events: none; }
+    .mobile-contact-card:active { transform: scale(0.99); }
+    .mobile-contact-title { font-family: var(--font-display); font-size: 28px; line-height: 1; font-style: italic; font-weight: 700; margin-bottom: 10px; position: relative; z-index: 1; }
+    .mobile-contact-text { opacity: 0.8; font-size: 13px; margin-bottom: 20px; position: relative; z-index: 1; }
+    .mobile-contact-meta { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; position: relative; z-index: 1; }
+    .mobile-contact-item { background: rgba(255,255,255,.1); border-radius: 18px; padding: 14px; font-size: 13px; }
+    .mobile-faq-shell { display: flex; flex-direction: column; gap: 12px; }
+    .mobile-faq-item { background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; transition: all 0.2s ease; }
+    .mobile-faq-head { padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; text-align: left; cursor: pointer; transition: background 0.2s ease; }
+    .mobile-faq-left { display: flex; align-items: center; gap: 12px; }
+    .mobile-faq-icon { width: 34px; height: 34px; border-radius: 11px; background: var(--g-softer); color: var(--g2); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+    .mobile-faq-title { font-size: 13.5px; font-weight: 700; }
+    .mobile-faq-arrow { width: 24px; height: 24px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s ease; flex-shrink: 0; }
+    .mobile-faq-item.open .mobile-faq-arrow { transform: rotate(45deg); background: var(--g1); color: #fff; border-color: transparent; }
+    .mobile-faq-body { display: none; padding: 0 16px 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .mobile-faq-item.open .mobile-faq-body { display: block; animation: fadeSlideDown 0.25s ease; }
+
+    @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ============================================================
+       MOBILE BOTTOM NAV
+    ============================================================ */
+    .mobile-bottom-nav-wrap {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 70; padding: 0 12px;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .mobile-bottom-nav {
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px 24px 0 0;
+      border: 1px solid var(--line);
+      border-bottom: none;
+      padding: 10px 6px;
+      box-shadow: 0 -8px 32px rgba(7,14,8,.08);
+    }
+    .nav-track { display: flex; position: relative; gap: 2px; }
+    .nav-indicator {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      height: calc(100% - 8px);
+      background: var(--g-soft);
+      border-radius: 14px;
+      transition: left 0.35s cubic-bezier(.34,1.56,.64,1), width 0.35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 0; pointer-events: none;
+    }
+    .mobile-nav-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 8px 4px; gap: 3px; border-radius: 14px;
+      cursor: pointer; position: relative; z-index: 1;
+      transition: color 0.25s ease;
+      color: var(--muted); font-size: 9.5px; font-weight: 700;
+    }
+    .mobile-nav-item.active { color: var(--g2); }
+    .mobile-nav-icon {
+      font-size: 20px; line-height: 1;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .mobile-nav-item.active .mobile-nav-icon { transform: scale(1.12); }
+    .mobile-nav-label { font-size: 9px; font-weight: 700; }
+
+    /* ============================================================
+       MOBILE MENU SHEET
+    ============================================================ */
+    .menu-overlay { position: fixed; inset: 0; background: rgba(7,14,8,.4); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: .22s; z-index: 95; }
+    .menu-overlay.show { opacity: 1; pointer-events: auto; }
+    .mobile-menu-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 28px 28px 0 0; padding: 20px 20px 40px; transform: translateY(100%); transition: transform 0.35s cubic-bezier(.22,1,.36,1); z-index: 96; }
+    .mobile-menu-sheet.open { transform: translateY(0); }
+    .sheet-handle { width: 36px; height: 4px; background: var(--line); border-radius: 999px; margin: 0 auto 20px; }
+    .sheet-title { font-family: var(--font-display); font-size: 20px; font-style: italic; font-weight: 700; margin-bottom: 16px; }
+    .menu-links-grid { display: flex; flex-direction: column; gap: 4px; }
+    .menu-link { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; font-size: 15px; font-weight: 700; transition: background 0.2s ease; cursor: pointer; }
+    .menu-link:hover { background: var(--g-softer); color: var(--g1); }
+    .menu-link-icon { width: 38px; height: 38px; border-radius: 12px; background: var(--g-softer); display: flex; align-items: center; justify-content: center; font-size: 17px; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-metrics { grid-template-columns: repeat(2,1fr); }
+      .grid { grid-template-columns: repeat(2,1fr); }
+      .service-grid { grid-template-columns: repeat(2,1fr); }
+      .trust-grid { grid-template-columns: repeat(2,1fr); }
+      .reviews-grid { grid-template-columns: repeat(2,1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links, .quote-fab { display: none; }
+      .menu-btn { display: flex; }
+
+      .desktop-shell { display: none; }
+      .mobile-app-shell { display: block; }
+      .mobile-bottom-nav-wrap { display: block; }
+
+      body.mobile-app-mode .topbar { display: none; }
+      body.mobile-app-mode .nav { display: none; }
+      body.mobile-app-mode > main { display: none; }
+      body.mobile-app-mode footer { display: none; }
+      body.mobile-app-mode .fab { bottom: calc(var(--mobile-nav-h) + 12px + env(safe-area-inset-bottom, 0px)); }
+      body.mobile-app-mode .quote-fab { display: none; }
+    }
+
+    /* ============================================================
+       SECTION LABEL
+    ============================================================ */
+    .section-label { display: inline-flex; gap: 9px; font-size: 10px; font-weight: 800; color: var(--g2); margin-bottom: 13px; align-items: center; }
+    .section-label-line { width: 20px; height: 1.5px; background: var(--g1); border-radius: 999px; }
+
+    /* ============================================================
+       STATS COUNTER SECTION
+    ============================================================ */
+    .stats-strip {
+      padding: 28px 0 0;
+    }
+    .stats-grid {
+      background: var(--grad-dark); border-radius: var(--r-2xl);
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; overflow: hidden;
+      box-shadow: var(--sh-xl);
+    }
+    .stat-item {
+      padding: 28px 24px; text-align: center; color: #fff;
+      border-right: 1px solid rgba(255,255,255,.07);
+      transition: background 0.3s ease;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(255,255,255,.03); }
+    .stat-num { font-family: var(--font-display); font-size: 42px; color: #3ee07c; line-height: 1; }
+    .stat-label { font-size: 11.5px; color: rgba(255,255,255,.5); margin-top: 6px; font-weight: 600; }
+    @media (max-width: 620px) { .stats-grid { grid-template-columns: repeat(2,1fr); } .stat-item { border-bottom: 1px solid rgba(255,255,255,.07); } }
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="container">Diagnóstico <strong>gratuito</strong> e orçamento rápido pelo WhatsApp.</div></div>  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="#" class="brand">
-        <div class="brand-badge">📱</div>
-        <div class="brand-text">
-          <div class="brand-name">SmartFlix<sup>PVH</sup></div>
-          <div class="brand-sub">Assistência técnica & acessórios</div>
-        </div>
-      </a>
-      <div class="nav-links">
-        <a href="#explorar">Explorar</a>
-        <a href="#faq">FAQ</a>
-        <a href="#cta" class="nav-cta">WhatsApp</a>
+
+<!-- Scroll progress -->
+<div id="scrollBar"></div>
+
+<!-- Toast container -->
+<div id="toastContainer"></div>
+
+<!-- Topbar with marquee -->
+<div class="topbar">
+  <div class="topbar-track" id="topbarTrack">
+    <span class="topbar-item"><span class="topbar-dot">✦</span> <strong>Diagnóstico gratuito</strong> — sem compromisso</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Garantia de <strong>90 dias</strong> em todos os serviços</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Atendimento via <strong>WhatsApp</strong> (69) 98113-3218</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Porto Velho, <strong>RO</strong> — Reparo em até 2h</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> <strong>Diagnóstico gratuito</strong> — sem compromisso</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Garantia de <strong>90 dias</strong> em todos os serviços</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Atendimento via <strong>WhatsApp</strong> (69) 98113-3218</span>
+    <span class="topbar-item"><span class="topbar-dot">✦</span> Porto Velho, <strong>RO</strong> — Reparo em até 2h</span>
+  </div>
+</div>
+
+<nav class="nav" id="mainNav">
+  <div class="container nav-inner">
+    <a class="brand" href="#">
+      <div class="brand-badge">📱</div>
+      <div>
+        <div class="brand-name">SmartFlix<sup>PVH</sup></div>
+        <div class="brand-sub">Assistência &amp; Acessórios</div>
       </div>
-      <button class="menu-btn" id="mobileMenuBtn" type="button">☰</button>
+    </a>
+    <div class="nav-links">
+      <a href="#explorar">Produtos</a>
+      <a href="#explorar" onclick="setTimeout(()=>openTab('consertos',document.querySelector('[data-tab=consertos]')),50)">Consertos</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta btn" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
-  </nav>  <div class="menu-overlay" id="menuOverlay"></div>
-  <div class="mobile-menu-sheet" id="mobileMenuSheet">
-    <div class="sheet-header">
-      <h3>Menu</h3>
-      <button class="sheet-close" id="closeMenuSheetBtn" type="button">✕</button>
-    </div>
-    <div class="sheet-links">
-      <button class="menu-link" data-view="products" type="button"><span class="link-icon">🛍️</span> Explorar</button>
-      <button class="menu-link" data-view="faq" type="button"><span class="link-icon">❓</span> FAQ</button>
-      <button class="menu-link" data-view="contact" type="button"><span class="link-icon">💬</span> Orçamento</button>
-    </div>
-    <a class="sheet-cta" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" rel="noopener">Falar no WhatsApp</a>
-  </div>  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span>Porto Velho, RO · desde 2019</div>
-          <h1 class="hero-title"><span class="t-green">Conserta de verdade.</span><br>Vende com cuidado.</h1>
-          <p class="hero-sub">Diagnóstico gratuito, peças selecionadas e garantia real — com atendimento direto pelo WhatsApp.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">Pedir orçamento grátis</a>
-            <a class="btn btn-ghost-dark" href="#explorar">Ver produtos e serviços</a>
-          </div>
-          <div class="hero-metrics">
-            <div class="metric"><strong>+2.400</strong><span>Clientes</span></div>
-            <div class="metric"><strong>98%</strong><span>Satisfação</span></div>
-            <div class="metric"><strong>90 dias</strong><span>Garantia</span></div>
-            <div class="metric"><strong>~2h</strong><span>Reparo médio</span></div>
-          </div>
+    <button class="menu-btn" id="mobileMenuBtn" type="button" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<main class="desktop-shell">
+
+  <!-- ============================================================ HERO ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Porto Velho · RO</div>
+        <h1 class="hero-title">
+          <span class="hero-line l1">Seu celular</span>
+          <span class="hero-line l2 t-green">consertado</span>
+          <span class="hero-line l3">do jeito certo.</span>
+        </h1>
+        <p class="hero-sub">Diagnóstico gratuito, peças selecionadas e garantia real. Reparo profissional em até 2 horas — tudo pelo WhatsApp.</p>
+        <div class="hero-btns">
+          <a class="btn btn-primary btn-pulse" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">💬 Pedir orçamento</a>
+          <a class="btn btn-ghost-dark" href="#explorar">Ver serviços ↓</a>
         </div>
-        <div class="hero-visual">
-          <div class="phone-wrap"><div class="phone" style="width:200px; height:400px; background:#111; border-radius:40px; margin:0 auto;"></div></div>
+        <div class="hero-metrics">
+          <div class="metric"><strong class="count" data-target="500">0</strong><span>Clientes atendidos</span></div>
+          <div class="metric"><strong>2h</strong><span>Tempo médio de reparo</span></div>
+          <div class="metric"><strong>90d</strong><span>Garantia em serviços</span></div>
+          <div class="metric"><strong class="count" data-target="98">0</strong><span>% de satisfação</span></div>
         </div>
       </div>
-    </section><section class="mobile-app-shell" id="mobileAppShell">
+
+      <!-- Animated phone visual -->
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-side-btn"></div>
+          <div class="phone-screen">
+            <div class="phone-screen-emoji">📱</div>
+            <div class="phone-screen-label">SmartFlix</div>
+            <div class="phone-screen-price">Tudo consertado</div>
+          </div>
+        </div>
+        <div class="float-badge float-badge-1"><span class="fb-icon">✅</span> <span class="fb-green">Aprovado!</span></div>
+        <div class="float-badge float-badge-2"><span class="fb-icon">🔋</span> Bateria nova</div>
+        <div class="float-badge float-badge-3"><span class="fb-icon">⚡</span> Em 2h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ TRUST ============================================================ -->
+  <section class="trust">
+    <div class="container trust-grid">
+      <div class="trust-item reveal reveal-delay-1">
+        <div class="trust-icon">🔍</div>
+        <div><b>Diagnóstico gratuito</b><span>Entenda antes de aprovar</span></div>
+      </div>
+      <div class="trust-item reveal reveal-delay-2">
+        <div class="trust-icon">🛡️</div>
+        <div><b>Garantia real</b><span>90 dias em cada serviço</span></div>
+      </div>
+      <div class="trust-item reveal reveal-delay-3">
+        <div class="trust-icon">⚡</div>
+        <div><b>Reparo em até 2h</b><span>Ágil e sem enrolação</span></div>
+      </div>
+      <div class="trust-item reveal reveal-delay-4">
+        <div class="trust-icon">🧩</div>
+        <div><b>Peças selecionadas</b><span>Qualidade garantida</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ STATS ============================================================ -->
+  <section class="stats-strip reveal">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num"><span class="count-green" data-target="500">0</span>+</div>
+          <div class="stat-label">Clientes satisfeitos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span class="count-green" data-target="8">0</span>+</div>
+          <div class="stat-label">Anos de experiência</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span class="count-green" data-target="98">0</span>%</div>
+          <div class="stat-label">Taxa de aprovação</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span class="count-green" data-target="2">0</span>h</div>
+          <div class="stat-label">Tempo médio de reparo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ EXPLORE ============================================================ -->
+  <section class="section" id="explorar">
+    <div class="container panel reveal">
+      <div class="panel-head">
+        <div class="section-label"><span class="section-label-line"></span>Explore</div>
+        <h2 class="panel-title">Loja, serviços e confiança — tudo em <em>uma experiência</em></h2>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="produtos" type="button">🛒 Produtos</button>
+          <button class="tab-btn" data-tab="consertos" type="button">🔧 Consertos</button>
+          <button class="tab-btn" data-tab="sobre" type="button">⭐ Diferenciais</button>
+          <button class="tab-btn" data-tab="avaliacoes" type="button">💬 Avaliações</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="tab-panel active" id="tab-produtos">
+          <div class="filters" id="desktopFilters">
+            <button class="filter-btn active" data-cat="todos" type="button">Todos</button>
+            <button class="filter-btn" data-cat="capinha" type="button">Capinhas</button>
+            <button class="filter-btn" data-cat="protecao" type="button">Proteção</button>
+            <button class="filter-btn" data-cat="carregador" type="button">Carregadores</button>
+            <button class="filter-btn" data-cat="cabo" type="button">Cabos</button>
+            <button class="filter-btn" data-cat="audio" type="button">Áudio</button>
+            <button class="filter-btn" data-cat="outro" type="button">Outros</button>
+          </div>
+          <div class="grid" id="productsGrid"></div>
+        </div>
+        <div class="tab-panel" id="tab-consertos"><div class="service-grid" id="servicesGrid"></div></div>
+        <div class="tab-panel" id="tab-sobre"><div class="about-grid" id="aboutGrid"></div></div>
+        <div class="tab-panel" id="tab-avaliacoes">
+          <div class="reviews-outer" id="reviewsOuter">
+            <div class="reviews-track" id="reviewsTrack"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ FAQ ============================================================ -->
+  <section class="section" id="faq">
+    <div class="container faq-box reveal">
+      <h2 class="faq-title">Perguntas frequentes</h2>
+      <div class="accordion" id="faqAccordion"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA ============================================================ -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <div class="cta-box reveal">
+        <div class="cta-pill"><span class="eyebrow-dot"></span>Atendimento agora</div>
+        <h2>Pronto para resolver <span>o seu celular?</span></h2>
+        <p style="color:rgba(255,255,255,.6); margin-bottom: 32px; font-size: 15px;">Fale direto com a gente pelo WhatsApp e receba seu orçamento em minutos.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary btn-pulse" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
+          <a class="btn btn-ghost-dark" href="tel:+5569981133218">📞 Ligar agora</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ FOOTER ============================================================ -->
+<footer class="footer desktop-shell">
   <div class="container">
-    <div class="mobile-view-layer" id="mobileViewLayer">
-      <div class="mobile-view active" id="view-home">
-        <div class="mobile-header"><div class="container"><h1>SmartFlix</h1></div></div>
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom: 14px;">
+          <div class="brand-badge">📱</div>
+          <div>
+            <div class="brand-name">SmartFlix<sup>PVH</sup></div>
+            <div class="brand-sub">Assistência &amp; Acessórios</div>
+          </div>
+        </div>
+        <p style="font-size:13.5px; color:var(--muted); line-height: 1.7; max-width: 280px;">Assistência técnica e acessórios premium em Porto Velho. Diagnóstico gratuito, garantia real e atendimento pelo WhatsApp.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#explorar">Produtos</a></li>
+          <li><a href="#explorar">Consertos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#cta">Orçamento</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li>Porto Velho, RO</li>
+          <li><a href="tel:+5569981133218">(69) 98113-3218</a></li>
+          <li><a href="https://wa.me/5569981133218" target="_blank">WhatsApp direto</a></li>
+          <li>Diagnóstico gratuito</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> SmartFlix. Todos os direitos reservados.</p>
+      <p style="font-size:11px; color:var(--muted);">Porto Velho · RO · Brasil</p>
+    </div>
+  </div>
+</footer>
+
+<!-- FABs -->
+<a class="quote-fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">💬 Pedir orçamento</a>
+<a class="fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" rel="noopener" id="whatsappFab">💬</a>
+
+<!-- ============================================================ MOBILE APP SHELL ============================================================ -->
+<section class="mobile-app-shell">
+  <div class="mobile-view-layer" id="mobileViewLayer">
+
+    <div class="mobile-view active" id="view-home">
+      <div class="mobile-header"><div class="container"><h1>SmartFlix<sup style="font-size:10px; color:var(--g1);">PVH</sup></h1></div></div>
+      <div class="container">
         <div class="mobile-stack">
           <div class="mobile-home-hero">
-            <div class="eyebrow" style="margin-bottom:12px; padding:5px 10px;"><span class="eyebrow-dot"></span>Porto Velho</div>
+            <div class="eyebrow" style="margin-bottom:12px; padding:5px 10px; font-size:9.5px;"><span class="eyebrow-dot"></span>Porto Velho · RO</div>
             <div class="mobile-home-title">Resolve<br><span>sem enrolação.</span></div>
             <p class="mobile-home-sub">Orçamento rápido, produtos premium e conserto confiável. Tudo pelo WhatsApp.</p>
-            <a class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">Pedir orçamento</a>
+            <a class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:13px; justify-content:center;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">💬 Pedir orçamento</a>
             <div class="mobile-home-mini">
               <div class="mobile-mini-stat"><strong>90d</strong><span>Garantia</span></div>
               <div class="mobile-mini-stat"><strong>~2h</strong><span>Reparo</span></div>
@@ -422,7 +1332,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; }
           </div>
           <div class="mobile-panel">
             <div class="mobile-panel-head">
-              <div style="display:inline-flex; gap:8px; font-size:9px; font-weight:800; color:var(--g2); margin-bottom:10px;"><span style="width:18px; height:1.5px; background:var(--g1); border-radius:999px;"></span>FAQ rápido</div>
+              <div class="section-label"><span class="section-label-line"></span>FAQ rápido</div>
               <div class="mobile-panel-title">Dúvidas comuns</div>
               <div class="mobile-panel-sub">Respostas diretas</div>
             </div>
@@ -430,9 +1340,11 @@ button { font: inherit; border: none; background: none; cursor: pointer; }
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="mobile-view" id="view-products">
-        <div class="mobile-header"><div class="container"><h1>Produtos</h1></div></div>
+    <div class="mobile-view" id="view-products">
+      <div class="mobile-header"><div class="container"><h1>Produtos</h1></div></div>
+      <div class="container">
         <div class="mobile-panel">
           <div class="mobile-panel-body">
             <div class="filters" id="mobileProductFilters">
@@ -448,554 +1360,646 @@ button { font: inherit; border: none; background: none; cursor: pointer; }
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="mobile-view" id="view-services">
-        <div class="mobile-header"><div class="container"><h1>Consertos</h1></div></div>
+    <div class="mobile-view" id="view-services">
+      <div class="mobile-header"><div class="container"><h1>Consertos</h1></div></div>
+      <div class="container">
         <div class="mobile-panel"><div class="mobile-panel-body"><div class="mobile-list" id="mobileServicesList"></div></div></div>
       </div>
+    </div>
 
-      <div class="mobile-view" id="view-about">
-        <div class="mobile-header"><div class="container"><h1>Diferenciais</h1></div></div>
+    <div class="mobile-view" id="view-about">
+      <div class="mobile-header"><div class="container"><h1>Diferenciais</h1></div></div>
+      <div class="container">
         <div class="mobile-panel"><div class="mobile-panel-body"><div class="mobile-about-list" id="mobileAboutList"></div></div></div>
       </div>
+    </div>
 
-      <div class="mobile-view" id="view-faq">
-        <div class="mobile-header"><div class="container"><h1>FAQ</h1></div></div>
+    <div class="mobile-view" id="view-faq">
+      <div class="mobile-header"><div class="container"><h1>FAQ</h1></div></div>
+      <div class="container">
         <div class="mobile-panel"><div class="mobile-panel-body"><div class="mobile-faq-shell" id="mobileFaqFull"></div></div></div>
       </div>
+    </div>
 
-      <div class="mobile-view" id="view-contact">
-        <div class="mobile-header"><div class="container"><h1>Contato</h1></div></div>
+    <div class="mobile-view" id="view-contact">
+      <div class="mobile-header"><div class="container"><h1>Contato</h1></div></div>
+      <div class="container">
         <div class="mobile-contact-card">
           <div class="mobile-contact-title">Atendimento direto,<br>sem enrolação.</div>
           <div class="mobile-contact-text">Fale com a gente agora e receba orçamento ou suporte rápido.</div>
-          <a class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:13px;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:13px; justify-content:center;" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
           <div class="mobile-contact-meta">
-            <div class="mobile-contact-item"><strong>Telefone</strong><br>(69) 98113-3218</div>
-            <div class="mobile-contact-item"><strong>Local</strong><br>Porto Velho, RO</div>
-            <div class="mobile-contact-item"><strong>Diagnóstico</strong><br>Gratuito</div>
-            <div class="mobile-contact-item"><strong>Garantia</strong><br>90 dias</div>
+            <div class="mobile-contact-item"><strong>📞 Telefone</strong><br>(69) 98113-3218</div>
+            <div class="mobile-contact-item"><strong>📍 Local</strong><br>Porto Velho, RO</div>
+            <div class="mobile-contact-item"><strong>🔍 Diagnóstico</strong><br>Gratuito</div>
+            <div class="mobile-contact-item"><strong>🛡️ Garantia</strong><br>90 dias</div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<section class="trust"><div class="container trust-grid">
-  <div class="trust-item"><div class="trust-icon">🔍</div><div><b>Diagnóstico gratuito</b><span>Entenda antes de aprovar</span></div></div>
-  <div class="trust-item"><div class="trust-icon">🛡️</div><div><b>Garantia real</b><span>Segurança em serviços</span></div></div>
-  <div class="trust-item"><div class="trust-icon">⚡</div><div><b>Atendimento rápido</b><span>Resposta ágil</span></div></div>
-  <div class="trust-item"><div class="trust-icon">🧩</div><div><b>Peças selecionadas</b><span>Qualidade garantida</span></div></div>
-</div></section>
-
-<section class="section" id="explorar">
-  <div class="container panel">
-    <div class="panel-head">
-      <div style="display:inline-flex; gap:9px; font-size:10px; font-weight:800; color:var(--g2); margin-bottom:13px;"><span style="width:20px; height:1.5px; background:var(--g1); border-radius:999px;"></span>Explore</div>
-      <h2 class="panel-title">Loja, serviços e confiança — tudo em <em>uma experiência</em></h2>
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="produtos" type="button">Produtos</button>
-        <button class="tab-btn" data-tab="consertos" type="button">Consertos</button>
-        <button class="tab-btn" data-tab="sobre" type="button">Diferenciais</button>
-        <button class="tab-btn" data-tab="avaliacoes" type="button">Avaliações</button>
-      </div>
+<!-- Mobile bottom nav -->
+<div class="mobile-bottom-nav-wrap">
+  <nav class="mobile-bottom-nav">
+    <div class="nav-track">
+      <div class="nav-indicator" id="mobileNavIndicator"></div>
+      <button class="mobile-nav-item active" data-view="home" type="button"><span class="mobile-nav-icon">⌂</span><span class="mobile-nav-label">Início</span></button>
+      <button class="mobile-nav-item" data-view="products" type="button"><span class="mobile-nav-icon">🛍️</span><span class="mobile-nav-label">Produtos</span></button>
+      <button class="mobile-nav-item" data-view="services" type="button"><span class="mobile-nav-icon">🔧</span><span class="mobile-nav-label">Consertos</span></button>
+      <button class="mobile-nav-item" data-view="about" type="button"><span class="mobile-nav-icon">✦</span><span class="mobile-nav-label">Sobre</span></button>
+      <button class="mobile-nav-item" data-view="faq" type="button"><span class="mobile-nav-icon">❓</span><span class="mobile-nav-label">FAQ</span></button>
+      <button class="mobile-nav-item" data-view="contact" type="button"><span class="mobile-nav-icon">☏</span><span class="mobile-nav-label">Contato</span></button>
     </div>
-    <div class="panel-body">
-      <div class="tab-panel active" id="tab-produtos">
-        <div class="filters" id="desktopFilters">
-          <button class="filter-btn active" data-cat="todos" type="button">Todos</button>
-          <button class="filter-btn" data-cat="capinha" type="button">Capinhas</button>
-          <button class="filter-btn" data-cat="protecao" type="button">Proteção</button>
-          <button class="filter-btn" data-cat="carregador" type="button">Carregadores</button>
-          <button class="filter-btn" data-cat="cabo" type="button">Cabos</button>
-          <button class="filter-btn" data-cat="audio" type="button">Áudio</button>
-          <button class="filter-btn" data-cat="outro" type="button">Outros</button>
-        </div>
-        <div class="grid" id="productsGrid"></div>
-      </div>
-      <div class="tab-panel" id="tab-consertos"><div class="service-grid" id="servicesGrid"></div></div>
-      <div class="tab-panel" id="tab-sobre"><div class="about-grid" id="aboutGrid"></div></div>
-      <div class="tab-panel" id="tab-avaliacoes"><div class="reviews-grid" id="reviewsGrid"></div></div>
+  </nav>
+</div>
+
+<!-- Drawer overlay -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer">
+  <div style="padding:20px 22px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <div id="drawerBadge" style="display:inline-flex; padding:4px 9px; background:var(--g-soft); border-radius:999px; font-size:9.5px; font-weight:800; color:var(--g2);">Detalhes</div>
+      <h3 id="drawerTitle" style="font-family:var(--font-display); font-size:22px; margin-top:9px; font-style:italic;">Item</h3>
+    </div>
+    <button id="drawerCloseBtn" type="button" style="width:34px; height:34px; background:var(--bg); border:1px solid var(--line); border-radius:9px; cursor:pointer; font-size:14px;">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-visual" id="drawerVisual">📱</div>
+    <div class="drawer-price"><strong id="drawerPrice">R$ 0,00</strong><small id="drawerOldPrice"></small></div>
+    <p id="drawerText" style="color:var(--muted); margin:15px 0; font-size:14px; line-height:1.6;"></p>
+    <ul class="drawer-list" id="drawerList"></ul>
+    <div class="drawer-actions">
+      <a class="btn btn-primary" id="drawerPrimaryBtn" target="_blank" rel="noopener" style="flex:1;">💬 Abrir WhatsApp</a>
+      <button class="drawer-btn-sec" id="drawerCloseActionBtn" type="button">Fechar</button>
     </div>
   </div>
-</section>
+</aside>
 
-<section class="section" id="faq"><div class="container faq-box"><h2 class="faq-title">Perguntas frequentes</h2><div class="accordion" id="faqAccordion"></div></div></section>
+<!-- Mobile menu sheet -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu-sheet" id="mobileMenuSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Menu SmartFlix</div>
+  <div class="menu-links-grid">
+    <button class="menu-link" data-view="home" type="button"><div class="menu-link-icon">⌂</div>Início</button>
+    <button class="menu-link" data-view="products" type="button"><div class="menu-link-icon">🛍️</div>Produtos</button>
+    <button class="menu-link" data-view="services" type="button"><div class="menu-link-icon">🔧</div>Consertos</button>
+    <button class="menu-link" data-view="about" type="button"><div class="menu-link-icon">⭐</div>Diferenciais</button>
+    <button class="menu-link" data-view="contact" type="button"><div class="menu-link-icon">💬</div>Contato</button>
+  </div>
+</div>
 
-<section class="cta" id="cta"><div class="container"><div class="cta-box"><div class="cta-inner"><div class="cta-pill" style="display:inline-flex; gap:7px; padding:6px 13px; background:rgba(13,145,70,.18); border-radius:999px; margin-bottom:22px;"><span class="eyebrow-dot"></span>Atendimento agora</div><h2>Pronto para resolver <span style="color:#3ee07c;">o seu celular?</span></h2><div class="cta-actions"><a class="btn btn-primary" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20atendimento." target="_blank" rel="noopener">Falar no WhatsApp</a></div></div></div></div></section>
+<script>
+  /* ============================================================
+     DATA
+  ============================================================ */
+  const PRODUCTS = [
+    {name:'Capinha MagSafe iPhone 15 Pro',cat:'capinha',icon:'📱',price:89.90,old:119.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Compatível MagSafe, acabamento premium.',details:['Estrutura reforçada contra quedas','Visual sofisticado e premium','Compatível com carregamento sem fio']},
+    {name:'Capinha Samsung S24 Ultra',cat:'capinha',icon:'📱',price:79.90,old:null,badge:'new',badgeLabel:'Novo',desc:'Acabamento fosco premium.',details:['Boa pegada antiderrapante','Eleva o valor do aparelho','Material flexível de alta resistência']},
+    {name:'Película 3D Vidro',cat:'protecao',icon:'🛡️',price:49.90,old:69.90,badge:'sale',badgeLabel:'Oferta',desc:'Cobertura total com instalação prática.',details:['Alta proteção contra impactos','Ideal para combos com capinha','Instalação sem bolhas']},
+    {name:'Película Privacidade',cat:'protecao',icon:'🔒',price:59.90,old:null,badge:null,badgeLabel:null,desc:'Privacidade em locais públicos.',details:['Visibilidade bloqueada lateralmente','Protege dados sensíveis']},
+    {name:'Carregador 65W GaN',cat:'carregador',icon:'⚡',price:129.90,old:169.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Carregamento ultra rápido.',details:['Tecnologia GaN compacta','Compatível com USB-C e USB-A','Carrega notebook, tablet e celular']},
+    {name:'Cabo USB-C 2m',cat:'cabo',icon:'🔌',price:39.90,old:null,badge:null,badgeLabel:null,desc:'Mais resistência e durabilidade.',details:['Revestimento em nylon trançado','2 metros de comprimento','Suporta carregamento rápido']},
+    {name:'Fone TWS Pro',cat:'audio',icon:'🎧',price:189.90,old:249.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Áudio sem fio premium.',details:['Cancelamento de ruído ativo','Bateria de até 28h com case','Destaque na vitrine']},
+    {name:'Powerbank 20.000mAh',cat:'outro',icon:'🔋',price:159.90,old:199.90,badge:'new',badgeLabel:'Novo',desc:'Carga extra para o dia todo.',details:['Alta capacidade — 20.000mAh','Carrega múltiplos dispositivos','Passagem em segurança aérea']}
+  ];
 
-  </main>  <footer class="footer"><div class="container"><div class="footer-grid"><div><div class="brand"><div class="brand-badge">📱</div><div class="brand-text"><div class="brand-name">SmartFlix<sup>PVH</sup></div></div></div><p>Assistência técnica e acessórios premium em Porto Velho.</p></div><div><h4>Navegação</h4><ul><li><a href="#explorar">Explorar</a></li><li><a href="#faq">FAQ</a></li><li><a href="#cta">Orçamento</a></li></ul></div><div><h4>Contato</h4><ul><li>Porto Velho, RO</li><li>(69) 98113-3218</li><li>contato@smartflix.com.br</li></ul></div></div><div class="footer-bottom"><p>© <span id="year"></span> SmartFlix. Todos os direitos reservados.</p></div></div></footer><a class="quote-fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix%20e%20quero%20um%20orçamento." target="_blank" rel="noopener">Pedir orçamento</a> <a class="fab" href="https://wa.me/5569981133218?text=Olá!%20Vim%20pelo%20site%20da%20SmartFlix." target="_blank" rel="noopener">💬</a>
+  const SERVICES = [
+    {title:'Troca de tela',icon:'📱',price:'R$ 199',desc:'Substituição de display com garantia de 90 dias. Usamos peças selecionadas para garantir qualidade original.'},
+    {title:'Troca de bateria',icon:'🔋',price:'R$ 149',desc:'Recupere a autonomia do seu celular. Bateria nova com calibração profissional.'},
+    {title:'Conector de carga',icon:'🔌',price:'R$ 120',desc:'Mau contato ou carregamento intermitente? Resolvemos com peça de qualidade.'},
+    {title:'Reparo de câmera',icon:'📷',price:'R$ 150',desc:'Correção de falhas de imagem, foco ou câmera que não abre. Reparo com garantia.'},
+    {title:'Dano por água',icon:'💧',price:'R$ 199',desc:'Avaliação e recuperação completa. Não ligue o aparelho — traga imediatamente.'},
+    {title:'Diagnóstico gratuito',icon:'🔍',price:'Grátis',desc:'Entenda exatamente o problema antes de aprovar qualquer serviço. Sem custo.'}
+  ];
 
-  <div class="mobile-bottom-nav-wrap">
-    <nav class="mobile-bottom-nav">
-      <div class="nav-track">
-        <div class="nav-indicator" id="mobileNavIndicator"></div>
-        <button class="mobile-nav-item active" data-view="home" type="button"><span class="mobile-nav-icon">⌂</span><span class="mobile-nav-label">Início</span></button>
-        <button class="mobile-nav-item" data-view="products" type="button"><span class="mobile-nav-icon">🛍️</span><span class="mobile-nav-label">Produtos</span></button>
-        <button class="mobile-nav-item" data-view="services" type="button"><span class="mobile-nav-icon">🔧</span><span class="mobile-nav-label">Consertos</span></button>
-        <button class="mobile-nav-item" data-view="about" type="button"><span class="mobile-nav-icon">✦</span><span class="mobile-nav-label">Diferenciais</span></button>
-        <button class="mobile-nav-item" data-view="faq" type="button"><span class="mobile-nav-icon">❓</span><span class="mobile-nav-label">FAQ</span></button>
-        <button class="mobile-nav-item" data-view="contact" type="button"><span class="mobile-nav-icon">☏</span><span class="mobile-nav-label">Contato</span></button>
-      </div>
-    </nav>
-  </div>  <div class="drawer-overlay" id="drawerOverlay"></div>
-  <aside class="drawer" id="drawer">
-    <div class="drawer-head" style="padding:20px 22px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between;">
-      <div>
-        <div class="drawer-badge" style="display:inline-flex; padding:4px 9px; background:var(--g-soft); border-radius:999px; font-size:9.5px; font-weight:800;" id="drawerBadge">Detalhes</div>
-        <h3 class="drawer-title" id="drawerTitle" style="font-family:var(--font-display); font-size:22px; margin-top:9px;">Item</h3>
-      </div>
-      <button class="drawer-close" id="drawerCloseBtn" type="button" style="width:34px; height:34px; background:var(--bg); border:1px solid var(--line); border-radius:9px;">✕</button>
-    </div>
-    <div class="drawer-body">
-      <div class="drawer-visual" id="drawerVisual">📱</div>
-      <div class="drawer-price"><strong id="drawerPrice">R$ 0,00</strong> <small id="drawerOldPrice"></small></div>
-      <p class="drawer-text" id="drawerText" style="color:var(--muted); margin:15px 0;"></p>
-      <ul class="drawer-list" id="drawerList" style="list-style:none; display:flex; flex-direction:column; gap:7px;"></ul>
-      <div class="drawer-actions" style="display:flex; gap:9px; margin-top:17px;">
-        <a class="btn btn-primary" id="drawerPrimaryBtn" target="_blank" rel="noopener" style="flex:1;">Abrir WhatsApp</a>
-        <button class="drawer-btn-sec" id="drawerCloseActionBtn" type="button" style="padding:14px 22px; background:var(--bg); border:1px solid var(--line); border-radius:999px; font-weight:800;">Fechar</button>
-      </div>
-    </div>
-  </aside>  <script>
-    const PRODUCTS = [
-      {name:'Capinha MagSafe iPhone 15 Pro',cat:'capinha',icon:'📱',price:89.90,old:119.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Compatível MagSafe, acabamento premium.',details:['Estrutura reforçada','Visual sofisticado']},
-      {name:'Capinha Samsung S24 Ultra',cat:'capinha',icon:'📱',price:79.90,old:null,badge:'new',badgeLabel:'Novo',desc:'Acabamento fosco premium.',details:['Boa pegada','Eleva valor']},
-      {name:'Película 3D Vidro',cat:'protecao',icon:'🛡️',price:49.90,old:69.90,badge:'sale',badgeLabel:'Oferta',desc:'Cobertura total com instalação prática.',details:['Alta proteção','Ideal para combos']},
-      {name:'Película Privacidade',cat:'protecao',icon:'🔒',price:59.90,old:null,badge:null,badgeLabel:null,desc:'Privacidade em locais públicos.',details:['Apelo funcional']},
-      {name:'Carregador 65W GaN',cat:'carregador',icon:'⚡',price:129.90,old:169.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Carregamento ultra rápido.',details:['Tecnologia GaN','Ticket mais alto']},
-      {name:'Cabo USB-C 2m',cat:'cabo',icon:'🔌',price:39.90,old:null,badge:null,badgeLabel:null,desc:'Mais resistência e durabilidade.',details:['Bom complemento']},
-      {name:'Fone TWS Pro',cat:'audio',icon:'🎧',price:189.90,old:249.90,badge:'hot',badgeLabel:'Mais vendido',desc:'Áudio sem fio premium.',details:['Destaque na vitrine']},
-      {name:'Powerbank 20.000mAh',cat:'outro',icon:'🔋',price:159.90,old:199.90,badge:'new',badgeLabel:'Novo',desc:'Carga extra para o dia todo.',details:['Alta capacidade']}
-    ];
+  const ABOUT = [
+    {icon:'⚡',title:'Atendimento ágil',text:'Resposta rápida e comunicação direta. Sem fila de espera desnecessária.'},
+    {icon:'🛡️',title:'Garantia de verdade',text:'90 dias de garantia em todos os serviços realizados. Segurança real.'},
+    {icon:'🧩',title:'Peças selecionadas',text:'Trabalhamos apenas com peças de qualidade comprovada. Mais confiança.'},
+    {icon:'💬',title:'Tudo pelo WhatsApp',text:'Compra, orçamento e suporte no mesmo canal. Simples e prático.'}
+  ];
 
-    const SERVICES = [
-      {title:'Troca de tela',icon:'📱',price:'R$ 199',desc:'Substituição de display com garantia.'},
-      {title:'Troca de bateria',icon:'🔋',price:'R$ 149',desc:'Recupere a autonomia.'},
-      {title:'Conector de carga',icon:'🔌',price:'R$ 120',desc:'Mau contato ou carregamento intermitente.'},
-      {title:'Reparo de câmera',icon:'📷',price:'R$ 150',desc:'Correção de falhas de imagem.'},
-      {title:'Dano por água',icon:'💧',price:'R$ 199',desc:'Avaliação e recuperação.'},
-      {title:'Diagnóstico gratuito',icon:'🔍',price:'Grátis',desc:'Entenda o problema antes de aprovar.'}
-    ];
+  const REVIEWS = [
+    {text:'Atendimento rápido e super organizado. Trouxe meu iPhone com a tela quebrada e saiu em menos de 2 horas.',name:'Ana Cláudia',role:'Cliente · Troca de tela',stars:5},
+    {text:'Comprei acessórios e já pedi orçamento para o meu celular. Empresa séria, passa muita confiança.',name:'Marcos V.',role:'Cliente · Acessórios',stars:5},
+    {text:'Excelente qualidade no reparo da bateria. O celular voltou a durar o dia todo.',name:'Juliana F.',role:'Cliente · Troca de bateria',stars:5},
+    {text:'Diagnóstico gratuito fez toda a diferença. Sabia exatamente o que ia pagar antes de aprovar.',name:'Pedro H.',role:'Cliente · Diagnóstico',stars:5},
+    {text:'Melhor assistência técnica de Porto Velho. Já indiquei para vários amigos.',name:'Fernanda R.',role:'Cliente fiel',stars:5},
+    {text:'Comprei o carregador GaN e é incrível. Atendimento via WhatsApp muito fácil.',name:'Carlos M.',role:'Cliente · Acessórios',stars:5}
+  ];
 
-    const ABOUT = [
-      {icon:'⚡',title:'Atendimento ágil',text:'Resposta rápida e comunicação direta.'},
-      {icon:'🛡️',title:'Garantia de verdade',text:'Segurança em cada serviço.'},
-      {icon:'🧩',title:'Peças selecionadas',text:'Mais confiança e qualidade.'},
-      {icon:'💬',title:'Tudo pelo WhatsApp',text:'Compra e orçamento no mesmo canal.'}
-    ];
+  const FAQS = [
+    {q:'O diagnóstico é gratuito?',a:'Sim, 100% gratuito. Você entende o problema e o valor do reparo antes de aprovar qualquer serviço. Sem surpresas.'},
+    {q:'Atendem por WhatsApp?',a:'Sim. É nosso canal principal para orçamento, dúvidas e compra de acessórios. Resposta rápida e sem burocracia.'},
+    {q:'Trabalham com troca de tela e bateria?',a:'Sim. São nossos serviços principais, realizados com peças selecionadas e garantia de 90 dias.'},
+    {q:'Qual a garantia dos serviços?',a:'90 dias em todos os serviços realizados na loja. Garantia real, sem letras miúdas.'},
+    {q:'Quanto tempo demora o conserto?',a:'A maioria dos reparos fica pronta em até 2 horas. Casos mais complexos podem levar mais tempo — mas você é avisado.'},
+    {q:'Vendem acessórios também?',a:'Sim! Temos capinhas, películas, carregadores, cabos, fones e mais. Tudo com qualidade selecionada.'}
+  ];
 
-    const REVIEWS = [
-      {text:'Atendimento rápido e organizado.',name:'Ana Cláudia'},
-      {text:'Comprei acessórios e já pedi orçamento.',name:'Marcos V.'},
-      {text:'Empresa séria, passa muita confiança.',name:'Juliana F.'}
-    ];
+  /* ============================================================
+     UTILS
+  ============================================================ */
+  function money(v) { return `R$ ${v.toFixed(2).replace('.',',')}` }
 
-    const FAQS = [
-      {q:'O diagnóstico é gratuito?',a:'Sim. Você entende o problema antes de aprovar qualquer serviço.'},
-      {q:'Atendem por WhatsApp?',a:'Sim. É nosso canal principal para orçamento e dúvidas.'},
-      {q:'Trabalham com troca de tela e bateria?',a:'Sim, esses são os serviços principais.'},
-      {q:'Qual a garantia?',a:'90 dias em todos os serviços realizados.'}
-    ];
+  function showToast(msg, emoji='✅') {
+    const tc = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<span>${emoji}</span> ${msg}`;
+    tc.appendChild(t);
+    setTimeout(() => {
+      t.classList.add('out');
+      setTimeout(() => t.remove(), 300);
+    }, 3000);
+  }
 
-    const MOBILE_VIEWS = ['home','products','services','about','faq','contact'];
-    let currentMobileView = 'home';
-    const viewScrollPositions = { home:0, products:0, services:0, about:0, faq:0, contact:0 };
+  /* ============================================================
+     SCROLL PROGRESS
+  ============================================================ */
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+    document.getElementById('scrollBar').style.width = pct + '%';
 
-    function money(v){ return `R$ ${v.toFixed(2).replace('.',',')}`; }
+    const nav = document.getElementById('mainNav');
+    if (nav) nav.classList.toggle('scrolled', doc.scrollTop > 10);
+  });
 
-    function lockBody(){ document.body.style.overflow = 'hidden'; }
-    function unlockBodyIfPossible(){
-      const drawerOpen = document.getElementById('drawer').classList.contains('show');
-      const menuOpen = document.getElementById('mobileMenuSheet').classList.contains('open');
-      if(!drawerOpen && !menuOpen) document.body.style.overflow = '';
-    }
-
-    function openProductDrawer(i){
-      const p = PRODUCTS[i];
-      if(!p) return;
-      document.getElementById('drawerBadge').textContent = p.badgeLabel || 'Produto';
-      document.getElementById('drawerTitle').textContent = p.name;
-      document.getElementById('drawerVisual').textContent = p.icon;
-      document.getElementById('drawerPrice').textContent = money(p.price);
-      document.getElementById('drawerOldPrice').textContent = p.old ? money(p.old) : '';
-      document.getElementById('drawerText').textContent = p.desc;
-      document.getElementById('drawerList').innerHTML = p.details.map(d => `<li style="background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:10px 13px;">${d}</li>`).join('');
-      document.getElementById('drawerPrimaryBtn').href = `https://wa.me/5569981133218?text=${encodeURIComponent(`Olá! Tenho interesse em:\n🛒 ${p.name}\n💰 ${money(p.price)}`)}`;
-      showDrawer();
-    }
-
-    function openServiceDrawer(t){
-      const s = SERVICES.find(item => item.title === t);
-      if(!s) return;
-      document.getElementById('drawerBadge').textContent = 'Serviço';
-      document.getElementById('drawerTitle').textContent = s.title;
-      document.getElementById('drawerVisual').textContent = s.icon;
-      document.getElementById('drawerPrice').textContent = s.price;
-      document.getElementById('drawerOldPrice').textContent = '';
-      document.getElementById('drawerText').textContent = s.desc;
-      document.getElementById('drawerList').innerHTML = '';
-      document.getElementById('drawerPrimaryBtn').href = `https://wa.me/5569981133218?text=${encodeURIComponent(`Olá! Quero solicitar:\n🔧 ${s.title}\n💰 ${s.price}`)}`;
-      showDrawer();
-    }
-
-    function showDrawer(){
-      document.getElementById('drawerOverlay').classList.add('show');
-      document.getElementById('drawer').classList.add('show');
-      lockBody();
-    }
-
-    function closeDrawer(){
-      document.getElementById('drawerOverlay').classList.remove('show');
-      document.getElementById('drawer').classList.remove('show');
-      unlockBodyIfPossible();
-    }
-
-    function openMobileMenuSheet(){
-      document.getElementById('mobileMenuSheet').classList.add('open');
-      document.getElementById('menuOverlay').classList.add('show');
-      lockBody();
-    }
-
-    function closeMobileMenuSheet(){
-      document.getElementById('mobileMenuSheet').classList.remove('open');
-      document.getElementById('menuOverlay').classList.remove('show');
-      unlockBodyIfPossible();
-    }
-
-    function updateMobileIndicator(view = currentMobileView){
-      const activeBtn = document.querySelector(`.mobile-nav-item[data-view="${view}"]`);
-      const indicator = document.getElementById('mobileNavIndicator');
-      const track = document.querySelector('.mobile-bottom-nav .nav-track');
-      if(!activeBtn || !indicator || !track) return;
-      const trackRect = track.getBoundingClientRect();
-      const activeRect = activeBtn.getBoundingClientRect();
-      const x = activeRect.left - trackRect.left;
-      indicator.style.transform = `translateX(${x}px)`;
-      indicator.style.width = `${activeRect.width}px`;
-    }
-
-    function saveCurrentScroll(){
-      const layer = document.getElementById('mobileViewLayer');
-      if(layer && currentMobileView) viewScrollPositions[currentMobileView] = layer.scrollTop;
-    }
-
-    function restoreScroll(view){
-      const layer = document.getElementById('mobileViewLayer');
-      if(layer && viewScrollPositions[view] !== undefined) layer.scrollTop = viewScrollPositions[view];
-    }
-
-    function setMobileView(view, btnEl = null){
-      if(!MOBILE_VIEWS.includes(view)) return;
-      if(currentMobileView === view){
-        updateMobileIndicator(view);
-        return;
+  /* ============================================================
+     SCROLL REVEAL
+  ============================================================ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
       }
-      saveCurrentScroll();
-      document.querySelectorAll('.mobile-view').forEach(v => v.classList.remove('active'));
-      const targetView = document.getElementById(`view-${view}`);
-      if(targetView) targetView.classList.add('active');
-      document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
-      const activeBtn = btnEl || document.querySelector(`.mobile-nav-item[data-view="${view}"]`);
-      if(activeBtn) activeBtn.classList.add('active');
-      currentMobileView = view;
-      updateMobileIndicator(view);
-      restoreScroll(view);
-      localStorage.setItem('smartflix_last_mobile_view', view);
-    }
+    });
+  }, { threshold: 0.12 });
 
-    function renderProductsDesktop(cat='todos'){
-      const g = document.getElementById('productsGrid');
-      const items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
-      g.innerHTML = items.map((p, i) => `
-        <article class="card">
-          <div class="card-media">${p.badge ? `<div class="badge ${p.badge}">${p.badgeLabel}</div>` : ''}<span>${p.icon}</span></div>
-          <div class="card-body">
-            <h3 class="card-title">${p.name}</h3>
-            <p class="card-text">${p.desc}</p>
-            <div class="card-bottom">
-              <div class="price"><strong>${money(p.price)}</strong></div>
-              <div class="card-actions">
-                <button class="ghost-btn" type="button" onclick="openProductDrawer(${i})">Detalhes</button>
-                <button class="mini-btn" type="button" onclick="buyProduct('${p.name.replace(/'/g,"\\'")}',${p.price})">Comprar</button>
-              </div>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => revealObserver.observe(el));
 
-    function buyProduct(n,p){
-      window.open(`https://wa.me/5569981133218?text=${encodeURIComponent(`Olá! Tenho interesse em:\n🛒 ${n}\n💰 ${money(p)}`)}`,'_blank');
-    }
+  /* ============================================================
+     COUNT-UP ANIMATION
+  ============================================================ */
+  function animateCount(el, target, suffix='') {
+    let start = 0;
+    const dur = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const p = Math.min((timestamp - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
 
-    function requestService(t,p){
-      window.open(`https://wa.me/5569981133218?text=${encodeURIComponent(`Olá! Quero solicitar:\n🔧 ${t}\n💰 ${p}`)}`,'_blank');
-    }
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        animateCount(el, target);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
 
-    function renderServicesDesktop(){
-      document.getElementById('servicesGrid').innerHTML = SERVICES.map(s => `
-        <article class="service-card">
-          <div class="service-icon">${s.icon}</div>
-          <h3 class="service-title">${s.title}</h3>
-          <p class="service-text" style="color:var(--muted); font-size:12.5px; margin:10px 0;">${s.desc}</p>
-          <div class="service-price"><strong>${s.price}</strong></div>
-          <div class="card-actions" style="margin-top:15px;">
-            <button class="ghost-btn" type="button" onclick="openServiceDrawer('${s.title.replace(/'/g,"\\'")}')">Detalhes</button>
-            <button class="mini-btn" type="button" onclick="requestService('${s.title.replace(/'/g,"\\'")}','${s.price}')">Solicitar</button>
-          </div>
-        </article>
-      `).join('');
-    }
+  document.querySelectorAll('.count, .count-green').forEach(el => countObserver.observe(el));
 
-    function renderAboutDesktop(){
-      document.getElementById('aboutGrid').innerHTML = ABOUT.map(a => `
-        <article class="about-card">
-          <div class="about-icon">${a.icon}</div>
-          <h3 class="about-title">${a.title}</h3>
-          <p class="about-text" style="color:var(--muted);">${a.text}</p>
-        </article>
-      `).join('');
-    }
+  /* ============================================================
+     3D CARD TILT
+  ============================================================ */
+  function addTilt(el) {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(6px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+      el.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease';
+    });
+    el.addEventListener('mouseenter', () => {
+      el.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+    });
+  }
 
-    function renderReviewsDesktop(){
-      document.getElementById('reviewsGrid').innerHTML = REVIEWS.map(r => `
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"${r.text}"</p>
-          <div class="author-name" style="font-weight:800; margin-top:12px;">${r.name}</div>
-        </article>
-      `).join('');
-    }
+  /* ============================================================
+     DRAWER
+  ============================================================ */
+  function lockBody() { document.body.style.overflow = 'hidden'; }
+  function unlockBodyIfPossible() {
+    const drawerOpen = document.getElementById('drawer').classList.contains('show');
+    const menuOpen = document.getElementById('mobileMenuSheet').classList.contains('open');
+    if (!drawerOpen && !menuOpen) document.body.style.overflow = '';
+  }
 
-    function renderFAQDesktop(){
-      document.getElementById('faqAccordion').innerHTML = FAQS.map(f => `
-        <div class="acc-item">
-          <button class="acc-head" type="button" onclick="toggleAccordion(this)">
-            <div class="acc-head-left">
-              <div class="acc-icon">?</div>
-              <div><div class="acc-title">${f.q}</div></div>
-            </div>
-            <div class="acc-arrow">+</div>
-          </button>
-          <div class="acc-body"><div class="acc-content"><p class="acc-text" style="color:var(--muted);">${f.a}</p></div></div>
+  function openProductDrawer(i) {
+    const p = PRODUCTS[i];
+    if (!p) return;
+    document.getElementById('drawerBadge').textContent = p.badgeLabel || 'Produto';
+    document.getElementById('drawerTitle').textContent = p.name;
+    document.getElementById('drawerVisual').textContent = p.icon;
+    document.getElementById('drawerPrice').textContent = money(p.price);
+    document.getElementById('drawerOldPrice').textContent = p.old ? money(p.old) : '';
+    document.getElementById('drawerText').textContent = p.desc;
+    document.getElementById('drawerList').innerHTML = (p.details||[]).map(d => `<li>${d}</li>`).join('');
+    const wa = `https://wa.me/5569981133218?text=Olá!%20Tenho%20interesse%20no%20produto:%20${encodeURIComponent(p.name)}%20(${encodeURIComponent(money(p.price))})`;
+    document.getElementById('drawerPrimaryBtn').href = wa;
+    document.getElementById('drawer').classList.add('show');
+    document.getElementById('drawerOverlay').classList.add('show');
+    lockBody();
+  }
+
+  function openServiceDrawer(title) {
+    const s = SERVICES.find(s => s.title === title);
+    if (!s) return;
+    document.getElementById('drawerBadge').textContent = 'Serviço';
+    document.getElementById('drawerTitle').textContent = s.title;
+    document.getElementById('drawerVisual').textContent = s.icon;
+    document.getElementById('drawerPrice').textContent = s.price;
+    document.getElementById('drawerOldPrice').textContent = '';
+    document.getElementById('drawerText').textContent = s.desc;
+    document.getElementById('drawerList').innerHTML = '<li>Garantia de 90 dias</li><li>Diagnóstico gratuito incluso</li><li>Peças selecionadas</li>';
+    const wa = `https://wa.me/5569981133218?text=Olá!%20Quero%20solicitar%20o%20serviço:%20${encodeURIComponent(s.title)}`;
+    document.getElementById('drawerPrimaryBtn').href = wa;
+    document.getElementById('drawer').classList.add('show');
+    document.getElementById('drawerOverlay').classList.add('show');
+    lockBody();
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawer').classList.remove('show');
+    document.getElementById('drawerOverlay').classList.remove('show');
+    unlockBodyIfPossible();
+  }
+
+  function buyProduct(name, price) {
+    const wa = `https://wa.me/5569981133218?text=Olá!%20Quero%20comprar:%20${encodeURIComponent(name)}%20(${encodeURIComponent(money(price))})`;
+    window.open(wa, '_blank');
+    showToast('Abrindo WhatsApp...', '💬');
+  }
+
+  function requestService(title, price) {
+    const wa = `https://wa.me/5569981133218?text=Olá!%20Quero%20solicitar:%20${encodeURIComponent(title)}%20(${encodeURIComponent(price)})`;
+    window.open(wa, '_blank');
+    showToast('Abrindo WhatsApp...', '💬');
+  }
+
+  /* ============================================================
+     RENDER — DESKTOP
+  ============================================================ */
+  function renderProductsDesktop(cat='todos') {
+    const items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+    document.getElementById('productsGrid').innerHTML = items.map((p, i) => `
+      <article class="card" data-index="${i}">
+        <div class="card-media">
+          <span class="card-media-icon">${p.icon}</span>
+          ${p.badgeLabel ? `<div class="badge ${p.badge||''}">${p.badgeLabel}</div>` : ''}
         </div>
-      `).join('');
-    }
-
-    function toggleAccordion(btn){ btn.closest('.acc-item').classList.toggle('open'); }
-
-    function openTab(name, btn){
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById(`tab-${name}`).classList.add('active');
-    }
-
-    function renderMobileProducts(cat='todos'){
-      const list = document.getElementById('mobileProductsList');
-      const items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
-      list.innerHTML = items.map((p, i) => `
-        <article class="mobile-card">
-          <div class="mobile-card-top">
-            <div class="mobile-card-media">${p.icon}</div>
-            <div class="mobile-card-content">
-              <div class="mobile-card-title">${p.name}</div>
-              <div class="mobile-card-text">${p.desc}</div>
+        <div class="card-body">
+          <h3 class="card-title">${p.name}</h3>
+          <p class="card-text">${p.desc}</p>
+          <div class="card-bottom">
+            <div class="price">
+              ${p.old ? `<div class="price-old">${money(p.old)}</div>` : ''}
+              <strong>${money(p.price)}</strong>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="ghost-btn" type="button" onclick="openProductDrawer(${PRODUCTS.indexOf(p)})">Ver</button>
+              <button class="mini-btn" type="button" onclick="buyProduct('${p.name.replace(/'/g,"\\'")}',${p.price})">Comprar</button>
             </div>
           </div>
-          <div class="mobile-card-bottom">
-            <div class="mobile-card-price">${money(p.price)}</div>
-            <div class="mobile-inline-actions">
-              <button class="mobile-ghost-btn" type="button" onclick="openProductDrawer(${i})">Detalhes</button>
-              <button class="mobile-mini-btn" type="button" onclick="buyProduct('${p.name.replace(/'/g,"\\'")}',${p.price})">Comprar</button>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function filterMobileProducts(cat, btn){
-      document.querySelectorAll('#mobileProductFilters .filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderMobileProducts(cat);
-    }
-
-    function renderMobileServices(){
-      const list = document.getElementById('mobileServicesList');
-      list.innerHTML = SERVICES.map(s => `
-        <article class="mobile-card">
-          <div class="mobile-card-top">
-            <div class="mobile-card-media service">${s.icon}</div>
-            <div class="mobile-card-content">
-              <div class="mobile-card-title">${s.title}</div>
-              <div class="mobile-card-text">${s.desc}</div>
-            </div>
-          </div>
-          <div class="mobile-card-bottom">
-            <div class="mobile-card-price" style="color:var(--g2);">${s.price}</div>
-            <div class="mobile-inline-actions">
-              <button class="mobile-ghost-btn" type="button" onclick="openServiceDrawer('${s.title.replace(/'/g,"\\'")}')">Detalhes</button>
-              <button class="mobile-mini-btn" type="button" onclick="requestService('${s.title.replace(/'/g,"\\'")}','${s.price}')">Solicitar</button>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function renderMobileAbout(){
-      document.getElementById('mobileAboutList').innerHTML = ABOUT.map(a => `
-        <article class="mobile-about-card">
-          <div class="mobile-about-head">
-            <div class="mobile-about-icon">${a.icon}</div>
-            <div class="mobile-about-title">${a.title}</div>
-          </div>
-          <div class="mobile-about-text" style="color:var(--muted);">${a.text}</div>
-        </article>
-      `).join('');
-    }
-
-    function renderMobileFaq(targetId, limit=null){
-      const el = document.getElementById(targetId);
-      if(!el) return;
-      const items = limit ? FAQS.slice(0, limit) : FAQS;
-      el.innerHTML = items.map(f => `
-        <div class="mobile-faq-item">
-          <button class="mobile-faq-head" type="button" onclick="toggleMobileFaq(this)">
-            <div class="mobile-faq-left">
-              <div class="mobile-faq-icon">?</div>
-              <div><div class="mobile-faq-title">${f.q}</div></div>
-            </div>
-            <div class="mobile-faq-arrow">+</div>
-          </button>
-          <div class="mobile-faq-body">${f.a}</div>
         </div>
-      `).join('');
-    }
+      </article>
+    `).join('');
+    document.querySelectorAll('#productsGrid .card').forEach(c => addTilt(c));
+  }
 
-    function toggleMobileFaq(btn){ btn.closest('.mobile-faq-item').classList.toggle('open'); }
+  function renderServicesDesktop() {
+    document.getElementById('servicesGrid').innerHTML = SERVICES.map(s => `
+      <article class="service-card">
+        <div class="service-icon">${s.icon}</div>
+        <h3 class="service-title">${s.title}</h3>
+        <p class="service-text" style="color:var(--muted); font-size:12.5px; margin:10px 0; line-height:1.6;">${s.desc}</p>
+        <div class="service-price"><strong>${s.price}</strong></div>
+        <div class="card-actions">
+          <button class="ghost-btn" type="button" onclick="openServiceDrawer('${s.title.replace(/'/g,"\\'")}')">Detalhes</button>
+          <button class="mini-btn" type="button" onclick="requestService('${s.title.replace(/'/g,"\\'")}','${s.price}')">Solicitar</button>
+        </div>
+      </article>
+    `).join('');
+  }
 
-    function updateMobileLayoutSpacing(){
-      if(window.innerWidth > 620) return;
-      const navWrap = document.querySelector('.mobile-bottom-nav-wrap');
-      const layer = document.getElementById('mobileViewLayer');
-      if(!navWrap || !layer) return;
-      const navHeight = navWrap.offsetHeight;
-      layer.style.paddingBottom = `calc(${navHeight}px + 20px + env(safe-area-inset-bottom, 0px))`;
-    }
+  function renderAboutDesktop() {
+    document.getElementById('aboutGrid').innerHTML = ABOUT.map(a => `
+      <article class="about-card">
+        <div class="about-icon">${a.icon}</div>
+        <h3 class="about-title">${a.title}</h3>
+        <p class="about-text" style="color:var(--muted); line-height:1.65;">${a.text}</p>
+      </article>
+    `).join('');
+  }
 
-    function syncMobileMode(){
-      const isMobile = window.innerWidth <= 620;
-      if(isMobile){
-        document.body.classList.add('mobile-app-mode');
-        const savedView = localStorage.getItem('smartflix_last_mobile_view');
-        if(savedView && savedView !== currentMobileView && MOBILE_VIEWS.includes(savedView)){
-          setMobileView(savedView);
-        } else {
-          updateMobileIndicator(currentMobileView);
-        }
-        setTimeout(updateMobileLayoutSpacing, 50);
+  function renderReviewsDesktop() {
+    // Duplicate for infinite scroll
+    const all = [...REVIEWS, ...REVIEWS];
+    document.getElementById('reviewsTrack').innerHTML = all.map(r => `
+      <article class="review-card">
+        <div class="stars">${'★'.repeat(r.stars || 5)}</div>
+        <p class="review-text">"${r.text}"</p>
+        <div class="review-author">${r.name}</div>
+        <div class="review-meta">${r.role||''}</div>
+      </article>
+    `).join('');
+  }
+
+  function renderFAQDesktop() {
+    document.getElementById('faqAccordion').innerHTML = FAQS.map(f => `
+      <div class="acc-item">
+        <button class="acc-head" type="button" onclick="toggleAccordion(this)">
+          <div class="acc-head-left">
+            <div class="acc-icon">?</div>
+            <div><div class="acc-title">${f.q}</div></div>
+          </div>
+          <div class="acc-arrow">+</div>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><div class="acc-content"><p class="acc-text">${f.a}</p></div></div></div>
+      </div>
+    `).join('');
+  }
+
+  function toggleAccordion(btn) {
+    const item = btn.closest('.acc-item');
+    // close others
+    document.querySelectorAll('.acc-item.open').forEach(o => { if (o !== item) o.classList.remove('open'); });
+    item.classList.toggle('open');
+  }
+
+  function openTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    else document.querySelector(`[data-tab="${name}"]`)?.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${name}`)?.classList.add('active');
+  }
+
+  /* ============================================================
+     RENDER — MOBILE
+  ============================================================ */
+  function renderMobileProducts(cat='todos') {
+    const items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+    document.getElementById('mobileProductsList').innerHTML = items.map((p, i) => `
+      <article class="mobile-card">
+        <div class="mobile-card-top">
+          <div class="mobile-card-media">${p.icon}</div>
+          <div class="mobile-card-content" style="flex:1; min-width:0;">
+            <div class="mobile-card-title">${p.name}</div>
+            <div class="mobile-card-text">${p.desc}</div>
+          </div>
+        </div>
+        <div class="mobile-card-bottom">
+          <div class="mobile-card-price">${money(p.price)}</div>
+          <div class="mobile-inline-actions">
+            <button class="mobile-ghost-btn" type="button" onclick="openProductDrawer(${PRODUCTS.indexOf(p)})">Detalhes</button>
+            <button class="mobile-mini-btn" type="button" onclick="buyProduct('${p.name.replace(/'/g,"\\'")}',${p.price})">Comprar</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  function filterMobileProducts(cat, btn) {
+    document.querySelectorAll('#mobileProductFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderMobileProducts(cat);
+  }
+
+  function renderMobileServices() {
+    document.getElementById('mobileServicesList').innerHTML = SERVICES.map(s => `
+      <article class="mobile-card">
+        <div class="mobile-card-top">
+          <div class="mobile-card-media">${s.icon}</div>
+          <div class="mobile-card-content" style="flex:1; min-width:0;">
+            <div class="mobile-card-title">${s.title}</div>
+            <div class="mobile-card-text">${s.desc}</div>
+          </div>
+        </div>
+        <div class="mobile-card-bottom">
+          <div class="mobile-card-price" style="color:var(--g2);">${s.price}</div>
+          <div class="mobile-inline-actions">
+            <button class="mobile-ghost-btn" type="button" onclick="openServiceDrawer('${s.title.replace(/'/g,"\\'")}')">Detalhes</button>
+            <button class="mobile-mini-btn" type="button" onclick="requestService('${s.title.replace(/'/g,"\\'")}','${s.price}')">Solicitar</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  function renderMobileAbout() {
+    document.getElementById('mobileAboutList').innerHTML = ABOUT.map(a => `
+      <article class="mobile-about-card">
+        <div class="mobile-about-head">
+          <div class="mobile-about-icon">${a.icon}</div>
+          <div class="mobile-about-title">${a.title}</div>
+        </div>
+        <div class="mobile-about-text" style="color:var(--muted); font-size:13px; line-height:1.6;">${a.text}</div>
+      </article>
+    `).join('');
+  }
+
+  function renderMobileFaq(targetId, limit=null) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    const items = limit ? FAQS.slice(0, limit) : FAQS;
+    el.innerHTML = items.map(f => `
+      <div class="mobile-faq-item">
+        <button class="mobile-faq-head" type="button" onclick="toggleMobileFaq(this)">
+          <div class="mobile-faq-left">
+            <div class="mobile-faq-icon">?</div>
+            <div><div class="mobile-faq-title">${f.q}</div></div>
+          </div>
+          <div class="mobile-faq-arrow">+</div>
+        </button>
+        <div class="mobile-faq-body">${f.a}</div>
+      </div>
+    `).join('');
+  }
+
+  function toggleMobileFaq(btn) { btn.closest('.mobile-faq-item').classList.toggle('open'); }
+
+  /* ============================================================
+     MOBILE VIEW SYSTEM
+  ============================================================ */
+  const MOBILE_VIEWS = ['home','products','services','about','faq','contact'];
+  let currentMobileView = 'home';
+  const viewScrollPositions = {};
+
+  function updateMobileIndicator(view) {
+    const items = document.querySelectorAll('.mobile-nav-item');
+    const indicator = document.getElementById('mobileNavIndicator');
+    items.forEach((item, idx) => {
+      const isActive = item.getAttribute('data-view') === view;
+      item.classList.toggle('active', isActive);
+      if (isActive && indicator) {
+        indicator.style.left = item.offsetLeft + 4 + 'px';
+        indicator.style.width = item.offsetWidth - 8 + 'px';
+      }
+    });
+  }
+
+  function setMobileView(view, triggerEl) {
+    const layer = document.getElementById('mobileViewLayer');
+    if (currentMobileView) viewScrollPositions[currentMobileView] = layer.scrollTop;
+    document.querySelectorAll('.mobile-view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(`view-${view}`);
+    if (target) target.classList.add('active');
+    currentMobileView = view;
+    localStorage.setItem('smartflix_last_mobile_view', view);
+    updateMobileIndicator(view);
+    const savedPos = viewScrollPositions[view] || 0;
+    requestAnimationFrame(() => { layer.scrollTop = savedPos; });
+  }
+
+  function updateMobileLayoutSpacing() {
+    if (window.innerWidth > 620) return;
+    const navWrap = document.querySelector('.mobile-bottom-nav-wrap');
+    const layer = document.getElementById('mobileViewLayer');
+    if (!navWrap || !layer) return;
+    layer.style.paddingBottom = `calc(${navWrap.offsetHeight}px + 20px + env(safe-area-inset-bottom, 0px))`;
+  }
+
+  function syncMobileMode() {
+    const isMobile = window.innerWidth <= 620;
+    if (isMobile) {
+      document.body.classList.add('mobile-app-mode');
+      const savedView = localStorage.getItem('smartflix_last_mobile_view');
+      if (savedView && savedView !== currentMobileView && MOBILE_VIEWS.includes(savedView)) {
+        setMobileView(savedView);
       } else {
-        document.body.classList.remove('mobile-app-mode');
-        closeMobileMenuSheet();
-        closeDrawer();
-        document.getElementById('mobileViewLayer').style.paddingBottom = '';
-        document.body.style.overflow = '';
+        updateMobileIndicator(currentMobileView);
       }
+      setTimeout(updateMobileLayoutSpacing, 50);
+    } else {
+      document.body.classList.remove('mobile-app-mode');
+      closeMobileMenuSheet();
+      closeDrawer();
+      document.getElementById('mobileViewLayer').style.paddingBottom = '';
+      document.body.style.overflow = '';
     }
+  }
 
-    document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
-    document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
-    document.getElementById('drawerCloseActionBtn').addEventListener('click', closeDrawer);
-    document.getElementById('mobileMenuBtn').addEventListener('click', openMobileMenuSheet);
-    document.getElementById('closeMenuSheetBtn').addEventListener('click', closeMobileMenuSheet);
-    document.getElementById('menuOverlay').addEventListener('click', closeMobileMenuSheet);
+  function openMobileMenuSheet() {
+    document.getElementById('mobileMenuSheet').classList.add('open');
+    document.getElementById('menuOverlay').classList.add('show');
+    lockBody();
+  }
+  function closeMobileMenuSheet() {
+    document.getElementById('mobileMenuSheet').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('show');
+    unlockBodyIfPossible();
+  }
 
-    document.querySelectorAll('.menu-link').forEach(link => {
-      link.addEventListener('click', () => {
-        const view = link.getAttribute('data-view');
-        closeMobileMenuSheet();
-        if(view && MOBILE_VIEWS.includes(view)) setMobileView(view);
-      });
+  /* ============================================================
+     EVENT LISTENERS
+  ============================================================ */
+  document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+  document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
+  document.getElementById('drawerCloseActionBtn').addEventListener('click', closeDrawer);
+  document.getElementById('mobileMenuBtn').addEventListener('click', openMobileMenuSheet);
+  document.getElementById('closeMenuSheetBtn')?.addEventListener('click', closeMobileMenuSheet);
+  document.getElementById('menuOverlay').addEventListener('click', closeMobileMenuSheet);
+
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const view = link.getAttribute('data-view');
+      closeMobileMenuSheet();
+      if (view && MOBILE_VIEWS.includes(view)) setMobileView(view);
     });
+  });
 
-    document.querySelectorAll('.mobile-quick-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const view = card.getAttribute('data-view');
-        if(view) setMobileView(view);
-      });
+  document.querySelectorAll('.mobile-quick-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const view = card.getAttribute('data-view');
+      if (view) setMobileView(view);
     });
+  });
 
-    document.querySelectorAll('.mobile-nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const view = item.getAttribute('data-view');
-        if(view) setMobileView(view, item);
-      });
+  document.querySelectorAll('.mobile-nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const view = item.getAttribute('data-view');
+      if (view) setMobileView(view, item);
     });
+  });
 
-    document.querySelectorAll('#mobileProductFilters .filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-cat');
-        filterMobileProducts(cat, btn);
-      });
+  document.querySelectorAll('#mobileProductFilters .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+      filterMobileProducts(cat, btn);
     });
+  });
 
-    document.querySelectorAll('#desktopFilters .filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-cat');
-        document.querySelectorAll('#desktopFilters .filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProductsDesktop(cat);
-      });
+  document.querySelectorAll('#desktopFilters .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+      document.querySelectorAll('#desktopFilters .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProductsDesktop(cat);
     });
+  });
 
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tab = btn.getAttribute('data-tab');
-        openTab(tab, btn);
-      });
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.getAttribute('data-tab');
+      openTab(tab, btn);
     });
+  });
 
-    document.addEventListener('keydown', e => {
-      if(e.key === 'Escape'){
-        closeDrawer();
-        closeMobileMenuSheet();
-      }
-    });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeDrawer(); closeMobileMenuSheet(); }
+  });
 
-    renderProductsDesktop();
-    renderServicesDesktop();
-    renderAboutDesktop();
-    renderReviewsDesktop();
-    renderFAQDesktop();
-    renderMobileProducts();
-    renderMobileServices();
-    renderMobileAbout();
-    renderMobileFaq('mobileFaqHome', 2);
-    renderMobileFaq('mobileFaqFull');
-    document.getElementById('year').textContent = new Date().getFullYear();
+  /* ============================================================
+     INIT
+  ============================================================ */
+  renderProductsDesktop();
+  renderServicesDesktop();
+  renderAboutDesktop();
+  renderReviewsDesktop();
+  renderFAQDesktop();
+  renderMobileProducts();
+  renderMobileServices();
+  renderMobileAbout();
+  renderMobileFaq('mobileFaqHome', 2);
+  renderMobileFaq('mobileFaqFull');
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    let lastMobileState = window.innerWidth <= 620;
-    window.addEventListener('resize', () => {
-      const isMobileNow = window.innerWidth <= 620;
-      if(isMobileNow !== lastMobileState){
-        lastMobileState = isMobileNow;
-        syncMobileMode();
-      } else if(isMobileNow){
-        updateMobileIndicator(currentMobileView);
-        updateMobileLayoutSpacing();
-      }
-    });
+  let lastMobileState = window.innerWidth <= 620;
+  window.addEventListener('resize', () => {
+    const isMobileNow = window.innerWidth <= 620;
+    if (isMobileNow !== lastMobileState) {
+      lastMobileState = isMobileNow;
+      syncMobileMode();
+    } else if (isMobileNow) {
+      updateMobileIndicator(currentMobileView);
+      updateMobileLayoutSpacing();
+    }
+  });
 
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => {
-        syncMobileMode();
-        updateMobileIndicator(currentMobileView);
-        updateMobileLayoutSpacing();
-      }, 180);
-    });
+  syncMobileMode();
 
-    syncMobileMode();
-  </script></body>
+  // Re-observe after render
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => revealObserver.observe(el));
+</script>
+</body>
 </html>
