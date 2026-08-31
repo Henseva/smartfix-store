@@ -1,1265 +1,493 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#120b0b">
-<title>Facilita — Hortifruti</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mercado Fresco</title>
 <style>
 :root{
-  --orange:#ffab0b;
-  --orange-2:#ffb42b;
-  --orange-light:#ffd36b;
-  --orange-border:#f2ae3a;
-  --text:#3e454c;
-  --muted:#919191;
-  --page:#fff;
-  --card:#fff;
-  --shadow:0 5px 12px rgba(39,51,61,.20);
-  --radius:18px;
-  font-family: Arial, Helvetica, sans-serif;
+  --orange:#ff9f1a;--orange-dark:#f28c00;--orange-pale:#ffe1ab;
+  --navy:#1c2430;--ink:#262626;--muted:#7a7a7a;--line:#e3e3e3;--bg:#f2f2f2
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#f7f7f7;color:var(--text)}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app-shell{width:100%;max-width:900px;margin:0 auto;background:#fff;min-height:100vh;overflow:hidden;position:relative}
-.top-strip{height:80px;background:#ffb24a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:400;letter-spacing:.2px;text-align:center;padding:0 20px}
-.store-cover{position:relative;height:390px;background:#eee}
-.cover-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ddd,#f4f4f4);color:#999;font-weight:700;letter-spacing:1px;overflow:hidden}
-.cover-image img{width:100%;height:100%;object-fit:cover}
-.placeholder-image span{border:2px dashed #bbb;border-radius:10px;padding:10px 16px}
-.share-btn{position:absolute;right:20px;top:20px;width:62px;height:62px;border:0;border-radius:10px;background:var(--orange-2);font-size:35px;color:#29333c}
-.admin-fab{position:absolute;right:20px;top:96px;border:0;border-radius:10px;background:#2f4556;color:#fff;font-size:18px;font-weight:700;padding:10px 14px;box-shadow:0 3px 8px rgba(0,0,0,.2)}
-.store-logo{position:absolute;left:38px;bottom:-55px;width:270px;height:220px;border-radius:16px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.store-logo img{width:100%;height:100%;object-fit:cover}
-.placeholder-logo span{width:185px;height:185px;border:4px solid #ef9f25;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#e48715;font-size:24px;font-weight:700;text-align:center}
-.store-info{padding:75px 38px 15px;display:flex;justify-content:space-between;gap:25px}
-.store-main{min-width:0}
-.status-row{display:flex;align-items:center;gap:14px;font-size:28px;color:var(--orange)}
-.status{background:var(--orange-2);color:#fff;border-radius:9px;padding:9px 13px;font-weight:700}
-.status.closed{background:#8a8a8a}
-.info-btn{border:0;background:var(--orange-2);color:#fff;width:34px;height:34px;border-radius:50%;font-weight:700}
-.delivery-line,.minimum-line{font-size:29px;font-weight:700;line-height:1.45;color:#222}
-.delivery-line b,.minimum-line b{color:var(--orange-2)}
-.whatsapp{border:0;background:transparent;padding:4px 0;color:#222;font-size:26px;font-weight:600}
-.store-actions{text-align:right;min-width:130px}
-.login-btn{border:0;border-radius:10px;background:#2f4556;color:#fff;padding:13px 26px;font-size:28px}
-.rating{font-size:28px;margin-top:12px;color:#222}
-.rating span{color:#f3aa2b;font-size:36px}
-.notice{margin:30px 38px 48px;padding:28px 48px;background:var(--orange);border-radius:25px;color:#fff;font-size:27px;line-height:1.55}
-.catalog{padding:0 38px 90px}
-.search-wrap{height:84px;border:2px solid var(--orange-border);border-radius:9px;display:flex;align-items:center;padding:0 16px;margin-bottom:18px;background:#fff}
-.search-icon{font-size:55px;line-height:0;color:#f3ad3e;transform:rotate(-20deg);display:inline-block;margin-right:8px}
-.search-wrap input{border:0;outline:0;flex:1;font-size:27px;color:#555;min-width:0;background:transparent}
-.search-wrap input::placeholder{color:#a7adae}
-.category-tabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:0 0 17px}
-.category-tabs::-webkit-scrollbar{display:none}
-.category{flex:0 0 auto;border:0;background:var(--orange-light);color:#fff;border-radius:20px;padding:15px 24px;font-size:25px;font-weight:700;white-space:nowrap;position:relative}
-.category.active{background:var(--orange)}
-.category.active:after{content:"";position:absolute;height:8px;background:#c7a66b;left:0;right:45%;bottom:-13px}
-.section-title{background:var(--orange);color:#fff;border-radius:24px 24px 0 0;text-align:center;padding:18px 10px;font-size:40px;margin:20px 0 0;font-weight:700}
-.section-banner{height:330px;border-radius:0 0 24px 24px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ddd,#f3f3f3);color:#999;font-weight:700;letter-spacing:1px;margin-bottom:30px;overflow:hidden}
-.section-banner img{width:100%;height:100%;object-fit:cover}
-.product-card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:18px 12px;margin:0 0 28px;display:grid;grid-template-columns:220px 1fr;gap:28px;min-height:220px;position:relative}
-.product-image{width:220px;height:190px;border-radius:25px;overflow:hidden;background:linear-gradient(135deg,#ddd,#f4f4f4);display:flex;align-items:center;justify-content:center;color:#999;font-weight:700}
-.product-image img{width:100%;height:100%;object-fit:cover}
-.product-info{padding-top:3px;min-width:0}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:5px}
-.badge{background:#fff;border-radius:8px;padding:4px 10px;color:#eaa31d;font-weight:700;font-size:21px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
-.badge.sale{background:var(--orange);color:#fff}
-.product-name{font-size:31px;font-weight:700;margin:0 0 4px;line-height:1.18;color:#424950}
-.product-desc{font-size:27px;color:#999;line-height:1.22;margin:0 0 14px}
-.product-price{font-size:28px;color:#333;font-weight:700}
-.product-price s{color:#bbb;font-weight:400;font-size:.75em;margin-right:6px}
-.product-link{color:#263f53;font-size:25px;text-decoration:none}
-.product-card:focus-within,.product-card:hover{box-shadow:0 7px 17px rgba(39,51,61,.24)}
-.add-small{position:absolute;right:18px;bottom:17px;border:0;border-radius:9px;background:var(--orange);color:#fff;font-size:20px;font-weight:700;padding:9px 13px}
-.qty-small{position:absolute;right:18px;bottom:14px;display:flex;align-items:center;gap:8px;background:var(--orange);border-radius:9px;padding:4px 6px}
-.qty-small button{border:0;background:rgba(255,255,255,.25);color:#fff;width:26px;height:26px;border-radius:6px;font-size:18px;font-weight:700;line-height:1}
-.qty-small span{color:#fff;font-weight:700;font-size:18px;min-width:16px;text-align:center}
-.empty{padding:45px 10px;text-align:center;color:#999;font-size:23px}
-.cart-fab{position:fixed;z-index:20;bottom:18px;left:50%;transform:translateX(-50%);width:min(820px,calc(100% - 30px));border:0;border-radius:16px;background:#2f4556;color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.25);padding:14px 20px;display:flex;align-items:center;gap:12px;font-size:21px}
-.cart-fab strong{margin-left:auto}
-.hidden{display:none!important}
-.toast{position:fixed;z-index:80;left:50%;bottom:90px;transform:translate(-50%,20px);background:#222;color:#fff;border-radius:10px;padding:13px 18px;opacity:0;pointer-events:none;transition:.2s;font-size:18px;max-width:90%;text-align:center}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-dialog{border:0;border-radius:20px;padding:0;width:min(520px,calc(100% - 30px));box-shadow:0 20px 60px rgba(0,0,0,.35);max-height:88vh}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-.dialog-card{padding:24px;position:relative;max-height:88vh;overflow-y:auto}
-.dialog-close{position:absolute;right:15px;top:10px;border:0;background:transparent;font-size:35px;color:#555;z-index:2}
-.dialog-image{height:250px;border-radius:15px;margin-bottom:18px;overflow:hidden}
-.dialog-image img{width:100%;height:100%;object-fit:cover}
-.dialog-card h2{font-size:30px;margin:8px 0}
-.dialog-card p{color:#888;font-size:20px;line-height:1.4;white-space:pre-line}
-.dialog-card>strong{display:block;font-size:27px;margin:18px 0}
-.add-btn,.login-submit{width:100%;border:0;border-radius:10px;padding:15px;background:var(--orange);color:#fff;font-weight:700;font-size:20px;margin-top:8px}
-.add-btn.secondary{background:#2f4556}
-.field{width:100%;border:1px solid #ddd;border-radius:9px;padding:13px;margin:7px 0;outline:0;font-size:18px}
-textarea.field{resize:vertical;min-height:70px}
-.login-card{text-align:left}
-.tab-switch{display:flex;gap:8px;margin:10px 0 4px}
-.tab-switch button{flex:1;border:1px solid #eee;background:#f7f7f7;border-radius:9px;padding:10px;font-weight:700;color:#888;font-size:16px}
-.tab-switch button.active{background:var(--orange);color:#fff;border-color:var(--orange)}
-.link-btn{background:none;border:0;color:#2f4556;text-decoration:underline;font-size:15px;padding:6px 0}
-.hint{color:#999;font-size:13px;line-height:1.4;margin-top:4px}
-.qty-row{display:flex;align-items:center;gap:14px;margin:14px 0}
-.qty-row button{width:38px;height:38px;border-radius:9px;border:1px solid #ddd;background:#fff;font-size:20px;font-weight:700}
-.qty-row span{font-size:20px;font-weight:700;min-width:24px;text-align:center}
+html,body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+body{display:flex;justify-content:center}
+.app{width:100%;max-width:520px;min-height:100vh;background:#fff;box-shadow:0 0 18px #0002;padding-bottom:80px;position:relative}
 
-/* cart drawer */
-.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60}
-.drawer{position:fixed;z-index:61;right:0;top:0;bottom:0;width:min(430px,100%);background:#fff;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.2)}
-.drawer-head{padding:20px 22px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
-.drawer-head h2{font-size:22px;margin:0;color:#2f4556}
-.drawer-body{flex:1;overflow-y:auto;padding:14px 22px}
-.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f2f2f2}
-.cart-item-img{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,#ddd,#f4f4f4);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;font-weight:700;overflow:hidden}
-.cart-item-img img{width:100%;height:100%;object-fit:cover}
-.cart-item-info{flex:1;min-width:0}
-.cart-item-info .name{font-weight:700;font-size:16px;color:#333}
-.cart-item-info .price{color:#999;font-size:14px;margin-top:2px}
-.cart-item-qty{display:flex;align-items:center;gap:8px}
-.cart-item-qty button{width:26px;height:26px;border-radius:6px;border:1px solid #ddd;background:#fff;font-weight:700}
-.cart-item-remove{border:0;background:none;color:#c94b4b;font-size:13px;text-decoration:underline;margin-top:4px;padding:0}
-.drawer-foot{padding:18px 22px;border-top:1px solid #eee}
-.drawer-total{display:flex;justify-content:space-between;font-size:19px;font-weight:700;margin-bottom:12px;color:#2f4556}
+/* hero strip */
+.hero{background:var(--orange);color:#fff;padding:8px 10px;font-weight:bold;text-align:center;font-size:12px;letter-spacing:.3px}
 
-/* admin panel */
-.admin-screen{position:fixed;inset:0;background:#f7f7f7;z-index:70;overflow-y:auto}
-.admin-head{background:#2f4556;color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2}
-.admin-head h1{font-size:20px;margin:0}
-.admin-close{border:0;background:rgba(255,255,255,.15);color:#fff;width:36px;height:36px;border-radius:8px;font-size:20px}
-.admin-tabs{display:flex;gap:8px;padding:14px 22px 0;overflow-x:auto}
-.admin-tabs button{flex:0 0 auto;border:0;background:#eee;color:#555;padding:10px 16px;border-radius:9px;font-weight:700;font-size:14px;white-space:nowrap}
-.admin-tabs button.active{background:var(--orange);color:#fff}
-.admin-body{padding:18px 22px 60px}
-.admin-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.admin-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.admin-row .info{min-width:0}
-.admin-row .info b{display:block;font-size:15px;color:#333}
-.admin-row .info span{font-size:13px;color:#999}
-.admin-actions{display:flex;gap:8px;flex:0 0 auto}
-.admin-actions button{border:0;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:700}
-.btn-edit{background:#eef2f5;color:#2f4556}
-.btn-del{background:#fbe7e7;color:#c94b4b}
-.btn-primary{background:var(--orange);color:#fff}
-.btn-block{width:100%;border:0;border-radius:9px;padding:13px;font-weight:700;font-size:15px;margin-top:6px}
-.section-label{font-size:13px;color:#999;font-weight:700;text-transform:uppercase;margin:18px 0 8px}
-.image-upload{border:2px dashed #ddd;border-radius:12px;padding:16px;text-align:center;color:#999;font-size:13px;margin:8px 0;cursor:pointer;background:#fafafa}
-.image-upload img{max-width:100%;max-height:120px;border-radius:8px}
-.small-note{font-size:12px;color:#aaa;margin-top:2px}
-.order-status{display:inline-block;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;color:#fff;background:#999}
-.order-status.novo{background:#ffab0b}
-.order-status.preparo{background:#3b7dd8}
-.order-status.pronto{background:#2fa563}
-.order-status.entregue{background:#555}
-.badge-chip{display:inline-flex;align-items:center;gap:6px;background:#eee;border-radius:20px;padding:5px 10px;font-size:12px;margin:3px 4px 3px 0}
-.badge-chip button{border:0;background:none;color:#c94b4b;font-weight:700;padding:0;font-size:14px}
-.who-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 38px;background:#f0f0f0;font-size:14px;color:#555}
-.who-bar button{border:0;background:none;color:#2f4556;text-decoration:underline;font-weight:700}
-@media (max-width:650px){
-  .app-shell{max-width:none}
-  .top-strip{height:78px;font-size:20px}
-  .store-cover{height:390px}
-  .share-btn{width:55px;height:55px;right:15px;top:15px}
-  .admin-fab{top:88px}
-  .store-logo{left:34px;width:265px;height:205px;bottom:-55px}
-  .store-info{padding:75px 34px 10px;gap:12px}
-  .status-row{font-size:22px;gap:10px}
-  .status{padding:7px 10px}
-  .delivery-line,.minimum-line{font-size:23px}
-  .whatsapp{font-size:23px}
-  .store-actions{min-width:105px}
-  .login-btn{font-size:23px;padding:11px 20px}
-  .rating{font-size:23px}
-  .notice{margin:25px 34px 42px;padding:26px 42px;font-size:23px;line-height:1.55}
-  .catalog{padding:0 34px 90px}
-  .search-wrap{height:80px}
-  .search-wrap input{font-size:23px}
-  .category{font-size:22px;padding:14px 20px}
-  .section-title{font-size:34px}
-  .section-banner{height:260px}
-  .product-card{grid-template-columns:220px 1fr;gap:20px;padding:12px;min-height:210px}
-  .product-image{width:220px;height:190px}
-  .product-name{font-size:28px}
-  .product-desc{font-size:24px}
-  .product-price{font-size:26px}
-  .who-bar{padding:10px 34px}
-}
-@media (max-width:560px){
-  .store-info{padding-left:34px;padding-right:34px}
-  .store-actions{min-width:90px}
-  .product-card{grid-template-columns:145px 1fr;gap:14px}
-  .product-image{width:145px;height:145px;border-radius:20px}
-  .product-name{font-size:22px}
-  .product-desc{font-size:20px}
-  .product-price{font-size:22px}
-  .badge{font-size:16px}
-  .add-small{font-size:16px;padding:7px 9px}
-  .qty-small{padding:3px 5px}
-}
-</style>
-</head>
-<body>
-  <main class="app-shell">
-    <div class="top-strip" id="topStrip">PEDIDOS SOMENTE POR ENCOMENDA</div>
+/* cover photo + overlapping logo */
+.coverwrap{position:relative}
+.cover{height:150px;background:linear-gradient(120deg,#d9edcd 0%,#ffce6b 55%,#ff9f1a 100%);position:relative;overflow:hidden}
+.sharebtn{position:absolute;right:10px;top:10px;width:30px;height:30px;border:0;border-radius:8px;background:#fffc;color:var(--orange-dark);font-size:15px;font-weight:bold;box-shadow:0 1px 4px #0003}
+.logo{position:absolute;left:14px;bottom:-30px;width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 2px 6px #0003;z-index:2}
 
-    <div class="who-bar hidden" id="whoBar">
-      <span id="whoLabel"></span>
-      <button id="whoLogout">Sair</button>
-    </div>
+/* store head + info rows */
+.storehead{padding:8px 12px 0 92px;min-height:36px}
+.storehead h3{margin:0;font-size:15px;font-weight:800}
+.storehead small{color:var(--muted);font-size:10px}
+.storeinfo{padding:8px 12px 0}
+.statusrow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.openbadge{background:var(--orange-pale);color:var(--orange-dark);font-weight:800;font-size:10.5px;padding:3px 8px;border-radius:5px}
+.hours{font-size:11px;color:var(--muted)}
+.loginbtn{margin-left:auto;background:var(--navy);color:#fff;border:0;border-radius:16px;padding:6px 14px;font-size:11px;font-weight:700}
+.inforow{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;margin-bottom:4px}
+.inforow b{color:var(--orange-dark)}
+.rating{font-weight:800;font-size:12px;white-space:nowrap}
+.inforow2{font-size:11.5px;margin-bottom:4px}
+.inforow2 b{color:var(--orange-dark)}
+.wpprow{font-size:11.5px;color:#2e8b57;font-weight:700;margin-bottom:2px}
 
-    <section class="store-cover">
-      <div class="cover-image placeholder-image" id="coverImageWrap"><span>IMAGEM DE CAPA</span></div>
-      <button class="share-btn" id="shareBtn" aria-label="Compartilhar">↗</button>
-      <button class="admin-fab hidden" id="adminFab">⚙ Gerenciar</button>
-      <div class="store-logo placeholder-logo" id="logoImageWrap"><span>LOGO</span></div>
-    </section>
+/* notice */
+.notice{margin:10px 12px 0;background:var(--orange);color:#fff;border-radius:10px;padding:12px 13px;font-size:12.5px;line-height:1.65}
 
-    <section class="store-info">
-      <div class="store-main">
-        <div class="status-row">
-          <span class="status" id="statusPill">Aberto!</span>
-          <strong id="hoursLabel">00:01 - 23:59</strong>
-          <button class="info-btn" id="infoBtn" aria-label="Informações">i</button>
-        </div>
-        <div class="delivery-line">Entrega grátis acima de <b id="freeDeliveryLabel">R$ 165,00</b></div>
-        <div class="minimum-line">Pedido mínimo: <b id="minOrderLabel">R$ 80,00</b></div>
-        <button class="whatsapp" id="whatsappBtn">◔ WhatsApp</button>
-      </div>
-      <div class="store-actions">
-        <button class="login-btn" id="loginBtn">Login</button>
-        <div class="rating"><span>★</span> <span id="ratingLabel">4.8</span></div>
-      </div>
-    </section>
+/* sticky search + chips */
+.header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);margin-top:10px}
+.search{margin:8px 10px 8px;height:38px;border:1.5px solid var(--orange-pale);border-radius:20px;display:flex;align-items:center;padding:0 13px;color:#aaa;font-size:13px}
+.search input{border:0;outline:0;width:100%;font-size:13px;margin-left:8px;color:var(--ink)}
+.chips{display:flex;gap:6px;overflow:auto;padding:0 10px 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{position:relative;white-space:nowrap;border:0;background:var(--orange-pale);color:#a1650a;border-radius:6px;padding:8px 12px;font-size:11.5px;font-weight:800;cursor:pointer}
+.chip.active{background:var(--orange-dark);color:#fff}
+.chip.active::after{content:'';position:absolute;left:10px;right:10px;bottom:-6px;height:3px;border-radius:2px;background:var(--orange-dark)}
 
-    <section class="notice" id="noticeBox">
-      <div>🥦 Bem-vindo(a) à Facilita!</div>
-      <div>📦 Somente por encomenda.</div>
-      <div>📅 Antecedência mínima de 3 dias úteis.</div>
-      <div>📍 Entregas apenas em Belo Horizonte (BH).</div>
-      <div>💰 Pedido confirmado após pagamento total.</div>
-    </section>
+/* sections */
+.section{padding:10px 10px 4px}
+.section-title{background:var(--orange);color:#fff;text-align:center;font-size:14px;font-weight:800;padding:9px;border-radius:6px;margin:0 0 9px}
+.section-banner{height:130px;border-radius:8px;overflow:hidden;margin-bottom:9px;background:linear-gradient(120deg,#efd7a0,#e97b4b,#6da54c);display:flex;align-items:center;justify-content:center;font-size:40px}
+.section-caption{margin-top:-9px;margin-bottom:9px;background:var(--orange);color:#fff;text-align:center;font-size:11.5px;padding:8px;border-radius:0 0 8px 8px}
 
-    <section class="catalog">
-      <div class="search-wrap">
-        <span class="search-icon">⌕</span>
-        <input id="searchInput" type="search" placeholder="Digite para buscar um item" autocomplete="off">
-      </div>
+/* product cards */
+.products{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;gap:10px;border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;box-shadow:0 1px 3px #0001;align-items:center;position:relative}
+.heart{position:absolute;top:6px;right:6px;border:0;background:#fff;box-shadow:0 1px 3px #0002;border-radius:50%;width:26px;height:26px;font-size:13px;color:#c9c9c9;line-height:1;z-index:2}
+.heart.active{color:#ff4d6d}
+.pic{width:74px;height:70px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:32px;background:#f4f4f4}
+.info{min-width:0;flex:1}
+.tags{display:flex;gap:4px;margin-bottom:3px;flex-wrap:wrap}
+.tag{display:inline-block;border-radius:4px;padding:2px 6px;font-size:8.5px;font-weight:800}
+.tag.novo{background:#ffe0a1;color:#9b6200}
+.tag.promo{background:var(--orange-dark);color:#fff}
+.name{font-size:13px;font-weight:800;margin:0 0 2px;line-height:1.25}
+.weight{font-size:10.5px;color:var(--muted);margin-bottom:1px}
+.desc{font-size:10.5px;color:var(--muted);line-height:1.3;margin-bottom:3px}
+.price{font-size:13px;font-weight:800}
+.add{align-self:center;flex:none;border:0;background:var(--orange);color:#fff;border-radius:50%;width:30px;height:30px;font-weight:bold;font-size:17px;line-height:1}
+.qty{align-self:center;flex:none;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800}
+.qty button{border:0;background:var(--orange);color:#fff;border-radius:12px;width:22px;height:22px;font-weight:bold;font-size:14px;line-height:1}
 
-      <nav class="category-tabs" id="categoryTabs" aria-label="Categorias"></nav>
+.empty{display:none;text-align:center;padding:40px;color:#777;font-size:12px}
 
-      <div id="catalogContent"></div>
-    </section>
+/* bottom nav + cart */
+.bottom{position:fixed;bottom:0;z-index:30;width:100%;max-width:520px;height:68px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around}
+.nav{flex:1;text-align:center;padding-top:9px;color:#888;font-size:10px;cursor:pointer}
+.nav.active{color:var(--orange-dark);font-weight:bold}
+.nav b{display:block;font-size:20px;margin-bottom:2px}
+.cart{position:fixed;right:calc(50% - 245px);bottom:80px;background:var(--orange);color:#fff;border:0;border-radius:22px;padding:10px 15px;font-weight:bold;font-size:12.5px;box-shadow:0 3px 10px #0003;z-index:25;cursor:pointer}
+.cart span{background:#fff;color:var(--orange-dark);border-radius:10px;padding:1px 6px;margin-left:4px}
+@media(max-width:520px){.cart{right:12px}}
 
-    <button class="cart-fab hidden" id="cartFab">
-      <span>🛒</span>
-      <span id="cartCount">0</span>
-      <span>Ver pedido</span>
-      <strong id="cartTotal">R$ 0,00</strong>
-    </button>
-  </main>
+/* cart panel */
+.overlay{display:none;position:fixed;inset:0;background:#0006;z-index:40;justify-content:center}
+.overlay.open{display:flex}
+.cartpanel{align-self:flex-end;width:100%;max-width:520px;background:#fff;border-radius:14px 14px 0 0;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 -4px 18px #0004}
+.cartpanel-head{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:1px solid var(--line)}
+.cartpanel-head h3{margin:0;font-size:15px}
+.closebtn{border:0;background:none;font-size:20px;color:#777}
+.cartlist{overflow:auto;padding:8px 14px;flex:1}
+.cartitem{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #f0f0f0}
+.cartitem .ci-name{flex:1;min-width:0;font-size:12.5px;font-weight:800}
+.cartitem .ci-price{font-size:11px;color:var(--muted)}
+.cartitem .ci-qty{display:flex;align-items:center;gap:6px}
+.cartitem .ci-qty button{border:0;background:#f1f1f1;color:#333;border-radius:10px;width:22px;height:22px;font-weight:bold}
+.cartitem .ci-sub{font-size:12.5px;font-weight:800;min-width:60px;text-align:right}
+.freebar-wrap{padding:8px 14px 0}
+.freebar{height:7px;background:#eee;border-radius:5px;overflow:hidden}
+.freebar i{display:block;height:100%;background:var(--orange);width:0%}
+.freetext{font-size:10.5px;color:var(--muted);margin-top:4px}
+.cartfoot{padding:13px 14px;border-top:1px solid var(--line)}
+.totalrow{display:flex;justify-content:space-between;font-size:14.5px;font-weight:800;margin-bottom:10px}
+.checkoutbtn{width:100%;border:0;background:var(--orange);color:#fff;border-radius:9px;padding:13px;font-weight:800;font-size:13.5px}
+.cartempty{padding:32px 14px;text-align:center;color:var(--muted);font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:98px;transform:translateX(-50%);background:#222;color:#fff;padding:9px 16px;border-radius:20px;font-size:12px;z-index:50;opacity:0;transition:opacity .25s}
+.toast.show{opacity:1}
 
-  <div class="toast" id="toast"></div>
+/* painel genérico: login / favoritos / pedidos / conta */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:700}
+.field input{width:100%;height:40px;border:1.5px solid var(--line);border-radius:9px;padding:0 12px;font-size:13px;outline:0}
+.field input:focus{border-color:var(--orange)}
+.primarybtn{width:100%;border:0;background:var(--orange);color:#fff;border-radius:9px;padding:13px;font-weight:800;font-size:13.5px}
+.hint{font-size:10.5px;color:var(--muted);text-align:center;margin-top:10px}
+.accountcard{display:flex;align-items:center;gap:10px;padding:14px;background:var(--orange-pale);border-radius:10px;margin-bottom:12px}
+.accountavatar{width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
+.accountname{font-weight:800;font-size:13.5px}
+.accountemail{font-size:11px;color:var(--muted)}
+.acctlist{display:flex;flex-direction:column;gap:2px}
+.acctrow{display:flex;align-items:center;justify-content:space-between;padding:13px 4px;border-bottom:1px solid #f0f0f0;font-size:13px;font-weight:700}
+.acctrow span.arrow{color:#bbb;font-weight:400}
+.acctrow.danger{color:#e14b4b}
+.favitem{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0}
+.favitem .fi-pic{width:46px;height:46px;border-radius:7px;background:#f4f4f4;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.favitem .fi-name{flex:1;min-width:0;font-size:12.5px;font-weight:800}
+.favitem .fi-price{font-size:11px;color:var(--muted)}
+.favitem .fi-remove{border:0;background:none;color:#ff4d6d;font-size:16px}
+.ordercard{border:1px solid var(--line);border-radius:9px;padding:11px;margin-bottom:10px}
+.orderhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.orderdate{font-size:11px;color:var(--muted)}
+.orderstatus{font-size:9.5px;font-weight:800;background:#dff5e4;color:#2e8b57;padding:2px 8px;border-radius:10px}
+.orderitems{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.ordertotal{font-size:13px;font-weight:800;text-align:right}
+.sheetempty{padding:36px 14px;text-align:center;color:var(--muted);font-size:12.5px}
+</style></head>
+<body><main class="app">
 
-  <!-- Produto -->
-  <dialog id="productDialog">
-    <div class="dialog-card">
-      <button class="dialog-close" onclick="productDialog.close()">×</button>
-      <div class="dialog-image placeholder-image" id="dialogImageWrap"><span>IMAGEM</span></div>
-      <h2 id="dialogTitle"></h2>
-      <p id="dialogDescription"></p>
-      <strong id="dialogPrice"></strong>
-      <div class="qty-row">
-        <button id="dialogQtyMinus">−</button>
-        <span id="dialogQtyValue">1</span>
-        <button id="dialogQtyPlus">+</button>
-      </div>
-      <button class="add-btn" id="dialogAdd">Adicionar ao pedido</button>
-    </div>
-  </dialog>
+<div class="hero">PEDIDOS SOMENTE POR ENCOMENDA</div>
 
-  <!-- Login / Cadastro -->
-  <dialog id="loginDialog">
-    <div class="dialog-card login-card">
-      <button class="dialog-close" onclick="loginDialog.close()">×</button>
-      <h2 id="authTitle">Entrar</h2>
-      <div class="tab-switch">
-        <button id="authTabLogin" class="active">Entrar</button>
-        <button id="authTabRegister">Criar conta</button>
-      </div>
-      <p id="authSubtitle">Entre para acompanhar seus pedidos.</p>
-      <input class="field hidden" id="authName" placeholder="Seu nome">
-      <input class="field" id="authEmail" placeholder="E-mail" autocomplete="username">
-      <input class="field hidden" id="authPhone" placeholder="WhatsApp (com DDD)">
-      <input class="field" id="authPassword" placeholder="Senha" type="password" autocomplete="current-password">
-      <button class="login-submit" id="authSubmit">Entrar</button>
-      <div class="hint">Login simplificado salvo neste dispositivo/artefato — sem servidor externo.</div>
-    </div>
-  </dialog>
+<div class="coverwrap">
+  <div class="cover"></div>
+  <button class="sharebtn" onclick="showToast('Link copiado')">⤴</button>
+  <div class="logo">🍃</div>
+</div>
+<div class="storehead"><h3>Mercado Fresco</h3><small>Hortifruti fresco todo dia</small></div>
 
-  <!-- Informações -->
-  <dialog id="infoDialog">
-    <div class="dialog-card">
-      <button class="dialog-close" onclick="infoDialog.close()">×</button>
-      <h2>Informações da loja</h2>
-      <p id="infoText"></p>
-    </div>
-  </dialog>
+<section class="storeinfo">
+  <div class="statusrow"><span class="openbadge">Aberto!</span><span class="hours">00:00 – 23:59</span><button class="loginbtn" id="loginBtn" onclick="handleLoginBtn()">Login</button></div>
+  <div class="inforow"><span>Entrega grátis acima de <b>R$ 165,00</b></span><span class="rating">★ 4.8</span></div>
+  <div class="inforow2">Pedido mínimo: <b>R$ 40,00</b></div>
+  <div class="wpprow">💬 WhatsApp</div>
+</section>
 
-  <!-- Checkout -->
-  <dialog id="checkoutDialog">
-    <div class="dialog-card">
-      <button class="dialog-close" onclick="checkoutDialog.close()">×</button>
-      <h2>Finalizar pedido</h2>
-      <div id="checkoutSummary"></div>
-      <input class="field" id="checkoutName" placeholder="Nome para o pedido">
-      <input class="field" id="checkoutPhone" placeholder="WhatsApp (com DDD)">
-      <textarea class="field" id="checkoutAddress" placeholder="Endereço de entrega / observações"></textarea>
-      <button class="add-btn" id="checkoutConfirm">Confirmar pedido</button>
-      <button class="add-btn secondary" id="checkoutWhats">Confirmar e enviar no WhatsApp</button>
-    </div>
-  </dialog>
+<div class="notice">
+🍊 Bem-vindo(a) à Mercado Fresco!<br>
+📦 Pedidos somente por encomenda.<br>
+📅 Faça seu pedido com antecedência.<br>
+🚚 Separamos tudo com carinho e enviamos produtos frescos para você.
+</div>
 
-  <!-- Pedido confirmado -->
-  <dialog id="successDialog">
-    <div class="dialog-card">
-      <button class="dialog-close" onclick="successDialog.close()">×</button>
-      <h2>Pedido enviado! 🎉</h2>
-      <p id="successText"></p>
-      <button class="add-btn" onclick="successDialog.close()">Fechar</button>
-    </div>
-  </dialog>
+<header class="header">
+<div class="search">🔎<input id="search" placeholder="Digite para buscar um item"></div>
+<div class="chips" id="chips"></div>
+</header>
 
-  <!-- Painel Admin -->
-  <div class="admin-screen hidden" id="adminScreen">
-    <div class="admin-head">
-      <h1>Gerenciar Facilita</h1>
-      <button class="admin-close" id="adminCloseBtn">×</button>
-    </div>
-    <div class="admin-tabs">
-      <button data-tab="produtos" class="active">Produtos</button>
-      <button data-tab="categorias">Categorias</button>
-      <button data-tab="pedidos">Pedidos</button>
-      <button data-tab="loja">Dados da loja</button>
-    </div>
-    <div class="admin-body" id="adminBody"></div>
-  </div>
+<div id="content"></div>
+<div class="empty" id="empty">Nenhum produto encontrado.</div>
+
+<button class="cart" onclick="openCart()">🛒 Carrinho <span id="count">0</span></button>
+<nav class="bottom">
+<div class="nav active" data-nav="inicio" onclick="goNav('inicio')"><b>⌂</b>Início</div>
+<div class="nav" data-nav="cardapio" onclick="goNav('cardapio')"><b>▦</b>Cardápio</div>
+<div class="nav" data-nav="favoritos" onclick="goNav('favoritos')"><b>♡</b>Favoritos</div>
+<div class="nav" data-nav="pedidos" onclick="goNav('pedidos')"><b>☰</b>Pedidos</div>
+<div class="nav" data-nav="conta" onclick="goNav('conta')"><b>●</b>Conta</div>
+</nav>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeCart()">
+<div class="cartpanel">
+<div class="cartpanel-head"><h3>Seu carrinho</h3><button class="closebtn" onclick="closeCart()">✕</button></div>
+<div class="freebar-wrap"><div class="freebar"><i id="freebarfill"></i></div><div class="freetext" id="freetext"></div></div>
+<div class="cartlist" id="cartlist"></div>
+<div class="cartfoot"><div class="totalrow"><span>Total</span><span id="cartTotal">R$ 0,00</span></div><button class="checkoutbtn" onclick="checkout()">Finalizar pedido</button></div>
+</div>
+</div>
+<div class="overlay" id="sheetOverlay" onclick="if(event.target===this)closeSheet()">
+<div class="cartpanel">
+<div class="cartpanel-head"><h3 id="sheetTitle">Título</h3><button class="closebtn" onclick="closeSheet()">✕</button></div>
+<div class="cartlist" id="sheetBody"></div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+</main>
 
 <script>
-(function(){
-
-/* ---------- Dados padrão (mesmos do protótipo original) ---------- */
-const DEFAULT_CATEGORIES = [
-  {id:"topo", name:"Topo"},
-  {id:"kits", name:"Kit Fruta Semanal"},
-  {id:"acai", name:"Batidinha de Açaí"},
-  {id:"especiais", name:"Saladas de Frutas Especiais"},
-  {id:"higienizadas", name:"Frutas Higienizadas e Picadas"},
-  {id:"bebidas", name:"Bebidas"},
-  {id:"temperos", name:"Temperos e condimentos"},
-  {id:"frutas", name:"Frutas inteiras"},
-  {id:"legumes", name:"Legumes Inteiros"},
-  {id:"legumes-picados", name:"Legumes Picados"},
-  {id:"vitamina", name:"Kit Vitamina"}
+/* ---------- dados (conteúdo já existente, apenas reorganizado em seções) ---------- */
+const sections=[
+{
+  id:'kit', chip:'Kit Fruta Semanal', title:'Kit Fruta Semanal', banner:'🍱',
+  items:[
+    {id:'kit',name:'Kit Fruta Semanal',weight:'variado',desc:'Seleção de frutas frescas para a semana, itens variados e higienizados.',price:49.90,icon:'🍱',grad:'linear-gradient(135deg,#efb35d,#e94b35,#6da54c)',tags:['novo']}
+  ]
+},
+{
+  id:'saladas', chip:'Saladas Especiais', title:'Saladas de Frutas Especiais',
+  items:[
+    {id:'salada1',name:'Salada de Frutas Especial',weight:'250g',desc:'Mix de frutas frescas selecionadas.',price:12.90,icon:'🍓',grad:'linear-gradient(135deg,#e94,#fd5,#d43)',tags:['novo','promo']},
+    {id:'salada2',name:'Salada de Frutas Cremosa',weight:'250g',desc:'Frutas frescas com toque cremoso.',price:14.90,icon:'🍓',grad:'linear-gradient(135deg,#f55,#fc4,#8b4)',tags:['promo']}
+  ]
+},
+{
+  id:'frutas', chip:'Frutas Picadas', title:'Frutas Higienizadas e Picadas',
+  items:[
+    {id:'p:Manga Picada',name:'Manga Picada',weight:'250g',desc:'Manga selecionada, higienizada e pronta para consumir.',price:6.90,icon:'🍋'},
+    {id:'p:Melancia Picada',name:'Melancia Picada',weight:'250g',desc:'Melancia doce e fresca, cortada em cubos.',price:5.40,icon:'🍉'},
+    {id:'p:Salada de Frutas - opção 1',name:'Salada de Frutas - opção 1',weight:'250g',desc:'Mix de frutas frescas.',price:8.90,icon:'🍓'},
+    {id:'p:Abacaxi Fatiado',name:'Abacaxi Fatiado',weight:'300g',desc:'Abacaxi doce, selecionado e fatiado.',price:10.50,icon:'🍍'},
+    {id:'p:Abacaxi Inteiro sem casca',name:'Abacaxi Inteiro sem casca',weight:'500g',desc:'Pronto para consumir.',price:12.90,icon:'🍍',tags:['novo']},
+    {id:'p:Banana',name:'Banana',weight:'1kg',desc:'Bananas selecionadas.',price:8.00,icon:'🍌'},
+    {id:'p:Uva',name:'Uva',weight:'500g',desc:'Uvas frescas.',price:12.90,icon:'🍇'},
+    {id:'p:Morangos',name:'Morangos',weight:'250g',desc:'Morangos frescos.',price:13.90,icon:'🍓'}
+  ]
+},
+{
+  id:'legumes', chip:'Legumes e Verduras', title:'Legumes e Verduras Picados',
+  items:[
+    {id:'p:Cebola Picada',name:'Cebola Picada',weight:'250g',desc:'Cebola fresca já higienizada.',price:5.90,icon:'🧅'},
+    {id:'p:Salsinha Higienizada',name:'Salsinha Higienizada',weight:'50g',desc:'Salsinha fresca pronta para uso.',price:4.90,icon:'🌿'},
+    {id:'p:Brócolis Higienizado',name:'Brócolis Higienizado',weight:'300g',desc:'Brócolis selecionado e higienizado.',price:14.50,icon:'🥦',tags:['novo']},
+    {id:'p:Couve Flor Higienizada',name:'Couve Flor Higienizada',weight:'300g',desc:'Couve-flor fresca.',price:14.50,icon:'🥦'},
+    {id:'p:Mix Brócolis com Couve-flor',name:'Mix Brócolis com Couve-flor',weight:'300g',desc:'Mix de vegetais frescos.',price:15.90,icon:'🥦'},
+    {id:'p:Abóbora Fatiada',name:'Abóbora Fatiada',weight:'300g',desc:'Abóbora limpa e pronta para cozinhar.',price:8.20,icon:'🎃'},
+    {id:'p:Abobrinha Fatiada',name:'Abobrinha Fatiada',weight:'250g',desc:'Abobrinha fresca fatiada.',price:9.90,icon:'🥒'},
+    {id:'p:Berinjela',name:'Berinjela',weight:'250g',desc:'Berinjela selecionada.',price:8.50,icon:'🍆'},
+    {id:'p:Repolho Verde ralado',name:'Repolho Verde ralado',weight:'250g',desc:'Repolho fresco ralado.',price:9.90,icon:'🥬'},
+    {id:'p:Tomate fatiado',name:'Tomate fatiado',weight:'250g',desc:'Tomates selecionados.',price:9.00,icon:'🍅'},
+    {id:'p:Vagem Picada',name:'Vagem Picada',weight:'250g',desc:'Vagem fresca pronta para preparo.',price:11.90,icon:'🫛'}
+  ]
+},
+{
+  id:'temperos', chip:'Temperos', title:'Temperos', banner:'🧂',
+  bannerCaption:'Deixe sua comida mais saborosa com nossos temperos',
+  items:[
+    {id:'p:Páprica',name:'Páprica',weight:'100g',desc:'Tempero selecionado.',price:5.50,icon:'🧂'},
+    {id:'p:Pimenta Calabresa',name:'Pimenta Calabresa',weight:'50g',desc:'Pimenta calabresa.',price:5.00,icon:'🌶️'},
+    {id:'p:Pimenta do Reino moída',name:'Pimenta do Reino moída',weight:'50g',desc:'Pimenta moída na hora.',price:5.00,icon:'⚫'},
+    {id:'p:Sal',name:'Sal',weight:'500g',desc:'Sal refinado.',price:4.00,icon:'🧂'},
+    {id:'p:Tempero Ana Maria',name:'Tempero Ana Maria',weight:'100g',desc:'Mistura especial de temperos.',price:5.00,icon:'🧂'},
+    {id:'p:Tempero do Chefe',name:'Tempero do Chefe',weight:'100g',desc:'Blend de temperos.',price:7.90,icon:'🧂'}
+  ]
+}
 ];
 
-function uid(prefix){ return prefix + "_" + Math.random().toString(36).slice(2,9); }
+const cart={};
+const FREE_SHIPPING=165,MIN_ORDER=40;
+let currentUser=null;
+const favorites={};
+const orders=[];
 
-const DEFAULT_PRODUCTS = (function(){
-  const raw = [
-    {category:"kits", section:"Kit Fruta Semanal", banner:true, name:"Kit Fruta Semanal",desc:"DISPONÍVEL DE 31/8 A 4/9\n1 bandeja de abacaxi\n1 bandeja de laranja\n1 bandeja de melão\n1 bandeja de morango",price:49.90,badges:["+ Vendido!"]},
-    {category:"acai", section:"Batidinha de Açaí", name:"Batidinha de Açaí 500ml",desc:"Açaí cremoso, pronto para consumir.",price:12.90,badges:["Novo!"]},
-    {category:"acai", section:"Batidinha de Açaí", name:"Batidinha de Açaí 1L",desc:"Ideal para compartilhar.",price:22.90},
-    {category:"especiais", section:"Saladas de Frutas Especiais", name:"Salada de Fruta com creme de Maracujá",desc:"Deliciosa salada de fruta: morango, uva verde, uva roxa e manga, regada com creme.",price:15.90,badges:["Novidade!","Promoção!"]},
-    {category:"especiais", section:"Saladas de Frutas Especiais", name:"Salada de Frutas com creme de Ninho",desc:"Frutas fresquinhas, regadas com creme de Ninho cremoso.",price:15.90,badges:["Novidade!","Promoção!"]},
-    {category:"especiais", section:"Saladas de Frutas Especiais", name:"Salada de Fruta Master",desc:"Uma combinação especial de frutas frescas.",price:18.90,badges:["Novidade!","+ Vendido!"]},
-    {category:"higienizadas", section:"Frutas Higienizadas e Picadas", name:"Frutas Picadas",desc:"Escolha qual deseja: 100gr cada. Abacaxi, laranja, manga, mamão, melancia ou melão.",price:5.50},
-    {category:"higienizadas", section:"Frutas Higienizadas e Picadas", name:"Frutas Picadas",desc:"Escolha qual deseja: 100gr cada. Morango, kiwi, uva ou uva verde.",price:6.20},
-    {category:"higienizadas", section:"Frutas Higienizadas e Picadas", name:"Abacaxi Picado",desc:"200gr",price:6.90},
-    {category:"bebidas", section:"Bebidas", banner:true, name:"Garrafa de 500ml",desc:"Bebida gelada pronta para consumo.",price:7.90},
-    {category:"bebidas", section:"Bebidas", banner:true, name:"Garrafa de 1L",desc:"Bebida refrescante.",price:12.90},
-    {category:"temperos", section:"Temperos e condimentos", name:"Lemon Pepper",desc:"50gr",price:5.00},
-    {category:"temperos", section:"Temperos e condimentos", name:"Orégano",desc:"30gr",price:3.00},
-    {category:"temperos", section:"Temperos e condimentos", name:"Páprica",desc:"50gr — escolha páprica doce, defumada ou picante.",price:5.00},
-    {category:"temperos", section:"Temperos e condimentos", name:"Pimenta calabresa",desc:"50gr",price:5.00},
-    {category:"temperos", section:"Temperos e condimentos", name:"Pimenta do reino moída",desc:"50gr",price:5.00},
-    {category:"frutas", section:"Frutas inteiras", name:"Morango",desc:"Preço por bandeja",price:10.90},
-    {category:"frutas", section:"Frutas inteiras", name:"Mamão Havaí",desc:"Preço por bandeja",price:8.00},
-    {category:"frutas", section:"Frutas inteiras", name:"Mamão Formosa",desc:"Preço unitário",price:14.00},
-    {category:"frutas", section:"Frutas inteiras", name:"Maracujá",desc:"Preço por bandeja",price:9.90},
-    {category:"frutas", section:"Frutas inteiras", name:"Banana Prata",desc:"Preço por penca (10 unidades)",price:14.00},
-    {category:"frutas", section:"Frutas inteiras", name:"Kiwi",desc:"Preço por bandeja",price:12.90},
-    {category:"legumes-picados", section:"Legumes Picados", name:"Mix de Legumes (opção 3)",desc:"300gr — Abóbora, cenoura e chuchu",price:8.90},
-    {category:"legumes-picados", section:"Legumes Picados", name:"Mix de Legumes (opção 4)",desc:"300gr — Abobrinha, Baroa, cenoura e couve flor",price:9.90},
-    {category:"legumes-picados", section:"Legumes Picados", name:"Mix de Legumes (opção 5)",desc:"300gr — Alho poró, abobrinha, cenoura e chuchu",price:8.90},
-    {category:"legumes-picados", section:"Legumes Picados", name:"Kit Cenoura e Couve",desc:"250gr",price:9.90},
-    {category:"legumes-picados", section:"Legumes Picados", name:"Kit Cenoura e vagem",desc:"250gr",price:11.90},
-    {category:"vitamina", section:"Kit Vitamina", name:"Kit Vitamina - opção 1",desc:"280gr — Mamão, banana e maçã (congelado)",price:8.50,badges:["Novidade!"]},
-    {category:"vitamina", section:"Kit Vitamina", name:"Kit Vitamina (opção 2)",desc:"Banana com Aveia",price:8.50,badges:["Novidade!","Promoção!"]},
-    {category:"vitamina", section:"Kit Vitamina", name:"Kit Vitamina - opção 3",desc:"🍓 🍌 Morango + Banana 💛",price:8.50,badges:["Novidade!"]},
-    {category:"vitamina", section:"Kit Vitamina", name:"Kit Vitamina - opção 4",desc:"🍎 🍌 Uma combinação prática, nutritiva e deliciosa.",price:8.50,badges:["Novidade!"]}
-  ];
-  return raw.map(p=>Object.assign({id:uid("p"), image:null},p));
-})();
+const itemIndex={};
+sections.forEach(s=>s.items.forEach(it=>itemIndex[it.id]=it));
 
-const DEFAULT_SETTINGS = {
-  storeName:"Facilita — Hortifruti",
-  topStripText:"PEDIDOS SOMENTE POR ENCOMENDA",
-  openHours:"00:01 - 23:59",
-  isOpen:true,
-  freeDeliveryMin:165.00,
-  minOrder:80.00,
-  rating:4.8,
-  whatsappNumber:"",
-  infoText:"Loja de hortifruti com entregas por encomenda em Belo Horizonte (BH). Pedidos confirmados somente após pagamento total, com antecedência mínima de 3 dias úteis.",
-  noticeLines:["🥦 Bem-vindo(a) à Facilita!","📦 Somente por encomenda.","📅 Antecedência mínima de 3 dias úteis.","📍 Entregas apenas em Belo Horizonte (BH).","💰 Pedido confirmado após pagamento total."],
-  coverImage:null,
-  logoImage:null,
-  adminEmail:"admin@facilita.com",
-  adminPassword:"admin123"
-};
+/* ---------- chips (âncoras de navegação) ---------- */
+const chips=document.getElementById('chips');
+const chipTodos=makeChip('Todos','inicio-anchor');
+chipTodos.classList.add('active');
+chips.appendChild(chipTodos);
+sections.forEach(s=>chips.appendChild(makeChip(s.chip,s.id)));
 
-/* ---------- Camada de armazenamento (window.storage com fallback em memória) ---------- */
-const memoryFallback = {};
-async function storageGet(key, shared){
-  try{
-    const r = await window.storage.get(key, !!shared);
-    return r ? JSON.parse(r.value) : null;
-  }catch(e){
-    return memoryFallback[key] !== undefined ? memoryFallback[key] : null;
-  }
+function makeChip(label,targetId){
+  const b=document.createElement('button');
+  b.className='chip';b.textContent=label;b.dataset.target=targetId;
+  b.onclick=()=>{
+    const el=document.getElementById(targetId)|| (targetId==='inicio-anchor'?document.getElementById('content'):null);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    setActiveChip(targetId);
+  };
+  return b;
 }
-async function storageSet(key, value, shared){
-  memoryFallback[key] = value;
-  try{
-    await window.storage.set(key, JSON.stringify(value), !!shared);
-  }catch(e){ /* segue com fallback em memória */ }
+function setActiveChip(targetId){
+  [...chips.children].forEach(c=>c.classList.toggle('active',c.dataset.target===targetId));
 }
 
-const KEYS = {
-  catalog:"facilita:catalog",      // shared -> {categories, products}
-  settings:"facilita:settings",    // shared
-  accounts:"facilita:accounts",    // shared -> {email: {password,name,phone,isAdmin}}
-  orders:"facilita:orders",        // shared -> array
-  session:"facilita:session",      // personal -> {email}
-  cart:"facilita:cart"             // personal -> [{productId, qty}]
-};
+/* ---------- render ---------- */
+function fmt(n){return 'R$ '+n.toFixed(2).replace('.',',')}
 
-/* ---------- Estado ---------- */
-let categories = [];
-let products = [];
-let settings = {};
-let accounts = {};
-let orders = [];
-let session = null;
-let cart = [];
-
-let activeCategory = "topo";
-let currentProduct = null;
-let currentProductQty = 1;
-let authMode = "login";
-let adminTab = "produtos";
-let editingProductId = null;
-let editingCategoryId = null;
-
-/* ---------- Utilitários ---------- */
-function money(v){ return (Number(v)||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
-function showToast(msg){
-  const el=document.getElementById("toast");
-  el.textContent=msg; el.classList.add("show");
-  clearTimeout(window.__toast);
-  window.__toast=setTimeout(()=>el.classList.remove("show"),2400);
-}
-function escapeHtml(str){
-  return String(str==null?"":str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function fileToDataUrl(file){
-  return new Promise((resolve,reject)=>{
-    const r = new FileReader();
-    r.onload = ()=>resolve(r.result);
-    r.onerror = reject;
-    r.readAsDataURL(file);
-  });
-}
-function productImageMarkup(p, sizeClass){
-  if(p && p.image){
-    return `<img src="${p.image}" alt="${escapeHtml(p.name)}">`;
-  }
-  return `<span>IMAGEM</span>`;
-}
-
-/* ---------- Carregamento inicial ---------- */
-async function loadAll(){
-  const [c, s, a, o, sess, ct] = await Promise.all([
-    storageGet(KEYS.catalog, true),
-    storageGet(KEYS.settings, true),
-    storageGet(KEYS.accounts, true),
-    storageGet(KEYS.orders, true),
-    storageGet(KEYS.session, false),
-    storageGet(KEYS.cart, false)
-  ]);
-
-  if(c && c.categories && c.products){
-    categories = c.categories;
-    products = c.products;
-  }else{
-    categories = DEFAULT_CATEGORIES.slice();
-    products = DEFAULT_PRODUCTS.slice();
-    await saveCatalog();
-  }
-
-  settings = Object.assign({}, DEFAULT_SETTINGS, s||{});
-  if(!s) await saveSettings();
-
-  accounts = a || {};
-  if(!a){
-    accounts = {};
-    accounts[settings.adminEmail] = {password:settings.adminPassword, name:"Administrador", phone:"", isAdmin:true};
-    await saveAccounts();
-  }
-
-  orders = o || [];
-  session = sess || null;
-  cart = ct || [];
-
-  render();
-}
-
-async function saveCatalog(){ await storageSet(KEYS.catalog, {categories, products}, true); }
-async function saveSettings(){ await storageSet(KEYS.settings, settings, true); }
-async function saveAccounts(){ await storageSet(KEYS.accounts, accounts, true); }
-async function saveOrders(){ await storageSet(KEYS.orders, orders, true); }
-async function saveSession(){ await storageSet(KEYS.session, session, false); }
-async function saveCart(){ await storageSet(KEYS.cart, cart, false); }
-
-/* ---------- Render geral ---------- */
-function render(){
-  renderTopBits();
-  renderWhoBar();
-  renderTabs();
-  renderContent();
-  renderCartFab();
-}
-
-function renderTopBits(){
-  document.getElementById("topStrip").textContent = settings.topStripText;
-  document.title = settings.storeName;
-  document.getElementById("hoursLabel").textContent = settings.openHours;
-  const pill = document.getElementById("statusPill");
-  pill.textContent = settings.isOpen ? "Aberto!" : "Fechado";
-  pill.classList.toggle("closed", !settings.isOpen);
-  document.getElementById("freeDeliveryLabel").textContent = money(settings.freeDeliveryMin);
-  document.getElementById("minOrderLabel").textContent = money(settings.minOrder);
-  document.getElementById("ratingLabel").textContent = (settings.rating||0).toFixed(1);
-  document.getElementById("infoText").textContent = settings.infoText;
-
-  const notice = document.getElementById("noticeBox");
-  notice.innerHTML = (settings.noticeLines||[]).map(l=>`<div>${escapeHtml(l)}</div>`).join("");
-
-  const coverWrap = document.getElementById("coverImageWrap");
-  coverWrap.innerHTML = settings.coverImage ? `<img src="${settings.coverImage}" alt="Capa">` : `<span>IMAGEM DE CAPA</span>`;
-
-  const logoWrap = document.getElementById("logoImageWrap");
-  logoWrap.innerHTML = settings.logoImage ? `<img src="${settings.logoImage}" alt="Logo">` : `<span>LOGO</span>`;
-}
-
-function renderWhoBar(){
-  const bar = document.getElementById("whoBar");
-  const label = document.getElementById("whoLabel");
-  const loginBtn = document.getElementById("loginBtn");
-  const adminFab = document.getElementById("adminFab");
-  if(session && accounts[session.email]){
-    const acc = accounts[session.email];
-    bar.classList.remove("hidden");
-    label.textContent = "Olá, " + (acc.name || session.email) + (acc.isAdmin ? " (admin)" : "");
-    loginBtn.textContent = "Minha conta";
-    adminFab.classList.toggle("hidden", !acc.isAdmin);
-  }else{
-    bar.classList.add("hidden");
-    loginBtn.textContent = "Login";
-    adminFab.classList.add("hidden");
-  }
-}
-
-function renderTabs(){
-  const tabs = document.getElementById("categoryTabs");
-  tabs.innerHTML = categories.map(c=>`<button class="category ${c.id===activeCategory?"active":""}" data-cat="${c.id}">${escapeHtml(c.name)}</button>`).join("");
-  tabs.querySelectorAll(".category").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      activeCategory=btn.dataset.cat;
-      renderTabs(); renderContent();
-      document.querySelector(".catalog").scrollIntoView({behavior:"smooth",block:"start"});
-    });
-  });
-}
-
-function cartQtyFor(productId){
-  const item = cart.find(i=>i.productId===productId);
-  return item ? item.qty : 0;
-}
-
-function productCard(p){
-  const badges=(p.badges||[]).map(b=>`<span class="badge ${b.toLowerCase().includes("promo")?"sale":""}">${escapeHtml(b)}</span>`).join("");
-  const qty = cartQtyFor(p.id);
-  const controls = qty>0
-    ? `<div class="qty-small"><button data-dec="1">−</button><span>${qty}</span><button data-inc="1">+</button></div>`
-    : `<button class="add-small" data-add="1">+ Adicionar</button>`;
-  return `<article class="product-card" data-id="${p.id}">
-    <div class="product-image placeholder-image">${productImageMarkup(p)}</div>
-    <div class="product-info">
-      <div class="badges">${badges}</div>
-      <h3 class="product-name">${escapeHtml(p.name)}</h3>
-      <p class="product-desc">${escapeHtml(p.desc).replace(/\n/g,"<br>")} ${p.desc && p.desc.length>80?'<a class="product-link" href="#" data-more="1">Ver mais</a>':""}</p>
-      <div class="product-price">${money(p.price)}</div>
+function cardHtml(it){
+  const inCart=cart[it.id];
+  const isFav=!!favorites[it.id];
+  const pic=it.grad?`style="background:${it.grad}"`:'';
+  const tagsHtml=(it.tags||[]).map(t=>t==='novo'?'<span class="tag novo">Novidade!</span>':'<span class="tag promo">Promoção!</span>').join('');
+  const actionHtml=inCart
+    ?`<div class="qty"><button onclick="changeQty('${it.id}',-1)">−</button><span>${inCart.qty}</span><button onclick="changeQty('${it.id}',1)">+</button></div>`
+    :`<button class="add" onclick="addToCart('${it.id}','${it.name.replace(/'/g,"\\'")}',${it.price})">+</button>`;
+  return `<article class="card">
+    <button class="heart ${isFav?'active':''}" onclick="toggleFavorite('${it.id}')">${isFav?'♥':'♡'}</button>
+    <div class="pic" ${pic}>${it.icon}</div>
+    <div class="info">
+      ${tagsHtml?`<div class="tags">${tagsHtml}</div>`:''}
+      <div class="name">${it.name}</div>
+      <div class="weight">${it.weight}</div>
+      <div class="desc">${it.desc}</div>
+      <div class="price">${fmt(it.price)}</div>
     </div>
-    ${controls}
+    ${actionHtml}
   </article>`;
 }
 
-function visibleSections(){
-  const q = document.getElementById("searchInput").value.trim().toLowerCase();
-  const bySection = {};
-  const order = [];
-  const src = q
-    ? products.filter(p=>(p.name+" "+p.desc).toLowerCase().includes(q))
-    : products.filter(p=>activeCategory==="topo" || p.category===activeCategory);
-
-  src.forEach(p=>{
-    const key = p.section || p.category;
-    if(!bySection[key]){ bySection[key]=[]; order.push(key); }
-    bySection[key].push(p);
+function render(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  let html='';
+  sections.forEach(s=>{
+    const items=s.items.filter(it=>!q||it.name.toLowerCase().includes(q)||it.desc.toLowerCase().includes(q));
+    if(!items.length)return;
+    html+=`<section class="section" id="${s.id}"><h2 class="section-title">${s.title}</h2>`;
+    if(s.banner){
+      html+=`<div class="section-banner">${s.banner}</div>`;
+      if(s.bannerCaption)html+=`<div class="section-caption">${s.bannerCaption}</div>`;
+    }
+    html+=`<div class="products">${items.map(cardHtml).join('')}</div></section>`;
   });
-  return order.map(key=>({
-    title:key,
-    banner: bySection[key].some(p=>p.banner),
-    products: bySection[key]
-  }));
+  document.getElementById('content').innerHTML=html||'';
+  document.getElementById('empty').style.display=html?'none':'block';
+  setupSpy();
 }
 
-function renderContent(){
-  const content = document.getElementById("catalogContent");
-  const sections = visibleSections();
-  if(!sections.length){
-    content.innerHTML = `<div class="empty">Nenhum item encontrado.</div>`;
+/* ---------- favoritos ---------- */
+function toggleFavorite(id){
+  if(favorites[id])delete favorites[id];else favorites[id]=true;
+  render();
+  if(document.getElementById('sheetOverlay').classList.contains('open')&&document.getElementById('sheetTitle').textContent==='Favoritos')renderFavoritos();
+}
+
+/* ---------- carrinho ---------- */
+function addToCart(id,name,price){
+  if(cart[id])cart[id].qty++;else cart[id]={name,price,qty:1};
+  updateCartBadge();render();renderCartPanel();showToast(name+' adicionado ao carrinho');
+}
+function changeQty(id,delta){
+  if(!cart[id])return;
+  cart[id].qty+=delta;
+  if(cart[id].qty<=0)delete cart[id];
+  updateCartBadge();render();renderCartPanel();
+}
+function cartCount(){return Object.values(cart).reduce((s,i)=>s+i.qty,0)}
+function cartTotal(){return Object.values(cart).reduce((s,i)=>s+i.qty*i.price,0)}
+function updateCartBadge(){document.getElementById('count').textContent=cartCount()}
+
+function renderCartPanel(){
+  const list=document.getElementById('cartlist');
+  const items=Object.entries(cart);
+  if(!items.length){
+    list.innerHTML='<div class="cartempty">Seu carrinho está vazio.<br>Adicione produtos para continuar.</div>';
+  }else{
+    list.innerHTML=items.map(([id,it])=>`<div class="cartitem"><div class="ci-name">${it.name}<div class="ci-price">${fmt(it.price)} un.</div></div><div class="ci-qty"><button onclick="changeQty('${id}',-1)">−</button><span>${it.qty}</span><button onclick="changeQty('${id}',1)">+</button></div><div class="ci-sub">${fmt(it.price*it.qty)}</div></div>`).join('');
+  }
+  const total=cartTotal();
+  document.getElementById('cartTotal').textContent=fmt(total);
+  const pct=Math.min(100,(total/FREE_SHIPPING)*100);
+  document.getElementById('freebarfill').style.width=pct+'%';
+  document.getElementById('freetext').textContent=total>=FREE_SHIPPING?'🎉 Você ganhou frete grátis!':`Faltam ${fmt(FREE_SHIPPING-total)} para frete grátis`;
+}
+function openCart(){renderCartPanel();document.getElementById('overlay').classList.add('open')}
+function closeCart(){document.getElementById('overlay').classList.remove('open')}
+function checkout(){
+  const total=cartTotal();
+  if(!cartCount()){showToast('Seu carrinho está vazio');return}
+  if(total<MIN_ORDER){showToast(`Pedido mínimo de ${fmt(MIN_ORDER)}. Faltam ${fmt(MIN_ORDER-total)}`);return}
+  orders.unshift({
+    date:new Date(),
+    items:Object.values(cart).map(i=>({name:i.name,qty:i.qty})),
+    total
+  });
+  showToast(`Pedido enviado! Total ${fmt(total)}`);
+  Object.keys(cart).forEach(k=>delete cart[k]);
+  updateCartBadge();render();closeCart();
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(showToast._h);
+  showToast._h=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---------- navegação inferior ---------- */
+function goNav(name){
+  document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.nav===name));
+  if(name==='inicio'){window.scrollTo({top:0,behavior:'smooth'})}
+  else if(name==='cardapio'){document.getElementById('content').scrollIntoView({behavior:'smooth',block:'start'})}
+  else if(name==='favoritos'){openFavoritos()}
+  else if(name==='pedidos'){openPedidos()}
+  else if(name==='conta'){openConta()}
+}
+
+/* ---------- painel genérico ---------- */
+function openSheet(title,bodyHtml){
+  document.getElementById('sheetTitle').textContent=title;
+  document.getElementById('sheetBody').innerHTML=bodyHtml;
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+function closeSheet(){document.getElementById('sheetOverlay').classList.remove('open')}
+
+/* ---------- login ---------- */
+function handleLoginBtn(){currentUser?openConta():openLogin()}
+function openLogin(){
+  openSheet('Login',`
+    <div class="field"><label>E-mail</label><input id="loginEmail" type="email" placeholder="voce@email.com"></div>
+    <div class="field"><label>Senha</label><input id="loginPass" type="password" placeholder="••••••••"></div>
+    <button class="primarybtn" onclick="doLogin()">Entrar</button>
+    <div class="hint">Ambiente de demonstração — qualquer e-mail e senha funcionam.</div>
+  `);
+}
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  if(!/^\S+@\S+\.\S+$/.test(email)){showToast('Digite um e-mail válido');return}
+  if(pass.length<4){showToast('A senha deve ter ao menos 4 caracteres');return}
+  const name=email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  currentUser={name,email};
+  updateLoginBtn();
+  showToast('Login realizado, bem-vindo(a) '+name+'!');
+  openConta();
+}
+function logout(){
+  currentUser=null;
+  updateLoginBtn();
+  showToast('Você saiu da sua conta');
+  closeSheet();
+}
+function updateLoginBtn(){
+  document.getElementById('loginBtn').textContent=currentUser?currentUser.name.split(' ')[0]:'Login';
+}
+
+/* ---------- favoritos ---------- */
+function openFavoritos(){
+  const ids=Object.keys(favorites);
+  if(!ids.length){openSheet('Favoritos','<div class="sheetempty">Você ainda não tem favoritos.<br>Toque no ♡ dos produtos para salvá-los aqui.</div>');return}
+  const html=ids.map(id=>{
+    const it=itemIndex[id];if(!it)return'';
+    return `<div class="favitem"><div class="fi-pic">${it.icon}</div><div class="fi-name">${it.name}<div class="fi-price">${fmt(it.price)}</div></div><button class="fi-remove" onclick="toggleFavorite('${id}')">✕</button></div>`;
+  }).join('');
+  openSheet('Favoritos',html);
+}
+function renderFavoritos(){openFavoritos()}
+
+/* ---------- pedidos ---------- */
+function openPedidos(){
+  if(!orders.length){openSheet('Pedidos','<div class="sheetempty">Você ainda não fez nenhum pedido.</div>');return}
+  const html=orders.map(o=>{
+    const dateStr=o.date.toLocaleDateString('pt-BR')+' às '+o.date.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const itemsStr=o.items.map(i=>`${i.qty}× ${i.name}`).join(', ');
+    return `<div class="ordercard"><div class="orderhead"><span class="orderdate">${dateStr}</span><span class="orderstatus">Confirmado</span></div><div class="orderitems">${itemsStr}</div><div class="ordertotal">${fmt(o.total)}</div></div>`;
+  }).join('');
+  openSheet('Pedidos',html);
+}
+
+/* ---------- conta ---------- */
+function openConta(){
+  if(!currentUser){
+    openSheet('Conta','<div class="sheetempty">Faça login para ver os dados da sua conta.</div><button class="primarybtn" onclick="openLogin()">Fazer login</button>');
     return;
   }
-  content.innerHTML = sections.map(s=>`
-    <section class="catalog-section">
-      <h2 class="section-title">${escapeHtml(s.title)}</h2>
-      ${s.banner?'<div class="section-banner placeholder-image"><span>IMAGEM DA CATEGORIA</span></div>':''}
-      ${s.products.map(productCard).join("")}
-    </section>
-  `).join("");
-
-  content.querySelectorAll(".product-card").forEach(card=>{
-    const id = card.dataset.id;
-    const p = products.find(x=>x.id===id);
-    if(!p) return;
-    const addBtn = card.querySelector("[data-add]");
-    if(addBtn) addBtn.addEventListener("click",(e)=>{e.stopPropagation();addToCart(p,1);});
-    const inc = card.querySelector("[data-inc]");
-    if(inc) inc.addEventListener("click",(e)=>{e.stopPropagation();addToCart(p,1);});
-    const dec = card.querySelector("[data-dec]");
-    if(dec) dec.addEventListener("click",(e)=>{e.stopPropagation();addToCart(p,-1);});
-    card.addEventListener("click",(e)=>{
-      if(e.target.closest("[data-add],[data-inc],[data-dec]")) return;
-      openProduct(p);
-    });
-    const more=card.querySelector("[data-more]");
-    if(more) more.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();openProduct(p)});
-  });
-}
-
-/* ---------- Carrinho ---------- */
-async function addToCart(p, delta){
-  const existing = cart.find(i=>i.productId===p.id);
-  if(existing){
-    existing.qty += delta;
-    if(existing.qty<=0){ cart = cart.filter(i=>i.productId!==p.id); }
-  }else if(delta>0){
-    cart.push({productId:p.id, qty:delta});
-  }
-  await saveCart();
-  renderContent();
-  renderCartFab();
-  if(delta>0) showToast(`${p.name} adicionado ao pedido`);
-}
-
-function cartLines(){
-  return cart.map(i=>{
-    const p = products.find(x=>x.id===i.productId);
-    if(!p) return null;
-    return {product:p, qty:i.qty, subtotal:p.price*i.qty};
-  }).filter(Boolean);
-}
-function cartTotal(){
-  return cartLines().reduce((a,l)=>a+l.subtotal,0);
-}
-function cartCount(){
-  return cart.reduce((a,i)=>a+i.qty,0);
-}
-
-function renderCartFab(){
-  const fab=document.getElementById("cartFab");
-  document.getElementById("cartCount").textContent=cartCount();
-  document.getElementById("cartTotal").textContent=money(cartTotal());
-  fab.classList.toggle("hidden",cart.length===0);
-}
-
-function openCartDrawer(){
-  const lines = cartLines();
-  const backdrop = document.createElement("div");
-  backdrop.className = "drawer-backdrop";
-  backdrop.id = "cartBackdrop";
-
-  const drawer = document.createElement("div");
-  drawer.className = "drawer";
-  drawer.innerHTML = `
-    <div class="drawer-head"><h2>Seu pedido</h2><button class="dialog-close" style="position:static;font-size:28px" id="cartDrawerClose">×</button></div>
-    <div class="drawer-body" id="cartDrawerBody"></div>
-    <div class="drawer-foot">
-      <div class="drawer-total"><span>Total</span><span>${money(cartTotal())}</span></div>
-      <button class="add-btn" id="cartCheckoutBtn" ${lines.length?"":"disabled"}>Finalizar pedido</button>
+  const initial=currentUser.name.charAt(0).toUpperCase();
+  openSheet('Conta',`
+    <div class="accountcard"><div class="accountavatar">${initial}</div><div><div class="accountname">${currentUser.name}</div><div class="accountemail">${currentUser.email}</div></div></div>
+    <div class="acctlist">
+      <div class="acctrow" onclick="openFavoritos()">Favoritos <span class="arrow">›</span></div>
+      <div class="acctrow" onclick="openPedidos()">Meus pedidos <span class="arrow">›</span></div>
+      <div class="acctrow danger" onclick="logout()">Sair da conta</div>
     </div>
-  `;
-  document.body.appendChild(backdrop);
-  document.body.appendChild(drawer);
-
-  function close(){ backdrop.remove(); drawer.remove(); }
-  backdrop.addEventListener("click", close);
-  drawer.querySelector("#cartDrawerClose").addEventListener("click", close);
-
-  function renderLines(){
-    const body = drawer.querySelector("#cartDrawerBody");
-    const ls = cartLines();
-    if(!ls.length){
-      body.innerHTML = `<div class="empty">Seu carrinho está vazio.</div>`;
-      drawer.querySelector(".drawer-total span:last-child").textContent = money(0);
-      drawer.querySelector("#cartCheckoutBtn").setAttribute("disabled","disabled");
-      return;
-    }
-    body.innerHTML = ls.map(l=>`
-      <div class="cart-item" data-id="${l.product.id}">
-        <div class="cart-item-img">${productImageMarkup(l.product)}</div>
-        <div class="cart-item-info">
-          <div class="name">${escapeHtml(l.product.name)}</div>
-          <div class="price">${money(l.product.price)} un.</div>
-          <div class="cart-item-qty">
-            <button data-dec="1">−</button>
-            <span>${l.qty}</span>
-            <button data-inc="1">+</button>
-          </div>
-          <button class="cart-item-remove" data-remove="1">Remover</button>
-        </div>
-      </div>
-    `).join("");
-    drawer.querySelector(".drawer-total span:last-child").textContent = money(cartTotal());
-    drawer.querySelector("#cartCheckoutBtn").removeAttribute("disabled");
-
-    body.querySelectorAll(".cart-item").forEach(row=>{
-      const id = row.dataset.id;
-      const p = products.find(x=>x.id===id);
-      row.querySelector("[data-inc]").addEventListener("click",async()=>{await addToCart(p,1);renderLines();});
-      row.querySelector("[data-dec]").addEventListener("click",async()=>{await addToCart(p,-1);renderLines();});
-      row.querySelector("[data-remove]").addEventListener("click",async()=>{
-        cart = cart.filter(i=>i.productId!==id);
-        await saveCart(); renderContent(); renderCartFab(); renderLines();
-      });
-    });
-  }
-  renderLines();
-
-  drawer.querySelector("#cartCheckoutBtn").addEventListener("click",()=>{
-    close();
-    openCheckout();
-  });
-}
-document.getElementById("cartFab").addEventListener("click", openCartDrawer);
-
-/* ---------- Produto: modal ---------- */
-function openProduct(p){
-  currentProduct = p;
-  currentProductQty = 1;
-  document.getElementById("dialogTitle").textContent=p.name;
-  document.getElementById("dialogDescription").innerHTML=escapeHtml(p.desc).replace(/\n/g,"<br>");
-  document.getElementById("dialogPrice").textContent=money(p.price);
-  document.getElementById("dialogQtyValue").textContent = "1";
-  document.getElementById("dialogImageWrap").innerHTML = productImageMarkup(p);
-  document.getElementById("productDialog").showModal();
-}
-document.getElementById("dialogQtyMinus").addEventListener("click",()=>{
-  currentProductQty = Math.max(1, currentProductQty-1);
-  document.getElementById("dialogQtyValue").textContent = currentProductQty;
-});
-document.getElementById("dialogQtyPlus").addEventListener("click",()=>{
-  currentProductQty += 1;
-  document.getElementById("dialogQtyValue").textContent = currentProductQty;
-});
-document.getElementById("dialogAdd").addEventListener("click",async ()=>{
-  if(currentProduct) await addToCart(currentProduct, currentProductQty);
-  document.getElementById("productDialog").close();
-});
-
-/* ---------- Busca ---------- */
-document.getElementById("searchInput").addEventListener("input",renderContent);
-
-/* ---------- Login / Cadastro ---------- */
-const loginDialog = document.getElementById("loginDialog");
-document.getElementById("loginBtn").addEventListener("click",()=>{
-  if(session && accounts[session.email]){
-    openAccountInfo();
-  }else{
-    setAuthMode("login");
-    loginDialog.showModal();
-  }
-});
-function openAccountInfo(){
-  showToast("Você já está logado como " + (accounts[session.email].name || session.email));
-}
-document.getElementById("whoLogout").addEventListener("click", async ()=>{
-  session = null;
-  await saveSession();
-  renderWhoBar();
-  showToast("Você saiu da conta");
-});
-
-function setAuthMode(mode){
-  authMode = mode;
-  document.getElementById("authTabLogin").classList.toggle("active", mode==="login");
-  document.getElementById("authTabRegister").classList.toggle("active", mode==="register");
-  document.getElementById("authTitle").textContent = mode==="login" ? "Entrar" : "Criar conta";
-  document.getElementById("authSubtitle").textContent = mode==="login" ? "Entre para acompanhar seus pedidos." : "Crie sua conta para fazer pedidos mais rápido.";
-  document.getElementById("authSubmit").textContent = mode==="login" ? "Entrar" : "Criar conta";
-  document.getElementById("authName").classList.toggle("hidden", mode==="login");
-  document.getElementById("authPhone").classList.toggle("hidden", mode==="login");
-}
-document.getElementById("authTabLogin").addEventListener("click",()=>setAuthMode("login"));
-document.getElementById("authTabRegister").addEventListener("click",()=>setAuthMode("register"));
-
-document.getElementById("authSubmit").addEventListener("click", async ()=>{
-  const email = document.getElementById("authEmail").value.trim().toLowerCase();
-  const pass = document.getElementById("authPassword").value;
-  if(!email || !pass){ showToast("Preencha e-mail e senha"); return; }
-
-  if(authMode==="login"){
-    const acc = accounts[email];
-    if(!acc || acc.password !== pass){ showToast("E-mail ou senha incorretos"); return; }
-    session = {email};
-    await saveSession();
-    renderWhoBar();
-    loginDialog.close();
-    showToast("Bem-vindo(a), " + (acc.name || email));
-  }else{
-    if(accounts[email]){ showToast("Já existe uma conta com este e-mail"); return; }
-    const name = document.getElementById("authName").value.trim();
-    const phone = document.getElementById("authPhone").value.trim();
-    accounts[email] = {password:pass, name:name||email, phone:phone||"", isAdmin:false};
-    await saveAccounts();
-    session = {email};
-    await saveSession();
-    renderWhoBar();
-    loginDialog.close();
-    showToast("Conta criada! Bem-vindo(a), " + (name||email));
-  }
-  document.getElementById("authEmail").value="";
-  document.getElementById("authPassword").value="";
-  document.getElementById("authName").value="";
-  document.getElementById("authPhone").value="";
-});
-
-/* ---------- Info / Share / WhatsApp ---------- */
-document.getElementById("infoBtn").addEventListener("click",()=>document.getElementById("infoDialog").showModal());
-document.getElementById("shareBtn").addEventListener("click",async()=>{
-  try{
-    if(navigator.share) await navigator.share({title:settings.storeName,text:"Confira nosso catálogo!"});
-    else {await navigator.clipboard.writeText(location.href);showToast("Link copiado");}
-  }catch(e){}
-});
-document.getElementById("whatsappBtn").addEventListener("click",()=>{
-  const num = (settings.whatsappNumber||"").replace(/\D/g,"");
-  if(!num){ showToast("Número de WhatsApp ainda não configurado (defina em Gerenciar > Dados da loja)"); return; }
-  window.open(`https://wa.me/${num}`,"_blank");
-});
-
-/* ---------- Checkout ---------- */
-const checkoutDialog = document.getElementById("checkoutDialog");
-function openCheckout(){
-  const lines = cartLines();
-  if(!lines.length){ showToast("Seu carrinho está vazio"); return; }
-  document.getElementById("checkoutSummary").innerHTML = lines.map(l=>
-    `<div style="display:flex;justify-content:space-between;font-size:15px;color:#555;margin:4px 0">
-      <span>${l.qty}x ${escapeHtml(l.product.name)}</span><span>${money(l.subtotal)}</span>
-    </div>`
-  ).join("") + `<div style="display:flex;justify-content:space-between;font-weight:700;margin-top:10px;font-size:17px;color:#2f4556"><span>Total</span><span>${money(cartTotal())}</span></div>`;
-
-  if(session && accounts[session.email]){
-    const acc = accounts[session.email];
-    document.getElementById("checkoutName").value = acc.name || "";
-    document.getElementById("checkoutPhone").value = acc.phone || "";
-  }
-  checkoutDialog.showModal();
-}
-function buildOrderMessage(order){
-  let msg = `Novo pedido — ${settings.storeName}\n\n`;
-  order.items.forEach(l=>{ msg += `${l.qty}x ${l.product.name} — ${money(l.subtotal)}\n`; });
-  msg += `\nTotal: ${money(order.total)}\n`;
-  msg += `\nCliente: ${order.customerName}\nWhatsApp: ${order.customerPhone}\nEndereço/obs: ${order.address||"-"}`;
-  return msg;
-}
-async function finalizeOrder(sendWhats){
-  const lines = cartLines();
-  if(!lines.length) return;
-  const name = document.getElementById("checkoutName").value.trim();
-  const phone = document.getElementById("checkoutPhone").value.trim();
-  const address = document.getElementById("checkoutAddress").value.trim();
-  if(!name || !phone){ showToast("Informe nome e WhatsApp para o pedido"); return; }
-
-  const order = {
-    id: uid("order"),
-    items: lines,
-    total: cartTotal(),
-    customerName: name,
-    customerPhone: phone,
-    address,
-    customerEmail: session ? session.email : null,
-    status: "novo",
-    createdAt: new Date().toISOString()
-  };
-  orders.unshift(order);
-  await saveOrders();
-
-  cart = [];
-  await saveCart();
-  renderContent();
-  renderCartFab();
-  checkoutDialog.close();
-
-  document.getElementById("successText").textContent =
-    `Pedido #${order.id.slice(-5).toUpperCase()} recebido! Total de ${money(order.total)}. Guarde este número para acompanhar seu pedido.`;
-  document.getElementById("successDialog").showModal();
-
-  if(sendWhats){
-    const num = (settings.whatsappNumber||"").replace(/\D/g,"");
-    const text = encodeURIComponent(buildOrderMessage(order));
-    if(num){ window.open(`https://wa.me/${num}?text=${text}`,"_blank"); }
-    else { showToast("WhatsApp da loja não configurado — pedido salvo mesmo assim"); }
-  }
-}
-document.getElementById("checkoutConfirm").addEventListener("click",()=>finalizeOrder(false));
-document.getElementById("checkoutWhats").addEventListener("click",()=>finalizeOrder(true));
-
-/* ================= ADMIN ================= */
-const adminScreen = document.getElementById("adminScreen");
-document.getElementById("adminFab").addEventListener("click",()=>{
-  adminScreen.classList.remove("hidden");
-  renderAdmin();
-});
-document.getElementById("adminCloseBtn").addEventListener("click",()=>{
-  adminScreen.classList.add("hidden");
-});
-document.querySelectorAll(".admin-tabs button").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    adminTab = btn.dataset.tab;
-    document.querySelectorAll(".admin-tabs button").forEach(b=>b.classList.toggle("active",b===btn));
-    renderAdmin();
-  });
-});
-
-function renderAdmin(){
-  const body = document.getElementById("adminBody");
-  if(adminTab==="produtos") return renderAdminProducts(body);
-  if(adminTab==="categorias") return renderAdminCategories(body);
-  if(adminTab==="pedidos") return renderAdminOrders(body);
-  if(adminTab==="loja") return renderAdminStore(body);
+  `);
 }
 
-/* -- Produtos -- */
-function renderAdminProducts(body){
-  body.innerHTML = `
-    <button class="btn-block btn-primary" id="newProductBtn">+ Novo produto</button>
-    <div class="section-label">${products.length} produto(s)</div>
-    <div id="productList"></div>
-  `;
-  const list = document.getElementById("productList");
-  list.innerHTML = products.map(p=>`
-    <div class="admin-card">
-      <div class="admin-row">
-        <div class="info">
-          <b>${escapeHtml(p.name)}</b>
-          <span>${escapeHtml(p.section||p.category)} · ${money(p.price)}</span>
-        </div>
-        <div class="admin-actions">
-          <button class="btn-edit" data-edit="${p.id}">Editar</button>
-          <button class="btn-del" data-del="${p.id}">Excluir</button>
-        </div>
-      </div>
-    </div>
-  `).join("");
-  list.querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>openProductForm(b.dataset.edit)));
-  list.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",async()=>{
-    if(!confirm("Excluir este produto?")) return;
-    products = products.filter(p=>p.id!==b.dataset.del);
-    await saveCatalog();
-    renderAdminProducts(body);
-    renderContent();
-  }));
-  document.getElementById("newProductBtn").addEventListener("click",()=>openProductForm(null));
+/* ---------- scroll-spy: destaca o chip da seção visível ---------- */
+let spyObserver=null;
+function setupSpy(){
+  if(spyObserver)spyObserver.disconnect();
+  spyObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)setActiveChip(e.target.id)});
+  },{rootMargin:'-120px 0px -70% 0px',threshold:0});
+  sections.forEach(s=>{const el=document.getElementById(s.id);if(el)spyObserver.observe(el)});
 }
 
-function openProductForm(productId){
-  editingProductId = productId;
-  const p = productId ? products.find(x=>x.id===productId) : {name:"",desc:"",price:"",category:categories[1]?categories[1].id:"",section:"",badges:[],image:null,banner:false};
-  const body = document.getElementById("adminBody");
-  body.innerHTML = `
-    <button class="link-btn" id="backToList">← Voltar</button>
-    <h2 style="font-size:19px;color:#2f4556">${productId?"Editar produto":"Novo produto"}</h2>
-    <div class="section-label">Foto do produto</div>
-    <label class="image-upload" id="imgUploadLabel">
-      ${p.image ? `<img src="${p.image}">` : "Toque para escolher uma foto (opcional — fica como IMAGEM até você adicionar)"}
-      <input type="file" accept="image/*" id="imgUploadInput" class="hidden">
-    </label>
-    <div class="section-label">Nome</div>
-    <input class="field" id="pfName" value="${escapeHtml(p.name)}" placeholder="Nome do produto">
-    <div class="section-label">Descrição</div>
-    <textarea class="field" id="pfDesc" placeholder="Descrição">${escapeHtml(p.desc)}</textarea>
-    <div class="section-label">Preço (R$)</div>
-    <input class="field" id="pfPrice" type="number" step="0.01" min="0" value="${p.price}">
-    <div class="section-label">Categoria</div>
-    <select class="field" id="pfCategory">
-      ${categories.filter(c=>c.id!=="topo").map(c=>`<option value="${c.id}" ${c.id===p.category?"selected":""}>${escapeHtml(c.name)}</option>`).join("")}
-    </select>
-    <div class="section-label">Título da seção no catálogo</div>
-    <input class="field" id="pfSection" value="${escapeHtml(p.section||"")}" placeholder="Ex: Frutas inteiras">
-    <label style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:14px;color:#555">
-      <input type="checkbox" id="pfBanner" ${p.banner?"checked":""}> Mostrar banner de imagem no topo desta seção
-    </label>
-    <div class="section-label">Selos (ex: Novo!, Promoção!)</div>
-    <div id="badgeChips">${(p.badges||[]).map((b,i)=>`<span class="badge-chip">${escapeHtml(b)}<button data-rmbadge="${i}">×</button></span>`).join("")}</div>
-    <div style="display:flex;gap:8px;margin-top:6px">
-      <input class="field" id="pfNewBadge" placeholder="Novo selo" style="margin:0">
-      <button class="btn-edit" id="pfAddBadge" style="border:0;border-radius:9px;padding:0 16px">Add</button>
-    </div>
-    <button class="btn-block btn-primary" id="pfSave">Salvar produto</button>
-  `;
-  let badges = (p.badges||[]).slice();
-  let imageData = p.image || null;
-
-  document.getElementById("backToList").addEventListener("click",()=>renderAdminProducts(body));
-  const imgLabel = document.getElementById("imgUploadLabel");
-  imgLabel.addEventListener("click",(e)=>{ if(e.target.tagName!=="INPUT") document.getElementById("imgUploadInput").click(); });
-  imgLabel.addEventListener("change", async (e)=>{
-    if(!e.target || e.target.id!=="imgUploadInput") return;
-    const file = e.target.files[0];
-    if(!file) return;
-    imageData = await fileToDataUrl(file);
-    imgLabel.innerHTML = `<img src="${imageData}"><input type="file" accept="image/*" id="imgUploadInput" class="hidden">`;
-  });
-  function refreshBadges(){
-    document.getElementById("badgeChips").innerHTML = badges.map((b,i)=>`<span class="badge-chip">${escapeHtml(b)}<button data-rmbadge="${i}">×</button></span>`).join("");
-    document.querySelectorAll("[data-rmbadge]").forEach(btn=>btn.addEventListener("click",()=>{
-      badges.splice(Number(btn.dataset.rmbadge),1); refreshBadges();
-    }));
-  }
-  refreshBadges();
-  document.getElementById("pfAddBadge").addEventListener("click",()=>{
-    const val = document.getElementById("pfNewBadge").value.trim();
-    if(val){ badges.push(val); document.getElementById("pfNewBadge").value=""; refreshBadges(); }
-  });
-
-  document.getElementById("pfSave").addEventListener("click", async ()=>{
-    const name = document.getElementById("pfName").value.trim();
-    const price = parseFloat(document.getElementById("pfPrice").value);
-    if(!name || isNaN(price)){ showToast("Preencha nome e preço válidos"); return; }
-    const catId = document.getElementById("pfCategory").value;
-    const catObj = categories.find(c=>c.id===catId);
-    const data = {
-      name,
-      desc: document.getElementById("pfDesc").value,
-      price,
-      category: catId,
-      section: document.getElementById("pfSection").value.trim() || (catObj?catObj.name:catId),
-      banner: document.getElementById("pfBanner").checked,
-      badges,
-      image: imageData
-    };
-    if(productId){
-      const idx = products.findIndex(x=>x.id===productId);
-      products[idx] = Object.assign({}, products[idx], data);
-    }else{
-      products.push(Object.assign({id:uid("p")}, data));
-    }
-    await saveCatalog();
-    showToast("Produto salvo");
-    renderAdminProducts(body);
-    renderContent();
-  });
-}
-
-/* -- Categorias -- */
-function renderAdminCategories(body){
-  body.innerHTML = `
-    <div class="section-label">Nova categoria</div>
-    <div style="display:flex;gap:8px">
-      <input class="field" id="newCatName" placeholder="Nome da categoria" style="margin:0">
-      <button class="btn-edit" id="addCatBtn" style="border:0;border-radius:9px;padding:0 16px">Add</button>
-    </div>
-    <div class="section-label">Categorias (${categories.length})</div>
-    <div id="catList"></div>
-  `;
-  const list = document.getElementById("catList");
-  list.innerHTML = categories.map(c=>`
-    <div class="admin-card">
-      <div class="admin-row">
-        <div class="info"><b>${escapeHtml(c.name)}</b><span>${c.id==="topo"?"categoria fixa (mostra tudo)":c.id}</span></div>
-        <div class="admin-actions">
-          ${c.id!=="topo"?`<button class="btn-edit" data-editcat="${c.id}">Renomear</button><button class="btn-del" data-delcat="${c.id}">Excluir</button>`:""}
-        </div>
-      </div>
-    </div>
-  `).join("");
-  document.getElementById("addCatBtn").addEventListener("click", async ()=>{
-    const name = document.getElementById("newCatName").value.trim();
-    if(!name) return;
-    categories.push({id:uid("cat"), name});
-    await saveCatalog();
-    renderAdminCategories(body);
-    renderTabs();
-  });
-  list.querySelectorAll("[data-editcat]").forEach(b=>b.addEventListener("click", async ()=>{
-    const cat = categories.find(c=>c.id===b.dataset.editcat);
-    const name = prompt("Novo nome da categoria:", cat.name);
-    if(name && name.trim()){ cat.name = name.trim(); await saveCatalog(); renderAdminCategories(body); renderTabs(); }
-  }));
-  list.querySelectorAll("[data-delcat]").forEach(b=>b.addEventListener("click", async ()=>{
-    if(!confirm("Excluir categoria? Produtos dela continuarão existindo, mas sem categoria válida até você editá-los.")) return;
-    categories = categories.filter(c=>c.id!==b.dataset.delcat);
-    if(activeCategory===b.dataset.delcat) activeCategory="topo";
-    await saveCatalog();
-    renderAdminCategories(body);
-    renderTabs(); renderContent();
-  }));
-}
-
-/* -- Pedidos -- */
-function renderAdminOrders(body){
-  if(!orders.length){ body.innerHTML = `<div class="empty">Nenhum pedido ainda.</div>`; return; }
-  body.innerHTML = orders.map(o=>`
-    <div class="admin-card">
-      <div class="admin-row">
-        <div class="info">
-          <b>#${o.id.slice(-5).toUpperCase()} — ${escapeHtml(o.customerName)}</b>
-          <span>${new Date(o.createdAt).toLocaleString("pt-BR")} · ${money(o.total)} · ${escapeHtml(o.customerPhone)}</span>
-        </div>
-        <span class="order-status ${o.status}">${o.status}</span>
-      </div>
-      <div style="margin-top:10px;font-size:13px;color:#777">
-        ${o.items.map(l=>`${l.qty}x ${escapeHtml(l.product.name)}`).join(", ")}
-      </div>
-      <select class="field" data-statusfor="${o.id}" style="margin-top:10px">
-        ${["novo","preparo","pronto","entregue"].map(s=>`<option value="${s}" ${o.status===s?"selected":""}>${s}</option>`).join("")}
-      </select>
-    </div>
-  `).join("");
-  body.querySelectorAll("[data-statusfor]").forEach(sel=>sel.addEventListener("change", async ()=>{
-    const o = orders.find(x=>x.id===sel.dataset.statusfor);
-    o.status = sel.value;
-    await saveOrders();
-    renderAdminOrders(body);
-  }));
-}
-
-/* -- Dados da loja -- */
-function renderAdminStore(body){
-  body.innerHTML = `
-    <div class="section-label">Nome da loja</div>
-    <input class="field" id="stName" value="${escapeHtml(settings.storeName)}">
-    <div class="section-label">Faixa do topo</div>
-    <input class="field" id="stTopStrip" value="${escapeHtml(settings.topStripText)}">
-    <div class="section-label">Horário de funcionamento</div>
-    <input class="field" id="stHours" value="${escapeHtml(settings.openHours)}">
-    <label style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:14px;color:#555">
-      <input type="checkbox" id="stOpen" ${settings.isOpen?"checked":""}> Loja aberta agora
-    </label>
-    <div class="section-label">Entrega grátis a partir de (R$)</div>
-    <input class="field" id="stFreeDelivery" type="number" step="0.01" value="${settings.freeDeliveryMin}">
-    <div class="section-label">Pedido mínimo (R$)</div>
-    <input class="field" id="stMinOrder" type="number" step="0.01" value="${settings.minOrder}">
-    <div class="section-label">Avaliação (0 a 5)</div>
-    <input class="field" id="stRating" type="number" step="0.1" min="0" max="5" value="${settings.rating}">
-    <div class="section-label">Número do WhatsApp (com DDI+DDD, só números)</div>
-    <input class="field" id="stWhats" value="${escapeHtml(settings.whatsappNumber)}" placeholder="Ex: 5531999999999">
-    <div class="section-label">Texto de informações (botão "i")</div>
-    <textarea class="field" id="stInfo">${escapeHtml(settings.infoText)}</textarea>
-    <div class="section-label">Avisos (um por linha)</div>
-    <textarea class="field" id="stNotice" style="min-height:100px">${escapeHtml((settings.noticeLines||[]).join("\n"))}</textarea>
-
-    <div class="section-label">Imagem de capa</div>
-    <label class="image-upload" id="coverUploadLabel">
-      ${settings.coverImage?`<img src="${settings.coverImage}">`:"Toque para escolher a imagem de capa"}
-      <input type="file" accept="image/*" id="coverUploadInput" class="hidden">
-    </label>
-    <div class="section-label">Logo da loja</div>
-    <label class="image-upload" id="logoUploadLabel">
-      ${settings.logoImage?`<img src="${settings.logoImage}">`:"Toque para escolher o logo"}
-      <input type="file" accept="image/*" id="logoUploadInput" class="hidden">
-    </label>
-
-    <div class="section-label">Senha do admin</div>
-    <input class="field" id="stAdminPass" type="password" value="${escapeHtml(settings.adminPassword)}">
-    <div class="small-note">E-mail admin atual: ${escapeHtml(settings.adminEmail)}</div>
-
-    <button class="btn-block btn-primary" id="stSave">Salvar dados da loja</button>
-  `;
-  let coverData = settings.coverImage;
-  let logoData = settings.logoImage;
-
-  document.getElementById("coverUploadLabel").addEventListener("click",(e)=>{ if(e.target.tagName!=="INPUT") document.getElementById("coverUploadInput").click(); });
-  document.getElementById("coverUploadInput").addEventListener("change", async (e)=>{
-    const file=e.target.files[0]; if(!file) return;
-    coverData = await fileToDataUrl(file);
-    showToast("Imagem de capa selecionada — clique em Salvar");
-  });
-  document.getElementById("logoUploadLabel").addEventListener("click",(e)=>{ if(e.target.tagName!=="INPUT") document.getElementById("logoUploadInput").click(); });
-  document.getElementById("logoUploadInput").addEventListener("change", async (e)=>{
-    const file=e.target.files[0]; if(!file) return;
-    logoData = await fileToDataUrl(file);
-    showToast("Logo selecionado — clique em Salvar");
-  });
-
-  document.getElementById("stSave").addEventListener("click", async ()=>{
-    settings.storeName = document.getElementById("stName").value.trim() || settings.storeName;
-    settings.topStripText = document.getElementById("stTopStrip").value;
-    settings.openHours = document.getElementById("stHours").value;
-    settings.isOpen = document.getElementById("stOpen").checked;
-    settings.freeDeliveryMin = parseFloat(document.getElementById("stFreeDelivery").value)||0;
-    settings.minOrder = parseFloat(document.getElementById("stMinOrder").value)||0;
-    settings.rating = parseFloat(document.getElementById("stRating").value)||0;
-    settings.whatsappNumber = document.getElementById("stWhats").value.trim();
-    settings.infoText = document.getElementById("stInfo").value;
-    settings.noticeLines = document.getElementById("stNotice").value.split("\n").filter(l=>l.trim().length);
-    settings.coverImage = coverData;
-    settings.logoImage = logoData;
-
-    const newPass = document.getElementById("stAdminPass").value;
-    if(newPass && newPass !== settings.adminPassword){
-      settings.adminPassword = newPass;
-      if(accounts[settings.adminEmail]) accounts[settings.adminEmail].password = newPass;
-      await saveAccounts();
-    }
-
-    await saveSettings();
-    renderTopBits();
-    showToast("Dados da loja atualizados");
-  });
-}
-
-/* ---------- Início ---------- */
-loadAll();
-
-})();
-</script>
-</body>
-</html>
+document.getElementById('search').addEventListener('input',render);
+render();
+</script></body></html>
