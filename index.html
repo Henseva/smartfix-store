@@ -1,23 +1,24 @@
-"border-t border<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HortiArtesanal - Aplicação Web/Mobile</title>
-  <!-- Tailwind CSS -->
+  <title>HortiArtesanal - Frescor & Origem</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React & ReactDOM -->
+  <!-- React & ReactDOM CDN -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <!-- Babel Standalone para compilar JSX no navegador -->
+  <!-- Babel Standalone para interpretação do JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-stone-100 text-stone-800 antialiased">
+<body class="bg-[#fbf9f5] text-stone-800 antialiased font-sans">
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState } = React;
+    const { useState, useMemo } = React;
 
+    // --- DADOS DA APLICAÇÃO ---
     const PRODUCTS = [
       {
         id: 1,
@@ -27,9 +28,10 @@
         unit: 'caixa 250g',
         rating: 4.9,
         badge: 'Colheita Hoje',
-        image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&q=80&w=800',
         organic: true,
-        producer: 'Sítio Verde Vida - Atibaia/SP'
+        producer: { name: 'Sítio Verde Vida', location: 'Atibaia, SP' },
+        description: 'Morangos colhidos manualmente nas primeiras horas da manhã. Sem agrotóxicos.'
       },
       {
         id: 2,
@@ -39,21 +41,23 @@
         unit: 'kg',
         rating: 4.8,
         badge: 'Em Alta',
-        image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=800',
         organic: false,
-        producer: 'Fazenda Manteiqueira - Holambra/SP'
+        producer: { name: 'Fazenda Mantiqueira', location: 'Holambra, SP' },
+        description: 'Textura extremamente cremosa, perfeita para guacamole e vitaminas.'
       },
       {
         id: 3,
-        name: 'Cesta da Estação (Pequena)',
+        name: 'Cesta da Estação Bio',
         category: 'Cestas',
         price: 69.90,
         unit: 'unidade (8 itens)',
         rating: 5.0,
         badge: 'Mais Vendido',
-        image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&q=80&w=800',
         organic: true,
-        producer: 'Cooperativa Orgânica Local'
+        producer: { name: 'Cooperativa Orgânica Local', location: 'Região Metropolitana, SP' },
+        description: 'Seleção semanal de frutas e hortaliças colhidas no ápice do sabor.'
       },
       {
         id: 4,
@@ -63,9 +67,10 @@
         unit: 'maço',
         rating: 4.7,
         badge: 'Hidropônico',
-        image: 'https://images.unsplash.com/photo-1524179091875-bf98a9a6ae57?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1524179091875-bf98a9a6ae57?auto=format&fit=crop&q=80&w=800',
         organic: true,
-        producer: 'Horta Hidropônica Água Pura'
+        producer: { name: 'Horta Água Pura', location: 'Suzano, SP' },
+        description: 'Folhas macias e sem amargor, cultivadas com controle nutricional rigoroso.'
       },
       {
         id: 5,
@@ -75,9 +80,10 @@
         unit: 'bandeja 400g',
         rating: 4.9,
         badge: 'Sabor Doce',
-        image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&q=80&w=800',
         organic: true,
-        producer: 'Sítio Sol Nascente'
+        producer: { name: 'Sítio Sol Nascente', location: 'Piedade, SP' },
+        description: 'Tomates uva doces e suculentos. Ideais para saladas finas e aperitivos.'
       },
       {
         id: 6,
@@ -87,147 +93,236 @@
         unit: 'pacote 300g',
         rating: 4.8,
         badge: 'Pronto p/ Consumo',
-        image: 'https://images.unsplash.com/photo-1598170845058-12ef4a457939?auto=format&fit=crop&q=80&w=600',
+        image: 'https://images.unsplash.com/photo-1598170845058-12ef4a457939?auto=format&fit=crop&q=80&w=800',
         organic: false,
-        producer: 'Fazenda Terra Rica'
+        producer: { name: 'Fazenda Terra Rica', location: 'Ibiúna, SP' },
+        description: 'Lavadas, descascadas e prontas para o consumo como snack saudável.'
       }
     ];
 
     const RECIPES = [
       {
         id: 101,
-        title: 'Salada Crocante com Tomate Sweet Grape & Couve',
+        title: 'Salada Crocante de Tomate Grape & Couve Hidropônica',
         time: '15 min',
         difficulty: 'Fácil',
+        servings: 2,
         ingredients: ['Tomate Sweet Grape Orgânico', 'Couve Butter Hydroponic'],
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600'
+        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800',
+        chefNote: 'Corte a couve bem fina e tempere com azeite extravirgem e flor de sal.'
       },
       {
         id: 102,
         title: 'Guacamole Fresco Artesanal',
         time: '10 min',
         difficulty: 'Fácil',
+        servings: 4,
         ingredients: ['Abacate Manteiga Selecionado', 'Tomate Sweet Grape Orgânico'],
-        image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=600'
+        image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=800',
+        chefNote: 'Adicione gotas de limão siciliano para preservar o verde vívido do abacate.'
       }
     ];
 
-    const CATEGORIES = ['Todos', 'Frutas', 'Verduras', 'Legumes', 'Orgânicos', 'Cestas'];
+    const SUBSCRIPTIONS = [
+      {
+        id: 'plan-semanal',
+        name: 'Cesta Essencial Família',
+        frequency: 'Semanal',
+        price: 79.90,
+        description: 'Receba toda semana o essencial de hortifruti colhido na véspera da entrega.',
+        benefits: ['Frete Grátis incluso', 'Troca de até 2 itens por edição', 'Pausa quando viajar']
+      },
+      {
+        id: 'plan-premium',
+        name: 'Cesta Orgânica Gourmet',
+        frequency: 'Quinzenal',
+        price: 139.90,
+        popular: true,
+        description: 'Seleção exclusiva de itens 100% orgânicos certificados com frutas exóticas.',
+        benefits: ['Frete Grátis prioritário', 'Brinde surpresa do produtor', 'Atendimento via WhatsApp dedicado']
+      }
+    ];
 
+    // --- COMPONENTE PRINCIPAL ---
     function App() {
+      const [activeTab, setActiveTab] = useState('loja');
       const [selectedCategory, setSelectedCategory] = useState('Todos');
       const [searchQuery, setSearchQuery] = useState('');
       const [cart, setCart] = useState({});
       const [isCartOpen, setIsCartOpen] = useState(false);
       const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-      const [activeTab, setActiveTab] = useState('loja');
-      const [deliveryDate, setDeliveryDate] = useState('Hoje (16h - 18h)');
-      const [paymentMethod, setPaymentMethod] = useState('pix');
 
-      const handleQuantityChange = (id, delta) => {
-        setCart((prev) => {
-          const current = prev[id] || 0;
-          const next = current + delta;
-          if (next <= 0) {
-            const copy = { ...prev };
-            delete copy[id];
-            return copy;
-          }
-          return { ...prev, [id]: next };
+      const [orderDetails, setOrderDetails] = useState({
+        customerName: '',
+        address: '',
+        deliverySlot: 'Hoje (16h - 18h)',
+        paymentMethod: 'pix'
+      });
+
+      // Lógica do Carrinho
+      const addToCart = (product, qty = 1) => {
+        setCart(prev => {
+          const current = prev[product.id]?.quantity || 0;
+          return {
+            ...prev,
+            [product.id]: { product, quantity: current + qty }
+          };
         });
       };
 
-      const addRecipeIngredientsToCart = (ingredients) => {
-        ingredients.forEach((ing) => {
-          const product = PRODUCTS.find((p) => p.name.toLowerCase().includes(ing.toLowerCase()) || ing.toLowerCase().includes(p.name.toLowerCase()));
-          if (product) {
-            handleQuantityChange(product.id, 1);
+      const updateQuantity = (productId, delta) => {
+        setCart(prev => {
+          const existing = prev[productId];
+          if (!existing) return prev;
+          const newQty = existing.quantity + delta;
+          if (newQty <= 0) {
+            const next = { ...prev };
+            delete next[productId];
+            return next;
           }
+          return {
+            ...prev,
+            [productId]: { ...existing, quantity: newQty }
+          };
         });
+      };
+
+      const removeFromCart = (productId) => {
+        setCart(prev => {
+          const next = { ...prev };
+          delete next[productId];
+          return next;
+        });
+      };
+
+      const addRecipeIngredients = (recipe) => {
+        const matched = PRODUCTS.filter(p => recipe.ingredients.includes(p.name));
+        matched.forEach(p => addToCart(p, 1));
         setIsCartOpen(true);
       };
 
-      const filteredProducts = PRODUCTS.filter((item) => {
-        const matchesCategory =
-          selectedCategory === 'Todos' ||
-          (selectedCategory === 'Orgânicos' ? item.organic : item.category === selectedCategory);
-        const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
+      // Cálculos Dinâmicos
+      const totalItems = useMemo(() => {
+        return Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+      }, [cart]);
+
+      const subtotal = useMemo(() => {
+        return Object.values(cart).reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      }, [cart]);
+
+      const freight = subtotal === 0 ? 0 : (subtotal >= 120 ? 0 : 12.0);
+      const total = subtotal + freight;
+      const progressToFreeShipping = Math.min((subtotal / 120) * 100, 100);
+
+      // Produtos Filtrados
+      const filteredProducts = PRODUCTS.filter(p => {
+        const matchesCat = selectedCategory === 'Todos' || (selectedCategory === 'Orgânicos' ? p.organic : p.category === selectedCategory);
+        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCat && matchesSearch;
       });
 
-      const totalItemsCount = Object.values(cart).reduce((a, b) => a + b, 0);
-      const totalPrice = Object.entries(cart).reduce((sum, [id, qty]) => {
-        const prod = PRODUCTS.find((p) => p.id === Number(id));
-        return sum + (prod ? prod.price * qty : 0);
-      }, 0);
-
-      const generateWhatsAppMessage = () => {
-        let msg = `*Novo Pedido - HortiArtesanal*\n\n`;
-        Object.entries(cart).forEach(([id, qty]) => {
-          const p = PRODUCTS.find((item) => item.id === Number(id));
-          if (p) msg += `• ${qty}x ${p.name} (R$ ${(p.price * qty).toFixed(2)})\n`;
+      // Gerador de Mensagem do WhatsApp
+      const generateWhatsAppLink = () => {
+        let text = `*🌿 Pedido HortiArtesanal*\n\n`;
+        text += `*Cliente:* ${orderDetails.customerName || 'Não informado'}\n`;
+        text += `*Endereço:* ${orderDetails.address || 'Não informado'}\n`;
+        text += `*Horário Escolhido:* ${orderDetails.deliverySlot}\n`;
+        text += `*Pagamento:* ${orderDetails.paymentMethod.toUpperCase()}\n\n`;
+        text += `*Itens do Pedido:*\n`;
+        Object.values(cart).forEach(({ product, quantity }) => {
+          text += `• ${quantity}x ${product.name} (R$ ${(product.price * quantity).toFixed(2)})\n`;
         });
-        const freight = totalPrice >= 120 ? 0 : 12;
-        msg += `\n*Entrega:* ${deliveryDate}`;
-        msg += `\n*Pagamento:* ${paymentMethod.toUpperCase()}`;
-        msg += `\n*Total com Frete:* R$ ${(totalPrice + freight).toFixed(2)}`;
-        return encodeURIComponent(msg);
+        text += `\n*Frete:* ${freight === 0 ? 'GRÁTIS' : `R$ ${freight.toFixed(2)}`}`;
+        text += `\n*Total a Pagar:* R$ ${total.toFixed(2)}`;
+        return `https://wa.me/?text=${encodeURIComponent(text)}`;
       };
 
       return (
-        <div className="min-h-screen pb-12">
+        <div className="min-h-screen pb-16">
           {/* Top Banner */}
-          <div className="bg-emerald-950 text-emerald-100 text-xs font-bold text-center py-2 px-4">
-            🌿 Frete grátis acima de R$ 120,00 | Entregas expressas no mesmo dia em São Paulo
+          <div className="bg-emerald-950 text-emerald-100 text-xs font-bold text-center py-2 px-4 tracking-wide">
+            🌿 Frete grátis nas compras acima de R$ 120,00 | Entrega climatizada no mesmo dia
           </div>
 
           {/* Header */}
-          <header className="bg-white border-b border-stone-200 sticky top-0 z-40 px-4">
+          <header className="bg-white/90 backdrop-blur-md border-b border-stone-200/80 sticky top-0 z-40 px-4">
             <div className="max-w-6xl mx-auto h-16 flex items-center justify-between gap-4">
-              <div onClick={() => setActiveTab('loja')} className="cursor-pointer flex items-center gap-2">
-                <div className="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">🍃</div>
+              <div onClick={() => setActiveTab('loja')} className="cursor-pointer flex items-center gap-2.5">
+                <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-xl shadow-md">
+                  🍃
+                </div>
                 <div>
-                  <span className="text-lg font-bold text-emerald-950 block leading-none">Horti<span className="text-emerald-600">Artesanal</span></span>
-                  <span className="text-[9px] uppercase tracking-wider text-stone-500 font-medium">Frescor & Origem</span>
+                  <span className="text-xl font-black text-stone-900 tracking-tight leading-none block">
+                    Horti<span className="text-emerald-700">Artesanal</span>
+                  </span>
+                  <span className="text-[9px] uppercase tracking-widest text-stone-400 font-bold block">
+                    Frescor & Origem
+                  </span>
                 </div>
               </div>
 
-              <nav className="flex gap-4 text-xs font-bold">
-                <button onClick={() => setActiveTab('loja')} className={`pb-1 ${activeTab === 'loja' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-stone-600'}`}>Catálogo</button>
-                <button onClick={() => setActiveTab('assinatura')} className={`pb-1 ${activeTab === 'assinatura' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-stone-600'}`}>Clube Assinatura</button>
-                <button onClick={() => setActiveTab('receitas')} className={`pb-1 ${activeTab === 'receitas' ? 'text-emerald-600 border-b-2 border-emerald-600' : 'text-stone-600'}`}>Receitas</button>
+              <nav className="flex gap-6 text-xs font-bold text-stone-600">
+                <button
+                  onClick={() => setActiveTab('loja')}
+                  className={`pb-1 transition ${activeTab === 'loja' ? 'text-emerald-700 border-b-2 border-emerald-700' : 'hover:text-stone-900'}`}
+                >
+                  Catálogo
+                </button>
+                <button
+                  onClick={() => setActiveTab('assinatura')}
+                  className={`pb-1 transition ${activeTab === 'assinatura' ? 'text-emerald-700 border-b-2 border-emerald-700' : 'hover:text-stone-900'}`}
+                >
+                  Clube Assinaturas
+                </button>
+                <button
+                  onClick={() => setActiveTab('receitas')}
+                  className={`pb-1 transition ${activeTab === 'receitas' ? 'text-emerald-700 border-b-2 border-emerald-700' : 'hover:text-stone-900'}`}
+                >
+                  Receitas
+                </button>
               </nav>
 
-              <button onClick={() => setIsCartOpen(true)} className="bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold text-xs relative hover:bg-emerald-800 transition">
-                🛒 R$ {totalPrice.toFixed(2)}
-                {totalItemsCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 bg-amber-500 text-stone-900 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                    {totalItemsCount}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-xl font-bold text-xs relative transition shadow-sm active:scale-95"
+              >
+                🛒 Carrinho
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-amber-500 text-stone-950 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">
+                    {totalItems}
                   </span>
                 )}
               </button>
             </div>
           </header>
 
-          {/* Main Content */}
-          <main className="max-w-6xl mx-auto px-4 pt-6">
-            {/* View 1: Catalogue */}
+          {/* Conteúdo Principal */}
+          <main className="max-w-6xl mx-auto px-4 pt-8">
+            {/* TAB: CATÁLOGO DE LOJA */}
             {activeTab === 'loja' && (
               <div>
-                <div className="bg-emerald-900 text-white p-8 rounded-3xl mb-6">
-                  <span className="bg-emerald-700 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full">100% Orgânico e Selecionado</span>
-                  <h1 className="text-2xl sm:text-3xl font-bold mt-3 mb-2">O melhor da terra, direto na sua mesa.</h1>
-                  <p className="text-emerald-200 text-sm max-w-md">Alimentos colhidos no ponto ideal com entrega climatizada no mesmo dia.</p>
+                <div className="bg-emerald-950 text-white p-8 sm:p-12 rounded-3xl mb-8 relative overflow-hidden shadow-xl">
+                  <div className="relative z-10 max-w-xl">
+                    <span className="bg-emerald-800/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full border border-emerald-700">
+                      Direto do Produtor Local
+                    </span>
+                    <h1 className="text-3xl sm:text-4xl font-black mt-4 mb-3 leading-tight">
+                      Alimentos colhidos no ponto certo, na sua porta.
+                    </h1>
+                    <p className="text-emerald-200/80 text-xs sm:text-sm leading-relaxed">
+                      Trabalhamos exclusivamente com agricultura familiar e orgânicos certificados.
+                    </p>
+                  </div>
                 </div>
 
-                {/* Filters */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+                {/* Filtros e Busca */}
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                   <div className="flex gap-2 overflow-x-auto pb-1">
-                    {CATEGORIES.map((cat) => (
+                    {['Todos', 'Frutas', 'Verduras', 'Legumes', 'Orgânicos', 'Cestas'].map(cat => (
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition ${selectedCategory === cat ? 'bg-emerald-900 text-white' : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50'}`}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition border ${selectedCategory === cat ? 'bg-emerald-950 text-white border-emerald-950 shadow-sm' : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'}`}
                       >
                         {cat}
                       </button>
@@ -236,45 +331,68 @@
 
                   <input
                     type="text"
-                    placeholder="Busque por frutas, legumes..."
+                    placeholder="Buscar frutas, verduras..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="px-3 py-2 rounded-xl border border-stone-200 text-xs w-56 focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-white"
+                    className="px-4 py-2 rounded-xl border border-stone-200 text-xs w-full sm:w-64 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700 shadow-sm"
                   />
                 </div>
 
-                {/* Products Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {filteredProducts.map((product) => {
-                    const qty = cart[product.id] || 0;
+                {/* Grid de Produtos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredProducts.map(product => {
+                    const qty = cart[product.id]?.quantity || 0;
                     return (
-                      <div key={product.id} className="bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                      <div key={product.id} className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
                         <div>
-                          <div className="h-44 relative overflow-hidden">
-                            <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                            <span className="absolute top-2 left-2 bg-emerald-950/80 text-white text-[10px] font-bold px-2 py-1 rounded-md backdrop-blur-sm">
-                              {product.badge}
-                            </span>
+                          <div className="h-48 relative overflow-hidden bg-stone-100">
+                            <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <div className="absolute top-3 left-3 flex flex-col gap-1">
+                              <span className="bg-emerald-950/90 text-emerald-100 text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md border border-emerald-800/50">
+                                {product.badge}
+                              </span>
+                              {product.organic && (
+                                <span className="bg-amber-500 text-stone-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
+                                  100% Orgânico
+                                </span>
+                              )}
+                            </div>
                           </div>
+
                           <div className="p-4">
-                            <div className="text-xs text-amber-500 font-bold mb-1">⭐ {product.rating}</div>
-                            <h3 className="text-base font-bold text-stone-900 mb-0.5">{product.name}</h3>
-                            <p className="text-xs text-emerald-700 font-semibold mb-2">📍 {product.producer}</p>
-                            <p className="text-xs text-stone-500">R$ {product.price.toFixed(2)} / {product.unit}</p>
+                            <div className="flex items-center justify-between text-xs text-amber-500 font-bold mb-1">
+                              <span>⭐ {product.rating.toFixed(1)}</span>
+                              <span className="text-stone-400 font-normal text-[11px]">{product.unit}</span>
+                            </div>
+                            <h3 className="text-base font-bold text-stone-900 group-hover:text-emerald-700 transition-colors">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs text-stone-500 mt-1 line-clamp-2">{product.description}</p>
+                            <div className="mt-3 pt-2 border-t border-stone-100 flex items-center gap-1.5 text-[11px] text-emerald-800 font-medium">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                              <span>{product.producer.name} ({product.producer.location})</span>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="p-4 border-t border-stone-100 flex items-center justify-between">
-                          <span className="text-lg font-extrabold text-stone-900">R$ {product.price.toFixed(2)}</span>
+                        <div className="p-4 border-t border-stone-100 bg-stone-50/50 flex items-center justify-between">
+                          <div>
+                            <span className="text-xs text-stone-400 block -mb-1">Preço</span>
+                            <span className="text-lg font-black text-stone-900">R$ {product.price.toFixed(2)}</span>
+                          </div>
+
                           {qty === 0 ? (
-                            <button onClick={() => handleQuantityChange(product.id, 1)} className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-100 transition">
+                            <button
+                              onClick={() => addToCart(product, 1)}
+                              className="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95"
+                            >
                               + Adicionar
                             </button>
                           ) : (
-                            <div className="flex items-center gap-2 bg-stone-100 px-2 py-1 rounded-lg">
-                              <button onClick={() => handleQuantityChange(product.id, -1)} className="font-bold text-stone-600 px-1">-</button>
-                              <span className="text-xs font-bold">{qty}</span>
-                              <button onClick={() => handleQuantityChange(product.id, 1)} className="font-bold text-stone-600 px-1">+</button>
+                            <div className="flex items-center gap-2 bg-white border border-stone-200 px-2 py-1 rounded-xl shadow-sm">
+                              <button onClick={() => updateQuantity(product.id, -1)} className="w-6 h-6 flex items-center justify-center font-bold text-stone-600 hover:bg-stone-100 rounded-md transition">-</button>
+                              <span className="text-xs font-bold w-4 text-center">{qty}</span>
+                              <button onClick={() => updateQuantity(product.id, 1)} className="w-6 h-6 flex items-center justify-center font-bold text-stone-600 hover:bg-stone-100 rounded-md transition">+</button>
                             </div>
                           )}
                         </div>
@@ -285,59 +403,84 @@
               </div>
             )}
 
-            {/* View 2: Subscriptions */}
+            {/* TAB: ASSINATURAS */}
             {activeTab === 'assinatura' && (
-              <div className="py-4">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-stone-900">Clube de Assinatura Frescor Recorrente</h2>
-                  <p className="text-stone-500 text-xs mt-1">Receba cestas selecionadas na sua frequência sem precisar refazer pedidos.</p>
+              <div className="py-6 max-w-4xl mx-auto">
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-black text-stone-900">Clube de Frescor Recorrente</h2>
+                  <p className="text-stone-500 text-xs sm:text-sm mt-2">
+                    Garanta sua cesta semanal ou quinzenal sem se preocupar em refazer o pedido.
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                  <div className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">Semanal</span>
-                      <h3 className="text-xl font-bold mt-3">Cesta Essencial Família</h3>
-                      <p className="text-xs text-stone-500 mt-1">10 a 12 itens selecionados da época por semana.</p>
-                      <h4 className="text-3xl font-extrabold text-stone-900 my-4">R$ 79,90 <span className="text-xs font-normal text-stone-400">/ semana</span></h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {SUBSCRIPTIONS.map(plan => (
+                    <div key={plan.id} className={`rounded-3xl p-8 flex flex-col justify-between border transition-all ${plan.popular ? 'bg-emerald-950 text-white border-emerald-900 shadow-2xl relative scale-102' : 'bg-white text-stone-900 border-stone-200 shadow-md'}`}>
+                      <div>
+                        {plan.popular && (
+                          <span className="bg-amber-500 text-stone-950 text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4 inline-block">
+                            Mais Recomendado
+                          </span>
+                        )}
+                        <h3 className="text-2xl font-black">{plan.name}</h3>
+                        <p className={`text-xs mt-1 ${plan.popular ? 'text-emerald-200' : 'text-stone-500'}`}>{plan.description}</p>
+                        <div className="my-6">
+                          <span className="text-4xl font-black">R$ {plan.price.toFixed(2)}</span>
+                          <span className={`text-xs ml-1 ${plan.popular ? 'text-emerald-300' : 'text-stone-400'}`}>/ {plan.frequency.toLowerCase()}</span>
+                        </div>
+                        <ul className="space-y-2.5 text-xs">
+                          {plan.benefits.map((b, idx) => (
+                            <li key={idx} className="flex items-center gap-2">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <button onClick={() => setIsCartOpen(true)} className={`mt-8 w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition ${plan.popular ? 'bg-amber-500 hover:bg-amber-400 text-stone-950' : 'bg-emerald-700 hover:bg-emerald-800 text-white'}`}>
+                        Assinar Agora
+                      </button>
                     </div>
-                    <button onClick={() => setIsCartOpen(true)} className="w-full bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs hover:bg-emerald-800 transition">Assinar Cesta Semanal</button>
-                  </div>
-
-                  <div className="bg-emerald-950 text-white rounded-2xl p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="bg-amber-500 text-stone-900 text-xs font-bold px-3 py-1 rounded-full">Mais Popular</span>
-                      <h3 className="text-xl font-bold mt-3">Cesta Orgânica Premium</h3>
-                      <p className="text-xs text-emerald-200 mt-1">14 itens 100% orgânicos certificados quinzenais.</p>
-                      <h4 className="text-3xl font-extrabold text-white my-4">R$ 139,90 <span className="text-xs font-normal text-emerald-300">/ quinzena</span></h4>
-                    </div>
-                    <button onClick={() => setIsCartOpen(true)} className="w-full bg-amber-500 text-stone-950 py-3 rounded-xl font-bold text-xs hover:bg-amber-400 transition">Assinar Cesta Premium</button>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* View 3: Recipes */}
+            {/* TAB: RECEITAS */}
             {activeTab === 'receitas' && (
-              <div className="py-4">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-stone-900">Receitas do Nosso Chef</h2>
-                  <p className="text-stone-500 text-xs mt-1">Adicione todos os ingredientes diretamente ao carrinho com um clique.</p>
+              <div className="py-6 max-w-4xl mx-auto">
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-black text-stone-900">Receitas do Chef</h2>
+                  <p className="text-stone-500 text-xs sm:text-sm mt-2">
+                    Monte pratos incríveis adicionando todos os ingredientes diretamente ao seu carrinho com um clique.
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                  {RECIPES.map((recipe) => (
-                    <div key={recipe.id} className="bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col justify-between">
-                      <img src={recipe.image} alt={recipe.title} className="w-full h-40 object-cover" />
-                      <div className="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                          <span className="text-xs text-emerald-700 font-bold">⏱️ {recipe.time} • {recipe.difficulty}</span>
-                          <h3 className="text-lg font-bold mt-1 mb-2">{recipe.title}</h3>
-                          <ul className="list-disc pl-4 text-xs text-stone-600 space-y-1">
-                            {recipe.ingredients.map((ing, idx) => <li key={idx}>{ing}</li>)}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {RECIPES.map(recipe => (
+                    <div key={recipe.id} className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-md flex flex-col justify-between">
+                      <div>
+                        <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover" />
+                        <div className="p-6">
+                          <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 mb-2">
+                            <span>⏱️ {recipe.time}</span>
+                            <span>•</span>
+                            <span>{recipe.difficulty}</span>
+                            <span>•</span>
+                            <span>{recipe.servings} porções</span>
+                          </div>
+                          <h3 className="text-lg font-bold text-stone-900 mb-3">{recipe.title}</h3>
+                          <p className="text-xs text-stone-500 italic mb-4">"{recipe.chefNote}"</p>
+                          <h4 className="text-xs font-bold text-stone-700 mb-2">Ingredientes Inclusos:</h4>
+                          <ul className="list-disc list-inside text-xs text-stone-600 space-y-1">
+                            {recipe.ingredients.map((ing, i) => (
+                              <li key={i}>{ing}</li>
+                            ))}
                           </ul>
                         </div>
-                        <button onClick={() => addRecipeIngredientsToCart(recipe.ingredients)} className="mt-4 w-full bg-emerald-50 text-emerald-700 border border-emerald-200 py-2.5 rounded-xl font-bold text-xs hover:bg-emerald-100 transition">
+                      </div>
+                      <div className="p-6 pt-0">
+                        <button onClick={() => addRecipeIngredients(recipe)} className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 py-3 rounded-xl font-bold text-xs transition">
                           + Adicionar Ingredientes ao Carrinho
                         </button>
                       </div>
@@ -348,48 +491,83 @@
             )}
           </main>
 
-          {/* Cart Drawer Modal */}
+          {/* DRAWER LATERAL DO CARRINHO */}
           {isCartOpen && (
-            <div className="fixed inset-0 bg-black/50 z-50 flex justify-end">
-              <div className="w-full max-w-md bg-white h-full p-6 flex flex-col justify-between">
+            <div className="fixed inset-0 bg-stone-950/60 backdrop-blur-sm z-50 flex justify-end">
+              <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between p-6">
                 <div>
-                  <div className="flex justify-between items-center border-b border-stone-200 pb-3">
-                    <h2 className="text-lg font-bold">Seu Carrinho</h2>
-                    <button onClick={() => setIsCartOpen(false)} className="text-stone-500 font-bold hover:text-stone-800">✕</button>
+                  <div className="flex items-center justify-between pb-4 border-b border-stone-200">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">🛒</span>
+                      <h2 className="text-lg font-bold text-stone-900">Seu Carrinho</h2>
+                    </div>
+                    <button onClick={() => setIsCartOpen(false)} className="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 font-bold transition">
+                      ✕
+                    </button>
                   </div>
 
-                  <div className="mt-4 max-h-[60vh] overflow-y-auto space-y-3">
+                  {/* Progresso do Frete Grátis */}
+                  <div className="my-4 bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+                    <div className="flex justify-between text-xs font-bold text-emerald-950 mb-1.5">
+                      <span>{freight === 0 ? '🎉 Você ganhou Frete Grátis!' : `Falta R$ ${(120 - subtotal).toFixed(2)} para Frete Grátis`}</span>
+                      <span>{progressToFreeShipping.toFixed(0)}%</span>
+                    </div>
+                    <div className="w-full bg-emerald-200/60 h-2 rounded-full overflow-hidden">
+                      <div className="bg-emerald-600 h-full transition-all duration-500" style={{ width: `${progressToFreeShipping}%` }}></div>
+                    </div>
+                  </div>
+
+                  {/* Lista de Itens */}
+                  <div className="max-h-[55vh] overflow-y-auto space-y-3 pr-1">
                     {Object.keys(cart).length === 0 ? (
-                      <p className="text-center text-stone-400 py-10 text-sm">Seu carrinho está vazio.</p>
+                      <div className="text-center py-12 text-stone-400">
+                        <span className="text-4xl block mb-2">🍃</span>
+                        <p className="text-sm font-medium">Seu carrinho está vazio.</p>
+                      </div>
                     ) : (
-                      Object.entries(cart).map(([id, qty]) => {
-                        const product = PRODUCTS.find((p) => p.id === Number(id));
-                        if (!product) return null;
-                        return (
-                          <div key={id} className="flex items-center justify-between border-b border-stone-100 pb-2">
+                      Object.values(cart).map(({ product, quantity }) => (
+                        <div key={product.id} className="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200/60">
+                          <div className="flex items-center gap-3">
+                            <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg" />
                             <div>
-                              <div className="text-xs font-bold text-stone-800">{product.name}</div>
-                              <div className="text-[11px] text-stone-500">R$ {product.price.toFixed(2)} x {qty}</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <button onClick={() => handleQuantityChange(product.id, -1)} className="bg-stone-100 px-2 py-0.5 rounded text-xs font-bold">-</button>
-                              <span className="text-xs font-bold">{qty}</span>
-                              <button onClick={() => handleQuantityChange(product.id, 1)} className="bg-stone-100 px-2 py-0.5 rounded text-xs font-bold">+</button>
+                              <h4 className="text-xs font-bold text-stone-900">{product.name}</h4>
+                              <p className="text-[11px] text-stone-500">R$ {product.price.toFixed(2)} / {product.unit}</p>
                             </div>
                           </div>
-                        );
-                      })
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1.5 bg-white border border-stone-200 px-2 py-0.5 rounded-lg">
+                              <button onClick={() => updateQuantity(product.id, -1)} className="text-xs font-bold text-stone-500 px-1">-</button>
+                              <span className="text-xs font-bold w-3 text-center">{quantity}</span>
+                              <button onClick={() => updateQuantity(product.id, 1)} className="text-xs font-bold text-stone-500 px-1">+</button>
+                            </div>
+                            <button onClick={() => removeFromCart(product.id)} className="text-stone-400 hover:text-red-600 text-xs transition">🗑️</button>
+                          </div>
+                        </div>
+                      ))
                     )}
                   </div>
                 </div>
 
-                {totalItemsCount > 0 && (
-                  <div className="border-t border-stone-200 pt-4">
-                    <div className="flex justify-between font-bold text-base mb-3">
-                      <span>Total:</span>
-                      <span>R$ {(totalPrice + (totalPrice >= 120 ? 0 : 12)).toFixed(2)}</span>
+                {/* Total e Ação */}
+                {Object.keys(cart).length > 0 && (
+                  <div className="border-t border-stone-200 pt-4 space-y-2">
+                    <div className="flex justify-between text-xs text-stone-600">
+                      <span>Subtotal</span>
+                      <span>R$ {subtotal.toFixed(2)}</span>
                     </div>
-                    <button onClick={() => { setIsCartOpen(false); setIsCheckoutOpen(true); }} className="w-full bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs hover:bg-emerald-800 transition">
+                    <div className="flex justify-between text-xs text-stone-600">
+                      <span>Frete</span>
+                      <span>{freight === 0 ? <strong className="text-emerald-700">GRÁTIS</strong> : `R$ ${freight.toFixed(2)}`}</span>
+                    </div>
+                    <div className="flex justify-between text-base font-black text-stone-900 pt-2 border-t border-stone-100">
+                      <span>Total</span>
+                      <span>R$ {total.toFixed(2)}</span>
+                    </div>
+
+                    <button
+                      onClick={() => { setIsCartOpen(false); setIsCheckoutOpen(true); }}
+                      className="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition shadow-lg mt-2 active:scale-98"
+                    >
                       Avançar para Agendamento
                     </button>
                   </div>
@@ -398,38 +576,86 @@
             </div>
           )}
 
-          {/* Checkout Modal */}
+          {/* MODAL DE CHECKOUT */}
           {isCheckoutOpen && (
-            <div className="fixed inset-0 bg-black/60 z-60 flex items-center justify-center p-4">
-              <div className="bg-white rounded-2xl max-w-sm w-full p-6 relative">
-                <button onClick={() => setIsCheckoutOpen(false)} className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 font-bold">✕</button>
-                
-                <h3 className="text-lg font-bold mb-1">Agendamento e Pagamento</h3>
-                <p className="text-xs text-stone-500 mb-4">Escolha o melhor horário de entrega.</p>
+            <div className="fixed inset-0 bg-stone-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+                <button onClick={() => setIsCheckoutOpen(false)} className="absolute top-5 right-5 text-stone-400 hover:text-stone-800 font-bold">
+                  ✕
+                </button>
 
-                <div className="mb-4">
-                  <label className="text-xs font-bold block mb-1">Horário da Entrega:</label>
-                  <select value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} className="w-full p-2.5 rounded-xl border border-stone-200 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600">
-                    <option>Hoje (16h - 18h)</option>
-                    <option>Amanhã (08h - 10h)</option>
-                    <option>Amanhã (14h - 16h)</option>
-                  </select>
-                </div>
+                <h3 className="text-xl font-black text-stone-900 mb-1">Finalizar Agendamento</h3>
+                <p className="text-xs text-stone-500 mb-6">Preencha os dados de entrega para confirmar no WhatsApp.</p>
 
-                <div className="mb-5">
-                  <label className="text-xs font-bold block mb-1">Pagamento:</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['pix', 'cartao', 'dinheiro'].map((pm) => (
-                      <button key={pm} onClick={() => setPaymentMethod(pm)} className={`p-2 border rounded-xl text-xs font-bold uppercase transition ${paymentMethod === pm ? 'bg-emerald-50 border-emerald-600 text-emerald-800' : 'bg-white border-stone-200 text-stone-700'}`}>
-                        {pm}
-                      </button>
-                    ))}
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">Seu Nome</label>
+                    <input
+                      type="text"
+                      placeholder="Ex: Ana Silva"
+                      value={orderDetails.customerName}
+                      onChange={(e) => setOrderDetails({ ...orderDetails, customerName: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">Endereço Completo</label>
+                    <input
+                      type="text"
+                      placeholder="Rua, Número, Bairro - Cidade"
+                      value={orderDetails.address}
+                      onChange={(e) => setOrderDetails({ ...orderDetails, address: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">Janela de Entrega</label>
+                    <select
+                      value={orderDetails.deliverySlot}
+                      onChange={(e) => setOrderDetails({ ...orderDetails, deliverySlot: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    >
+                      <option value="Hoje (16h - 18h)">Hoje (16h - 18h)</option>
+                      <option value="Amanhã (08h - 10h)">Amanhã (08h - 10h)</option>
+                      <option value="Amanhã (14h - 16h)">Amanhã (14h - 16h)</option>
+                      <option value="Sábado (09h - 12h)">Sábado (09h - 12h)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-2">Forma de Pagamento</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {['pix', 'cartao', 'dinheiro'].map((pm) => (
+                        <button
+                          key={pm}
+                          onClick={() => setOrderDetails({ ...orderDetails, paymentMethod: pm })}
+                          className={`py-2.5 rounded-xl text-xs font-bold uppercase transition border ${orderDetails.paymentMethod === pm ? 'bg-emerald-50 border-emerald-600 text-emerald-800' : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'}`}
+                        >
+                          {pm}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <a href={`https://wa.me/?text=${generateWhatsAppMessage()}`} target="_blank" rel="noopener noreferrer" className="block text-center bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs hover:bg-emerald-800 transition">
-                  Confirmar Pedido via WhatsApp
-                </a>
+                <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-stone-400 block">Total do Pedido</span>
+                    <span className="text-lg font-black text-emerald-950">R$ {total.toFixed(2)}</span>
+                  </div>
+
+                  <a
+                    href={generateWhatsAppLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-md hover:shadow-lg transition active:scale-95"
+                  >
+                    <span>Confirmar no WhatsApp</span>
+                    <span>💬</span>
+                  </a>
+                </div>
               </div>
             </div>
           )}
@@ -437,8 +663,8 @@
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    // Renderização
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
