@@ -7,6 +7,7 @@
     <title>Mercado Fresco — Hortifruti Delivery</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -14,23 +15,22 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html, body, #root {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', system-ui, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             background-color: #f6faf6;
             color: #1e293b;
         }
 
-        input::placeholder {
-            color: #64748b;
+        /* Garante que tudo carregue */
+        #root {
+            display: block;
         }
 
         .scrollbar-hide::-webkit-scrollbar {
@@ -41,10 +41,6 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        .transition-all {
-            transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
     </style>
 </head>
 <body>
@@ -54,7 +50,7 @@
         const { useState } = React;
         const { Plus, Minus, Bell, ShoppingCart, Leaf, Search, Home, Utensils, Heart, ClipboardList, User } = lucide;
 
-        // ============ DADOS DE PRODUTOS ============
+        // ============ DADOS ============
         const vegetablesProducts = [
             {
                 id: 1,
@@ -176,63 +172,182 @@
             seasoningsProducts[4],
         ];
 
-        // ============ COMPONENTE: ProductCard ============
+        // ============ ProductCard ============
         function ProductCard({ title, weight, price, image, badge, badgeType }) {
             const [quantity, setQuantity] = useState(0);
 
-            const handleAdd = () => setQuantity(quantity + 1);
-            const handleRemove = () => quantity > 0 && setQuantity(quantity - 1);
-
             return (
-                <div className="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between h-full">
+                <div style={{
+                    backgroundColor: 'white',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '18px',
+                    padding: '12px',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%',
+                    position: 'relative',
+                    transition: 'box-shadow 0.15s'
+                }}>
                     {badge && (
-                        <span className={`absolute top-3 left-3 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider text-white z-10 ${
-                            badgeType === 'promo' ? 'bg-red-600' : 'bg-emerald-600'
-                        }`}>
+                        <span style={{
+                            position: 'absolute',
+                            top: '12px',
+                            left: '12px',
+                            padding: '4px 8px',
+                            borderRadius: '6px',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            color: 'white',
+                            zIndex: 10,
+                            backgroundColor: badgeType === 'promo' ? '#dc2626' : '#16A34A'
+                        }}>
                             {badge}
                         </span>
                     )}
 
-                    <div className="w-full h-32 rounded-xl overflow-hidden mb-3 bg-slate-50 flex items-center justify-center">
+                    <div style={{
+                        width: '100%',
+                        height: '128px',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        marginBottom: '12px',
+                        backgroundColor: '#f6faf6',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
                         <img
                             src={image}
                             alt={title}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                transition: 'transform 0.3s'
+                            }}
                         />
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-between">
+                    <div style={{
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
                         <div>
-                            <h4 className="font-semibold text-slate-800 text-xs sm:text-sm line-clamp-2 leading-tight">
+                            <h4 style={{
+                                fontWeight: '600',
+                                color: '#1e293b',
+                                fontSize: '14px',
+                                lineHeight: '1.2',
+                                marginBottom: '4px',
+                                overflow: 'hidden',
+                                display: '-webkit-box',
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: 'vertical'
+                            }}>
                                 {title}
                             </h4>
-                            <p className="text-[11px] text-slate-400 mt-0.5">{weight}</p>
+                            <p style={{
+                                fontSize: '11px',
+                                color: '#94a3b8',
+                                marginTop: '2px'
+                            }}>
+                                {weight}
+                            </p>
                         </div>
 
-                        <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-50">
-                            <span className="font-bold text-emerald-900 text-sm">R$ {price}</span>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginTop: '12px',
+                            paddingTop: '8px',
+                            borderTop: '1px solid #f1f5f9'
+                        }}>
+                            <span style={{
+                                fontWeight: 'bold',
+                                color: '#14532d',
+                                fontSize: '14px'
+                            }}>
+                                R$ {price}
+                            </span>
 
                             {quantity === 0 ? (
                                 <button
-                                    onClick={handleAdd}
-                                    className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shadow-sm active:scale-95 transition-all"
+                                    onClick={() => setQuantity(quantity + 1)}
+                                    style={{
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '50%',
+                                        backgroundColor: '#16A34A',
+                                        color: 'white',
+                                        border: 'none',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                                        transition: 'all 0.15s'
+                                    }}
+                                    onMouseEnter={(e) => e.target.style.backgroundColor = '#15803d'}
+                                    onMouseLeave={(e) => e.target.style.backgroundColor = '#16A34A'}
                                 >
                                     <Plus size={16} strokeWidth={2.5} />
                                 </button>
                             ) : (
-                                <div className="flex items-center gap-1 bg-emerald-50 rounded-full px-1.5 py-0.5">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    backgroundColor: '#f0fdf4',
+                                    borderRadius: '100px',
+                                    padding: '4px 6px'
+                                }}>
                                     <button
-                                        onClick={handleRemove}
-                                        className="w-6 h-6 rounded-full text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                                        onClick={() => quantity > 0 && setQuantity(quantity - 1)}
+                                        style={{
+                                            width: '24px',
+                                            height: '24px',
+                                            borderRadius: '50%',
+                                            color: '#16A34A',
+                                            border: 'none',
+                                            backgroundColor: 'transparent',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer'
+                                        }}
                                     >
                                         <Minus size={12} strokeWidth={3} />
                                     </button>
-                                    <span className="text-xs font-semibold text-emerald-600 w-4 text-center">
+                                    <span style={{
+                                        fontSize: '12px',
+                                        fontWeight: '600',
+                                        color: '#16A34A',
+                                        width: '16px',
+                                        textAlign: 'center'
+                                    }}>
                                         {quantity}
                                     </span>
                                     <button
-                                        onClick={handleAdd}
-                                        className="w-6 h-6 rounded-full text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                                        onClick={() => setQuantity(quantity + 1)}
+                                        style={{
+                                            width: '24px',
+                                            height: '24px',
+                                            borderRadius: '50%',
+                                            color: '#16A34A',
+                                            border: 'none',
+                                            backgroundColor: 'transparent',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer'
+                                        }}
                                     >
                                         <Plus size={12} strokeWidth={3} />
                                     </button>
@@ -244,28 +359,96 @@
             );
         }
 
-        // ============ COMPONENTE: Header ============
+        // ============ Header ============
         function Header({ cartCount = 3 }) {
             return (
-                <header className="bg-white border-b border-slate-100 px-4 py-3 shadow-sm sticky top-0 z-40">
-                    <div className="max-w-7xl mx-auto flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
-                                <Leaf size={20} className="text-white" />
+                <header style={{
+                    backgroundColor: 'white',
+                    borderBottom: '1px solid #e2e8f0',
+                    padding: '12px 16px',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 40
+                }}>
+                    <div style={{
+                        maxWidth: '80rem',
+                        margin: '0 auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div style={{
+                                width: '32px',
+                                height: '32px',
+                                backgroundColor: '#16A34A',
+                                borderRadius: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Leaf size={20} color="white" />
                             </div>
-                            <h1 className="text-lg font-bold text-slate-900">Mercado Fresco</h1>
+                            <h1 style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a' }}>
+                                Mercado Fresco
+                            </h1>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors relative">
-                                <Bell size={20} className="text-slate-600" />
-                                <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <button style={{
+                                padding: '8px',
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                position: 'relative',
+                                borderRadius: '8px',
+                                transition: 'background-color 0.15s'
+                            }}
+                            onMouseEnter={(e) => e.target.style.backgroundColor = '#f1f5f9'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                            >
+                                <Bell size={20} color="#475569" />
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '4px',
+                                    right: '4px',
+                                    width: '8px',
+                                    height: '8px',
+                                    backgroundColor: '#dc2626',
+                                    borderRadius: '50%'
+                                }}></span>
                             </button>
 
-                            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors relative">
-                                <ShoppingCart size={20} className="text-slate-600" />
+                            <button style={{
+                                padding: '8px',
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                position: 'relative',
+                                borderRadius: '8px',
+                                transition: 'background-color 0.15s'
+                            }}
+                            onMouseEnter={(e) => e.target.style.backgroundColor = '#f1f5f9'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                            >
+                                <ShoppingCart size={20} color="#475569" />
                                 {cartCount > 0 && (
-                                    <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                                    <span style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 0,
+                                        backgroundColor: '#dc2626',
+                                        color: 'white',
+                                        fontSize: '10px',
+                                        fontWeight: 'bold',
+                                        width: '20px',
+                                        height: '20px',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
                                         {cartCount}
                                     </span>
                                 )}
@@ -276,92 +459,115 @@
             );
         }
 
-        // ============ COMPONENTE: HeroBanner ============
+        // ============ HeroBanner ============
         function HeroBanner() {
             return (
-                <div className="px-4 py-6 max-w-7xl mx-auto">
-                    <div className="relative bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl overflow-hidden shadow-md h-48 flex items-center">
-                        <div className="relative z-10 px-6 text-white max-w-md">
-                            <h2 className="text-3xl sm:text-4xl font-bold mb-2 leading-tight">
+                <div style={{ padding: '24px 16px', maxWidth: '80rem', margin: '0 auto' }}>
+                    <div style={{
+                        background: 'linear-gradient(to right, #16A34A, #15803d)',
+                        borderRadius: '18px',
+                        overflow: 'hidden',
+                        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                        height: '192px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        position: 'relative'
+                    }}>
+                        <div style={{ position: 'relative', zIndex: 10, padding: '24px', maxWidth: '320px', color: 'white' }}>
+                            <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px', lineHeight: '1.2' }}>
                                 Hortifruti fresco todo dia
                             </h2>
-                            <p className="text-sm sm:text-base opacity-90">
+                            <p style={{ fontSize: '14px', opacity: 0.9 }}>
                                 Frutas, legumes e temperos frescos direto para sua casa
                             </p>
                         </div>
-
-                        <div className="absolute right-0 top-0 w-48 h-48 opacity-20">
-                            <svg viewBox="0 0 200 200" className="w-full h-full">
-                                <circle cx="100" cy="100" r="80" fill="white" opacity="0.3" />
-                                <circle cx="100" cy="100" r="60" fill="white" opacity="0.2" />
-                            </svg>
-                        </div>
                     </div>
                 </div>
             );
         }
 
-        // ============ COMPONENTE: QuickStatus ============
+        // ============ QuickStatus ============
         function QuickStatus() {
+            const statuses = [
+                { label: 'Aberto', value: '(08h-20h)', color: '#16A34A' },
+                { label: 'Entrega Grátis', value: '(+R$80)', color: '#D97706' },
+                { label: 'Mínimo', value: 'R$30', color: '#2563eb' },
+                { label: 'WhatsApp', value: 'Suporte', color: '#16a34a' },
+            ];
+
             return (
-                <div className="px-4 py-4 max-w-7xl mx-auto">
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <div className="bg-emerald-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
-                            <span className="text-xs font-semibold leading-tight">
-                                <div>Aberto</div>
-                                <div className="opacity-90 text-[10px] font-normal">(08h-20h)</div>
-                            </span>
-                        </div>
-
-                        <div className="bg-amber-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
-                            <span className="text-xs font-semibold leading-tight">
-                                <div>Entrega Grátis</div>
-                                <div className="opacity-90 text-[10px] font-normal">(+R$80)</div>
-                            </span>
-                        </div>
-
-                        <div className="bg-blue-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
-                            <span className="text-xs font-semibold leading-tight">
-                                <div>Mínimo</div>
-                                <div className="opacity-90 text-[10px] font-normal">R$30</div>
-                            </span>
-                        </div>
-
-                        <div className="bg-green-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
-                            <span className="text-xs font-semibold leading-tight">
-                                <div>WhatsApp</div>
-                                <div className="opacity-90 text-[10px] font-normal">Suporte</div>
-                            </span>
-                        </div>
+                <div style={{ padding: '16px', maxWidth: '80rem', margin: '0 auto' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: '8px'
+                    }}>
+                        {statuses.map((status, idx) => (
+                            <div key={idx} style={{
+                                backgroundColor: status.color,
+                                borderRadius: '100px',
+                                padding: '8px 12px',
+                                color: 'white',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                            }}>
+                                <div>{status.label}</div>
+                                <div style={{ fontSize: '10px', opacity: 0.9 }}>{status.value}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             );
         }
 
-        // ============ COMPONENTE: SearchBar ============
+        // ============ SearchBar ============
         function SearchBar() {
             const [search, setSearch] = useState('');
 
             return (
-                <div className="px-4 py-4 max-w-7xl mx-auto">
-                    <div className="relative">
-                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" size={20} />
+                <div style={{ padding: '16px', maxWidth: '80rem', margin: '0 auto' }}>
+                    <div style={{ position: 'relative' }}>
+                        <Search style={{
+                            position: 'absolute',
+                            left: '16px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            width: '20px',
+                            height: '20px',
+                            color: '#94a3b8'
+                        }} />
                         <input
                             type="text"
                             placeholder="Buscar frutas, legumes, temperos..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-100 bg-white text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent shadow-sm text-sm"
+                            style={{
+                                width: '100%',
+                                paddingLeft: '48px',
+                                paddingRight: '16px',
+                                paddingTop: '12px',
+                                paddingBottom: '12px',
+                                borderRadius: '100px',
+                                border: '1px solid #e2e8f0',
+                                backgroundColor: 'white',
+                                color: '#1e293b',
+                                fontSize: '14px',
+                                fontFamily: 'inherit',
+                                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                                outline: 'none'
+                            }}
+                            onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(22, 163, 74, 0.1)'}
+                            onBlur={(e) => e.target.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)'}
                         />
                     </div>
                 </div>
             );
         }
 
-        // ============ COMPONENTE: CategorySelector ============
+        // ============ CategorySelector ============
         function CategorySelector({ onSelectCategory }) {
             const [activeCategory, setActiveCategory] = useState('todos');
-
             const categories = [
                 { id: 'todos', label: 'Todos' },
                 { id: 'kit-frutas', label: 'Kit Fruta Semanal' },
@@ -377,17 +583,25 @@
             };
 
             return (
-                <div className="px-4 py-4 max-w-7xl mx-auto overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-2 pb-2">
+                <div style={{ padding: '16px', maxWidth: '80rem', margin: '0 auto', overflowX: 'auto' }}>
+                    <div style={{ display: 'flex', gap: '8px', paddingBottom: '8px' }}>
                         {categories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => handleSelect(cat.id)}
-                                className={`px-4 py-2 rounded-full whitespace-nowrap font-semibold text-sm transition-all shadow-sm ${
-                                    activeCategory === cat.id
-                                        ? 'bg-emerald-600 text-white'
-                                        : 'bg-white text-slate-800 border border-slate-100'
-                                }`}
+                                style={{
+                                    padding: '8px 16px',
+                                    borderRadius: '100px',
+                                    whiteSpace: 'nowrap',
+                                    fontWeight: '600',
+                                    fontSize: '14px',
+                                    transition: 'all 0.15s',
+                                    border: activeCategory === cat.id ? 'none' : '1px solid #e2e8f0',
+                                    backgroundColor: activeCategory === cat.id ? '#16A34A' : 'white',
+                                    color: activeCategory === cat.id ? 'white' : '#1e293b',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                                }}
                             >
                                 {cat.label}
                             </button>
@@ -397,7 +611,7 @@
             );
         }
 
-        // ============ COMPONENTE: BottomNav ============
+        // ============ BottomNav ============
         function BottomNav({ activeTab = 'inicio', onSelectTab }) {
             const items = [
                 { id: 'inicio', label: 'Início', icon: Home },
@@ -408,7 +622,20 @@
             ];
 
             return (
-                <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-3 py-2 shadow-lg flex justify-around items-center z-50">
+                <nav style={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    backgroundColor: 'white',
+                    borderTop: '1px solid #e2e8f0',
+                    padding: '8px 12px',
+                    boxShadow: '0 -4px 6px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    zIndex: 50
+                }}>
                     {items.map((item) => {
                         const Icon = item.icon;
                         const isActive = activeTab === item.id;
@@ -417,14 +644,25 @@
                             <button
                                 key={item.id}
                                 onClick={() => onSelectTab(item.id)}
-                                className={`flex flex-col items-center justify-center px-3 py-1.5 rounded-full transition-all ${
-                                    isActive
-                                        ? 'bg-emerald-600 text-white shadow-sm font-medium'
-                                        : 'text-slate-400 hover:text-slate-600'
-                                }`}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '6px 12px',
+                                    borderRadius: '100px',
+                                    transition: 'all 0.15s',
+                                    border: 'none',
+                                    backgroundColor: isActive ? '#16A34A' : 'transparent',
+                                    color: isActive ? 'white' : '#94a3b8',
+                                    cursor: 'pointer',
+                                    boxShadow: isActive ? '0 1px 2px rgba(0,0,0,0.1)' : 'none'
+                                }}
                             >
                                 <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-                                <span className="text-[10px] mt-0.5">{item.label}</span>
+                                <span style={{ fontSize: '10px', marginTop: '4px', fontWeight: isActive ? '500' : '400' }}>
+                                    {item.label}
+                                </span>
                             </button>
                         );
                     })}
@@ -432,21 +670,25 @@
             );
         }
 
-        // ============ PÁGINA: Home ============
+        // ============ HomePage ============
         function HomePage() {
             return (
-                <div className="bg-slate-50 min-h-screen">
+                <div style={{ backgroundColor: '#f6faf6', minHeight: '100vh' }}>
                     <Header cartCount={3} />
                     <HeroBanner />
                     <QuickStatus />
                     <SearchBar />
                     <CategorySelector onSelectCategory={(id) => console.log('Selected:', id)} />
 
-                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
-                        <h2 className="text-xl font-bold text-slate-900 mb-4">
+                    <div style={{ padding: '24px 16px', maxWidth: '80rem', margin: '0 auto', paddingBottom: '120px' }}>
+                        <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#0f172a', marginBottom: '16px' }}>
                             Destaques para você
                         </h2>
-                        <div className="grid grid-cols-2 gap-3">
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '12px'
+                        }}>
                             {highlightedProducts.map((product) => (
                                 <ProductCard
                                     key={product.id}
@@ -464,23 +706,27 @@
             );
         }
 
-        // ============ PÁGINA: VegetablesCategory ============
+        // ============ VegetablesCategoryPage ============
         function VegetablesCategoryPage() {
             return (
-                <div className="bg-slate-50 min-h-screen">
+                <div style={{ backgroundColor: '#f6faf6', minHeight: '100vh' }}>
                     <Header cartCount={3} />
 
-                    <div className="px-4 py-4 max-w-7xl mx-auto">
-                        <h1 className="text-2xl font-bold text-slate-900">
+                    <div style={{ padding: '16px', maxWidth: '80rem', margin: '0 auto' }}>
+                        <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#0f172a' }}>
                             Legumes e Verduras Picados
                         </h1>
-                        <p className="text-slate-500 text-sm mt-1">
+                        <p style={{ color: '#64748b', fontSize: '14px', marginTop: '4px' }}>
                             Vegetais frescos, higienizados e prontos para o preparo
                         </p>
                     </div>
 
-                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
-                        <div className="grid grid-cols-2 gap-3">
+                    <div style={{ padding: '24px 16px', maxWidth: '80rem', margin: '0 auto', paddingBottom: '120px' }}>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '12px'
+                        }}>
                             {vegetablesProducts.map((product) => (
                                 <ProductCard
                                     key={product.id}
@@ -498,23 +744,27 @@
             );
         }
 
-        // ============ PÁGINA: SeasonsCategory ============
+        // ============ SeasonsCategoryPage ============
         function SeasonsCategoryPage() {
             return (
-                <div className="bg-slate-50 min-h-screen">
+                <div style={{ backgroundColor: '#f6faf6', minHeight: '100vh' }}>
                     <Header cartCount={3} />
 
-                    <div className="px-4 py-4 max-w-7xl mx-auto">
-                        <h1 className="text-2xl font-bold text-slate-900">
+                    <div style={{ padding: '16px', maxWidth: '80rem', margin: '0 auto' }}>
+                        <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#0f172a' }}>
                             Temperos & Condimentos
                         </h1>
-                        <p className="text-slate-500 text-sm mt-1">
+                        <p style={{ color: '#64748b', fontSize: '14px', marginTop: '4px' }}>
                             Especiarias selecionadas para temperar seus pratos
                         </p>
                     </div>
 
-                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
-                        <div className="grid grid-cols-2 gap-3">
+                    <div style={{ padding: '24px 16px', maxWidth: '80rem', margin: '0 auto', paddingBottom: '120px' }}>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '12px'
+                        }}>
                             {seasoningsProducts.map((product) => (
                                 <ProductCard
                                     key={product.id}
@@ -532,7 +782,7 @@
             );
         }
 
-        // ============ COMPONENTE: App ============
+        // ============ App ============
         function App() {
             const [activeTab, setActiveTab] = useState('inicio');
 
@@ -553,7 +803,7 @@
             };
 
             return (
-                <div className="bg-slate-50 min-h-screen">
+                <div style={{ backgroundColor: '#f6faf6', minHeight: '100vh' }}>
                     {renderPage()}
                     <BottomNav activeTab={activeTab} onSelectTab={setActiveTab} />
                 </div>
