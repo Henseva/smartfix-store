@@ -1,1061 +1,568 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Fresco</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mercado Fresco - Hortifruti Delivery Premium" />
+    <title>Mercado Fresco — Hortifruti Delivery</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        :root {
-            --laranja: #FFA500;
-            --laranja-escuro: #FF8C00;
-            --branco: #FFFFFF;
-            --cinza-fundo: #F5F5F5;
-            --cinza-texto: #666666;
-            --texto-principal: #1a1a1a;
-            --verde-suave: #E8F5E9;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
                 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--cinza-fundo);
-            color: var(--texto-principal);
+            background-color: #f6faf6;
+            color: #1e293b;
         }
 
-        /* ==================== TOP BANNER ==================== */
-        .top-banner {
-            background-color: var(--laranja);
-            color: white;
-            padding: 8px 16px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+        input::placeholder {
+            color: #64748b;
         }
 
-        /* ==================== HEADER ==================== */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 16px;
-            background-color: var(--branco);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-left {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .header-menu {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--texto-principal);
-            transition: all 0.2s ease;
-        }
-
-        .header-menu:active {
-            transform: scale(0.9);
-        }
-
-        .header-logo {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--texto-principal);
-        }
-
-        .header-right {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .header-search-icon {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--texto-principal);
-        }
-
-        .header-login {
-            background: var(--texto-principal);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* ==================== HERO BANNER ==================== */
-        .hero-banner {
-            background: linear-gradient(135deg, #FFE5B4 0%, #FFD9A3 100%);
-            padding: 20px 16px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            right: -30px;
-            top: -20px;
-            width: 120px;
-            height: 120px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-        }
-
-        .hero-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--texto-principal);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ==================== INFO SECTION ==================== */
-        .info-section {
-            background: var(--branco);
-            padding: 16px;
-            margin: 8px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-        }
-
-        .info-item.label {
-            background: var(--laranja);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .info-item.highlight {
-            color: var(--laranja);
-            font-weight: 600;
-        }
-
-        .info-item-icon {
-            font-size: 16px;
-        }
-
-        .rating {
-            background: var(--texto-principal);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* ==================== TRUST MESSAGE ==================== */
-        .trust-message {
-            background: var(--laranja);
-            color: white;
-            padding: 14px 16px;
-            margin: 12px 8px;
-            border-radius: 12px;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .trust-message div {
-            margin-bottom: 6px;
-        }
-
-        .trust-message div:last-child {
-            margin-bottom: 0;
-        }
-
-        /* ==================== CATEGORY SECTION ==================== */
-        .category-header {
-            background: var(--laranja);
-            color: white;
-            padding: 12px 16px;
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 0;
-        }
-
-        .category-hero {
-            background: linear-gradient(135deg, #D4A574 0%, #8B7355 100%);
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            margin-bottom: 14px;
-        }
-
-        .category-subtitle {
-            background: var(--laranja);
-            color: white;
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 14px;
-        }
-
-        /* ==================== SEARCH ==================== */
-        .search-container {
-            padding: 12px 16px;
-            background: var(--branco);
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #DDD;
-            border-radius: 20px;
-            font-size: 14px;
-            background: #F8F8F8;
-            color: var(--texto-principal);
-            transition: all 0.2s ease;
-        }
-
-        .search-input::placeholder {
-            color: #999;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--laranja);
-            background: var(--branco);
-            box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.1);
-        }
-
-        /* ==================== CATEGORIES SCROLL ==================== */
-        .categories-scroll {
-            display: flex;
-            gap: 10px;
-            padding: 12px 16px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            background: var(--branco);
-        }
-
-        .categories-scroll::-webkit-scrollbar {
+        .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
 
-        .category-btn {
-            flex: 0 0 auto;
-            padding: 8px 14px;
-            background: var(--branco);
-            border: 1.5px solid #DDD;
-            border-radius: 18px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--texto-principal);
-            cursor: pointer;
-            transition: all 0.25s ease;
-            white-space: nowrap;
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        .category-btn.active {
-            background: var(--laranja);
-            border-color: var(--laranja);
-            color: white;
-        }
-
-        .category-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* ==================== PRODUCT LIST ==================== */
-        .products-container {
-            padding: 12px 8px 120px;
-            background: var(--branco);
-        }
-
-        .product-item {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            margin: 0 8px 10px 8px;
-            background: var(--branco);
-            border: 1px solid #EEE;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .product-item:active {
-            background: #FAFAFA;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .product-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: var(--laranja);
-            color: white;
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 9px;
-            font-weight: 700;
-        }
-
-        .product-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--texto-principal);
-            margin-bottom: 2px;
-            line-height: 1.2;
-        }
-
-        .product-weight {
-            font-size: 12px;
-            color: var(--cinza-texto);
-            margin-bottom: 4px;
-        }
-
-        .product-description {
-            font-size: 12px;
-            color: var(--cinza-texto);
-            margin-bottom: 6px;
-            line-height: 1.3;
-        }
-
-        .product-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--laranja);
-        }
-
-        .product-action {
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            gap: 8px;
-        }
-
-        /* ==================== ADD BUTTON ==================== */
-        .btn-add {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--laranja);
-            color: white;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(255, 165, 0, 0.3);
-        }
-
-        .btn-add:active {
-            transform: scale(0.92);
-        }
-
-        .btn-counter {
-            width: 44px;
-            height: 44px;
-            background: var(--laranja);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            animation: counterPop 0.3s ease;
-            flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(255, 165, 0, 0.3);
-        }
-
-        @keyframes counterPop {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .btn-counter button {
-            width: 20px;
-            height: 20px;
-            border: none;
-            background: transparent;
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s ease;
-        }
-
-        .btn-counter button:active {
-            transform: scale(0.8);
-        }
-
-        .btn-counter-value {
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            width: 16px;
-            text-align: center;
-        }
-
-        /* ==================== BOTTOM NAVIGATION ==================== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--branco);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 8px 0 12px;
-            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-            z-index: 200;
-            border-top: 1px solid #EEE;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 12px;
-            transition: all 0.22s ease;
-            color: var(--cinza-texto);
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .nav-item-icon {
-            font-size: 20px;
-            transition: all 0.22s ease;
-        }
-
-        .nav-item.active {
-            color: var(--laranja);
-        }
-
-        .nav-item.active .nav-item-icon {
-            animation: navBounce 0.35s ease;
-        }
-
-        @keyframes navBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        /* ==================== CART BUTTON ==================== */
-        .cart-floating {
-            position: fixed;
-            bottom: 80px;
-            right: 16px;
-            background: var(--laranja);
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.4);
-            z-index: 150;
-            transition: all 0.2s ease;
-            font-weight: 700;
-        }
-
-        .cart-floating:active {
-            transform: scale(0.9);
-        }
-
-        .cart-floating span {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #FF4444;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        /* ==================== EMPTY STATE ==================== */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-            text-align: center;
-            color: var(--cinza-texto);
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-            opacity: 0.5;
-        }
-
-        .empty-state-text {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* ==================== RESPONSIVE ==================== */
-        @media (max-width: 360px) {
-            .product-image {
-                width: 70px;
-                height: 70px;
-                font-size: 35px;
-            }
-
-            .product-name {
-                font-size: 13px;
-            }
-
-            .hero-title {
-                font-size: 18px;
-            }
+        .transition-all {
+            transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
 <body>
-    <!-- TOP BANNER -->
-    <div class="top-banner">PEDIDOS SOMENTE POR ENCOMENDA</div>
+    <div id="root"></div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <button class="header-menu" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="header-logo">Mercado Fresco</div>
-        </div>
-        <div class="header-right">
-            <button class="header-search-icon" onclick="focusSearch()">
-                <i class="fas fa-search"></i>
-            </button>
-            <button class="header-login">Login</button>
-        </div>
-    </header>
+    <script type="text/babel">
+        const { useState } = React;
+        const { Plus, Minus, Bell, ShoppingCart, Leaf, Search, Home, Utensils, Heart, ClipboardList, User } = lucide;
 
-    <!-- HERO BANNER -->
-    <div class="hero-banner">
-        <h1 class="hero-title">Hortifruti fresco todo dia</h1>
-    </div>
-
-    <!-- INFO SECTION -->
-    <div class="info-section">
-        <div class="info-item label">Aberto!</div>
-        <div class="info-item">00:00 – 23:59</div>
-        <div class="info-item highlight">Entrega grátis acima de R$ 165,00</div>
-        <div class="rating">★ 4.8</div>
-    </div>
-
-    <div class="info-section" style="padding: 12px 16px; background: #FFF8F0;">
-        <div style="flex: 1;">
-            <div class="info-item" style="margin-bottom: 6px;">
-                <span class="info-item-icon">📦</span>
-                <span>Pedido mínimo: <strong style="color: var(--laranja);">R$ 40,00</strong></span>
-            </div>
-            <div class="info-item">
-                <span class="info-item-icon">💬</span>
-                <span><strong>WhatsApp</strong></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- TRUST MESSAGE -->
-    <div class="trust-message">
-        <div>🍊 <strong>Bem-vindo(a) à Mercado Fresco!</strong></div>
-        <div>📦 Pedidos somente por encomenda.</div>
-        <div>📅 Faça seu pedido com antecedência.</div>
-        <div>🚚 Separamos tudo com carinho e enviamos produtos frescos para você.</div>
-    </div>
-
-    <!-- SEARCH -->
-    <div class="search-container" id="searchContainer">
-        <input type="text" class="search-input" id="searchInput" placeholder="🔎 Digite para buscar um item">
-    </div>
-
-    <!-- CATEGORIES -->
-    <div class="categories-scroll" id="categoriesContainer"></div>
-
-    <!-- MAIN CONTENT -->
-    <main id="mainContent"></main>
-
-    <!-- CART FLOATING BUTTON -->
-    <div class="cart-floating" id="cartFloat" onclick="goToCart()" style="display: none;">
-        🛒 <span id="cartCount">0</span>
-    </div>
-
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="navigateTo('home')">
-            <div class="nav-item-icon">⌂</div>
-            <span>Início</span>
-        </div>
-        <div class="nav-item" onclick="navigateTo('catalog')">
-            <div class="nav-item-icon">▦</div>
-            <span>Cardápio</span>
-        </div>
-        <div class="nav-item" onclick="navigateTo('favorites')">
-            <div class="nav-item-icon">♡</div>
-            <span>Favoritos</span>
-        </div>
-        <div class="nav-item" onclick="navigateTo('orders')">
-            <div class="nav-item-icon">☰</div>
-            <span>Pedidos</span>
-        </div>
-        <div class="nav-item" onclick="navigateTo('account')">
-            <div class="nav-item-icon">●</div>
-            <span>Conta</span>
-        </div>
-    </nav>
-
-    <script>
-        // ==================== STATE ==================== 
-        const products = [
-            { id: 1, name: 'Kit Fruta Semanal', weight: 'variado', price: 49.90, category: 'kits', image: '🍱', description: 'Seleção de frutas frescas para a semana, itens variados e higienizados.', badge: 'Novidade!' },
-            { id: 2, name: 'Salada de Frutas Especial', weight: '250g', price: 12.90, category: 'saladas', image: '🍓', description: 'Mix de frutas frescas selecionadas.', badge: 'Novidade! Promoção!' },
-            { id: 3, name: 'Salada de Frutas Cremosa', weight: '250g', price: 14.90, category: 'saladas', image: '🍓', description: 'Frutas frescas com toque cremoso.', badge: 'Promoção!' },
-            { id: 4, name: 'Manga Picada', weight: '250g', price: 6.90, category: 'frutas', image: '🍋', description: 'Manga selecionada, higienizada e pronta para consumir.' },
-            { id: 5, name: 'Melancia Picada', weight: '250g', price: 5.40, category: 'frutas', image: '🍉', description: 'Melancia doce e fresca, cortada em cubos.' },
-            { id: 6, name: 'Salada de Frutas - opção 1', weight: '250g', price: 8.90, category: 'saladas', image: '🍓', description: 'Mix de frutas frescas.' },
-            { id: 7, name: 'Abacaxi Fatiado', weight: '300g', price: 10.50, category: 'frutas', image: '🍍', description: 'Abacaxi doce, selecionado e fatiado.' },
-            { id: 8, name: 'Abacaxi Inteiro sem casca', weight: '500g', price: 12.90, category: 'frutas', image: '🍍', description: 'Pronto para consumir.', badge: 'Novidade!' },
-            { id: 9, name: 'Banana', weight: '1kg', price: 8.00, category: 'frutas', image: '🍌', description: 'Bananas selecionadas.' },
-            { id: 10, name: 'Uva', weight: '500g', price: 12.90, category: 'frutas', image: '🍇', description: 'Uvas frescas.' },
-            { id: 11, name: 'Morangos', weight: '250g', price: 13.90, category: 'frutas', image: '🍓', description: 'Morangos frescos.' },
-            { id: 12, name: 'Cebola Picada', weight: '250g', price: 5.90, category: 'verduras', image: '🧅', description: 'Cebola fresca já higienizada.' },
-            { id: 13, name: 'Salsinha Higienizada', weight: '50g', price: 4.90, category: 'verduras', image: '🌿', description: 'Salsinha fresca pronta para uso.' },
-            { id: 14, name: 'Brócolis Higienizado', weight: '300g', price: 14.50, category: 'verduras', image: '🥦', description: 'Brócolis selecionado e higienizado.', badge: 'Novidade!' },
-            { id: 15, name: 'Couve Flor Higienizada', weight: '300g', price: 14.50, category: 'verduras', image: '🥦', description: 'Couve-flor fresca.' },
-            { id: 16, name: 'Mix Brócolis com Couve-flor', weight: '300g', price: 15.90, category: 'verduras', image: '🥦', description: 'Mix de vegetais frescos.' },
-            { id: 17, name: 'Abóbora Fatiada', weight: '300g', price: 8.20, category: 'verduras', image: '🎃', description: 'Abóbora limpa e pronta para cozinhar.' },
-            { id: 18, name: 'Abobrinha Fatiada', weight: '250g', price: 9.90, category: 'verduras', image: '🥒', description: 'Abobrinha fresca fatiada.' },
-            { id: 19, name: 'Berinjela', weight: '250g', price: 8.50, category: 'verduras', image: '🍆', description: 'Berinjela selecionada.' },
-            { id: 20, name: 'Repolho Verde ralado', weight: '250g', price: 9.90, category: 'verduras', image: '🥬', description: 'Repolho fresco ralado.' },
-            { id: 21, name: 'Tomate fatiado', weight: '250g', price: 9.00, category: 'verduras', image: '🍅', description: 'Tomates selecionados.' },
-            { id: 22, name: 'Vagem Picada', weight: '250g', price: 11.90, category: 'verduras', image: '🫛', description: 'Vagem fresca pronta para preparo.' },
-            { id: 23, name: 'Páprica', weight: '100g', price: 5.50, category: 'temperos', image: '🧂', description: 'Tempero selecionado.' },
-            { id: 24, name: 'Pimenta Calabresa', weight: '50g', price: 5.00, category: 'temperos', image: '🌶', description: 'Pimenta calabresa.' },
-            { id: 25, name: 'Pimenta do Reino moída', weight: '50g', price: 5.00, category: 'temperos', image: '⚫', description: 'Pimenta moída na hora.' },
-            { id: 26, name: 'Sal', weight: '500g', price: 4.00, category: 'temperos', image: '🧂', description: 'Sal refinado.' },
-            { id: 27, name: 'Tempero Ana Maria', weight: '100g', price: 5.00, category: 'temperos', image: '🧂', description: 'Mistura especial de temperos.' },
-            { id: 28, name: 'Tempero do Chefe', weight: '100g', price: 7.90, category: 'temperos', image: '🧂', description: 'Blend de temperos.' }
+        // ============ DADOS DE PRODUTOS ============
+        const vegetablesProducts = [
+            {
+                id: 1,
+                title: 'Brócolis Picado Orgânico',
+                weight: '300g',
+                price: '12,90',
+                image: 'https://images.unsplash.com/photo-1566781514411-b2db3cb63b83?w=500&h=500&fit=crop',
+                badge: 'NOVIDADE!',
+                badgeType: 'default',
+            },
+            {
+                id: 2,
+                title: 'Couve-Flor em Floretes',
+                weight: '350g',
+                price: '11,50',
+                image: 'https://images.unsplash.com/photo-1587925591027-cfb56d88fcd2?w=500&h=500&fit=crop',
+                badge: 'PROMOÇÃO!',
+                badgeType: 'promo',
+            },
+            {
+                id: 3,
+                title: 'Abóbora Cabotiá em Cubos',
+                weight: '400g',
+                price: '9,80',
+                image: 'https://images.unsplash.com/photo-1599599810694-0b25f0a6a0f5?w=500&h=500&fit=crop',
+                badge: null,
+                badgeType: null,
+            },
+            {
+                id: 4,
+                title: 'Mix Abobrinha & Cenoura',
+                weight: '450g',
+                price: '13,90',
+                image: 'https://images.unsplash.com/photo-1470114716159-e389f8712fda?w=500&h=500&fit=crop',
+                badge: 'NOVIDADE!',
+                badgeType: 'default',
+            },
+            {
+                id: 5,
+                title: 'Tomate Cereja Cortado',
+                weight: '250g',
+                price: '15,20',
+                image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=500&fit=crop',
+                badge: null,
+                badgeType: null,
+            },
+            {
+                id: 6,
+                title: 'Cenoura Ralada Fina',
+                weight: '300g',
+                price: '8,50',
+                image: 'https://images.unsplash.com/photo-1599599810694-0b25f0a6a0f5?w=500&h=500&fit=crop',
+                badge: 'PROMOÇÃO!',
+                badgeType: 'promo',
+            },
         ];
 
-        let cart = {};
-        let favorites = new Set();
-        let selectedCategory = 'todos';
-        let filteredProducts = products;
+        const seasoningsProducts = [
+            {
+                id: 7,
+                title: 'Páprica Defumada',
+                weight: '100g',
+                price: '16,90',
+                image: 'https://images.unsplash.com/photo-1596040707152-286c69f85a96?w=500&h=500&fit=crop',
+                badge: 'NOVIDADE!',
+                badgeType: 'default',
+            },
+            {
+                id: 8,
+                title: 'Pimenta Calabresa em Flocos',
+                weight: '80g',
+                price: '14,50',
+                image: 'https://images.unsplash.com/photo-1596040707152-286c69f85a96?w=500&h=500&fit=crop',
+                badge: 'PROMOÇÃO!',
+                badgeType: 'promo',
+            },
+            {
+                id: 9,
+                title: 'Pimenta do Reino em Grãos',
+                weight: '90g',
+                price: '19,80',
+                image: 'https://images.unsplash.com/photo-1585518419759-eca31e5e57f6?w=500&h=500&fit=crop',
+                badge: null,
+                badgeType: null,
+            },
+            {
+                id: 10,
+                title: 'Sal Marinho Moído',
+                weight: '150g',
+                price: '11,20',
+                image: 'https://images.unsplash.com/photo-1596040707152-286c69f85a96?w=500&h=500&fit=crop',
+                badge: null,
+                badgeType: null,
+            },
+            {
+                id: 11,
+                title: 'Chimichurri Argentino',
+                weight: '100g',
+                price: '17,50',
+                image: 'https://images.unsplash.com/photo-1596040707152-286c69f85a96?w=500&h=500&fit=crop',
+                badge: null,
+                badgeType: null,
+            },
+            {
+                id: 12,
+                title: 'Orégano Seco Premium',
+                weight: '50g',
+                price: '13,90',
+                image: 'https://images.unsplash.com/photo-1596040707152-286c69f85a96?w=500&h=500&fit=crop',
+                badge: 'NOVIDADE!',
+                badgeType: 'default',
+            },
+        ];
 
-        // ==================== INITIALIZATION ==================== 
-        function init() {
-            loadCart();
-            loadFavorites();
-            renderCategories();
-            renderProducts();
-            setupSearch();
+        const highlightedProducts = [
+            vegetablesProducts[0],
+            seasoningsProducts[0],
+            vegetablesProducts[2],
+            seasoningsProducts[4],
+        ];
+
+        // ============ COMPONENTE: ProductCard ============
+        function ProductCard({ title, weight, price, image, badge, badgeType }) {
+            const [quantity, setQuantity] = useState(0);
+
+            const handleAdd = () => setQuantity(quantity + 1);
+            const handleRemove = () => quantity > 0 && setQuantity(quantity - 1);
+
+            return (
+                <div className="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between h-full">
+                    {badge && (
+                        <span className={`absolute top-3 left-3 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider text-white z-10 ${
+                            badgeType === 'promo' ? 'bg-red-600' : 'bg-emerald-600'
+                        }`}>
+                            {badge}
+                        </span>
+                    )}
+
+                    <div className="w-full h-32 rounded-xl overflow-hidden mb-3 bg-slate-50 flex items-center justify-center">
+                        <img
+                            src={image}
+                            alt={title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                    </div>
+
+                    <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 className="font-semibold text-slate-800 text-xs sm:text-sm line-clamp-2 leading-tight">
+                                {title}
+                            </h4>
+                            <p className="text-[11px] text-slate-400 mt-0.5">{weight}</p>
+                        </div>
+
+                        <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-50">
+                            <span className="font-bold text-emerald-900 text-sm">R$ {price}</span>
+
+                            {quantity === 0 ? (
+                                <button
+                                    onClick={handleAdd}
+                                    className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shadow-sm active:scale-95 transition-all"
+                                >
+                                    <Plus size={16} strokeWidth={2.5} />
+                                </button>
+                            ) : (
+                                <div className="flex items-center gap-1 bg-emerald-50 rounded-full px-1.5 py-0.5">
+                                    <button
+                                        onClick={handleRemove}
+                                        className="w-6 h-6 rounded-full text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                                    >
+                                        <Minus size={12} strokeWidth={3} />
+                                    </button>
+                                    <span className="text-xs font-semibold text-emerald-600 w-4 text-center">
+                                        {quantity}
+                                    </span>
+                                    <button
+                                        onClick={handleAdd}
+                                        className="w-6 h-6 rounded-full text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                                    >
+                                        <Plus size={12} strokeWidth={3} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
         }
 
-        // ==================== CART MANAGEMENT ==================== 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+        // ============ COMPONENTE: Header ============
+        function Header({ cartCount = 3 }) {
+            return (
+                <header className="bg-white border-b border-slate-100 px-4 py-3 shadow-sm sticky top-0 z-40">
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
+                                <Leaf size={20} className="text-white" />
+                            </div>
+                            <h1 className="text-lg font-bold text-slate-900">Mercado Fresco</h1>
+                        </div>
 
-            if (!cart[productId]) {
-                cart[productId] = {
-                    ...product,
-                    quantity: 1
-                };
-            } else {
-                cart[productId].quantity += 1;
-            }
+                        <div className="flex items-center gap-3">
+                            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors relative">
+                                <Bell size={20} className="text-slate-600" />
+                                <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+                            </button>
 
-            saveCart();
-            updateCartDisplay();
-            updateAllProductItems();
+                            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors relative">
+                                <ShoppingCart size={20} className="text-slate-600" />
+                                {cartCount > 0 && (
+                                    <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </header>
+            );
         }
 
-        function removeFromCart(productId) {
-            if (cart[productId] && cart[productId].quantity > 1) {
-                cart[productId].quantity -= 1;
-            } else {
-                delete cart[productId];
-            }
-            saveCart();
-            updateCartDisplay();
-            updateAllProductItems();
+        // ============ COMPONENTE: HeroBanner ============
+        function HeroBanner() {
+            return (
+                <div className="px-4 py-6 max-w-7xl mx-auto">
+                    <div className="relative bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl overflow-hidden shadow-md h-48 flex items-center">
+                        <div className="relative z-10 px-6 text-white max-w-md">
+                            <h2 className="text-3xl sm:text-4xl font-bold mb-2 leading-tight">
+                                Hortifruti fresco todo dia
+                            </h2>
+                            <p className="text-sm sm:text-base opacity-90">
+                                Frutas, legumes e temperos frescos direto para sua casa
+                            </p>
+                        </div>
+
+                        <div className="absolute right-0 top-0 w-48 h-48 opacity-20">
+                            <svg viewBox="0 0 200 200" className="w-full h-full">
+                                <circle cx="100" cy="100" r="80" fill="white" opacity="0.3" />
+                                <circle cx="100" cy="100" r="60" fill="white" opacity="0.2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            );
         }
 
-        function updateCartDisplay() {
-            const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-            const cartButton = document.getElementById('cartFloat');
-            const cartCount = document.getElementById('cartCount');
-            
-            if (count > 0) {
-                cartButton.style.display = 'flex';
-                cartCount.textContent = count;
-            } else {
-                cartButton.style.display = 'none';
-            }
+        // ============ COMPONENTE: QuickStatus ============
+        function QuickStatus() {
+            return (
+                <div className="px-4 py-4 max-w-7xl mx-auto">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div className="bg-emerald-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
+                            <span className="text-xs font-semibold leading-tight">
+                                <div>Aberto</div>
+                                <div className="opacity-90 text-[10px] font-normal">(08h-20h)</div>
+                            </span>
+                        </div>
+
+                        <div className="bg-amber-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
+                            <span className="text-xs font-semibold leading-tight">
+                                <div>Entrega Grátis</div>
+                                <div className="opacity-90 text-[10px] font-normal">(+R$80)</div>
+                            </span>
+                        </div>
+
+                        <div className="bg-blue-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
+                            <span className="text-xs font-semibold leading-tight">
+                                <div>Mínimo</div>
+                                <div className="opacity-90 text-[10px] font-normal">R$30</div>
+                            </span>
+                        </div>
+
+                        <div className="bg-green-600 rounded-full px-3 py-2 text-white flex items-center gap-2 shadow-sm">
+                            <span className="text-xs font-semibold leading-tight">
+                                <div>WhatsApp</div>
+                                <div className="opacity-90 text-[10px] font-normal">Suporte</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            );
         }
 
-        function updateAllProductItems() {
-            const items = document.querySelectorAll('[data-product-id]');
-            items.forEach(item => {
-                const productId = parseInt(item.dataset.productId);
-                const actionContainer = item.querySelector('.product-action');
-                actionContainer.innerHTML = getAddButtonHTML(productId);
-            });
+        // ============ COMPONENTE: SearchBar ============
+        function SearchBar() {
+            const [search, setSearch] = useState('');
+
+            return (
+                <div className="px-4 py-4 max-w-7xl mx-auto">
+                    <div className="relative">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" size={20} />
+                        <input
+                            type="text"
+                            placeholder="Buscar frutas, legumes, temperos..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-100 bg-white text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent shadow-sm text-sm"
+                        />
+                    </div>
+                </div>
+            );
         }
 
-        function saveCart() {
-            localStorage.setItem('mercadoFrescoCart', JSON.stringify(cart));
-        }
+        // ============ COMPONENTE: CategorySelector ============
+        function CategorySelector({ onSelectCategory }) {
+            const [activeCategory, setActiveCategory] = useState('todos');
 
-        function loadCart() {
-            const saved = localStorage.getItem('mercadoFrescoCart');
-            cart = saved ? JSON.parse(saved) : {};
-            updateCartDisplay();
-        }
-
-        // ==================== FAVORITES ==================== 
-        function toggleFavorite(productId) {
-            if (favorites.has(productId)) {
-                favorites.delete(productId);
-            } else {
-                favorites.add(productId);
-            }
-            saveFavorites();
-            renderProducts();
-        }
-
-        function saveFavorites() {
-            localStorage.setItem('mercadoFrescoFavorites', JSON.stringify([...favorites]));
-        }
-
-        function loadFavorites() {
-            const saved = localStorage.getItem('mercadoFrescoFavorites');
-            favorites = new Set(saved ? JSON.parse(saved) : []);
-        }
-
-        // ==================== RENDER CATEGORIES ==================== 
-        function renderCategories() {
             const categories = [
-                { id: 'todos', name: 'Todos' },
-                { id: 'kits', name: 'Kit Fruta Semanal' },
-                { id: 'saladas', name: 'Saladas Especiais' },
-                { id: 'frutas', name: 'Frutas Picadas' },
-                { id: 'verduras', name: 'Legumes e Verduras' },
-                { id: 'temperos', name: 'Temperos' }
+                { id: 'todos', label: 'Todos' },
+                { id: 'kit-frutas', label: 'Kit Fruta Semanal' },
+                { id: 'saladas', label: 'Saladas Especiais' },
+                { id: 'frutas-picadas', label: 'Frutas Picadas' },
+                { id: 'legumes', label: 'Legumes e Verduras' },
+                { id: 'temperos', label: 'Temperos' },
             ];
 
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = categories.map(cat => `
-                <button class="category-btn ${selectedCategory === cat.id ? 'active' : ''}" 
-                        onclick="selectCategory('${cat.id}')">
-                    ${cat.name}
-                </button>
-            `).join('');
-        }
-
-        function selectCategory(categoryId) {
-            selectedCategory = categoryId;
-            filterAndRender();
-            document.querySelector('.categories-scroll').scrollLeft = 0;
-        }
-
-        // ==================== RENDER PRODUCTS ==================== 
-        function renderProducts() {
-            const container = document.getElementById('mainContent');
-            
-            if (filteredProducts.length === 0) {
-                container.innerHTML = `
-                    <div class="products-container">
-                        <div class="empty-state">
-                            <div class="empty-state-icon">🔍</div>
-                            <div class="empty-state-text">Nenhum produto encontrado</div>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
-            // Group by category for display
-            const grouped = {};
-            filteredProducts.forEach(product => {
-                if (!grouped[product.category]) {
-                    grouped[product.category] = [];
-                }
-                grouped[product.category].push(product);
-            });
-
-            let html = '<div class="products-container">';
-
-            const categoryNames = {
-                'kits': 'Kit Fruta Semanal',
-                'saladas': 'Saladas de Frutas Especiais',
-                'frutas': 'Frutas Higienizadas e Picadas',
-                'verduras': 'Legumes e Verduras Picados',
-                'temperos': 'Temperos'
+            const handleSelect = (id) => {
+                setActiveCategory(id);
+                onSelectCategory(id);
             };
 
-            Object.keys(grouped).forEach(category => {
-                if (selectedCategory === 'todos' || selectedCategory === category) {
-                    html += `
-                        <div class="category-header">${categoryNames[category] || category}</div>
-                        ${category === 'temperos' ? `<div class="category-hero">🧂</div><div class="category-subtitle">Deixe sua comida mais saborosa com nossos temperos</div>` : ''}
-                    `;
-
-                    grouped[category].forEach(product => {
-                        html += `
-                            <div class="product-item" data-product-id="${product.id}">
-                                <div class="product-image">
-                                    ${product.image}
-                                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                                </div>
-                                <div class="product-info">
-                                    <div>
-                                        <div class="product-name">${product.name}</div>
-                                        <div class="product-weight">${product.weight}</div>
-                                        <div class="product-description">${product.description}</div>
-                                        <div class="product-price">R$ ${product.price.toFixed(2)}</div>
-                                    </div>
-                                </div>
-                                <div class="product-action">
-                                    ${getAddButtonHTML(product.id)}
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            });
-
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function getAddButtonHTML(productId) {
-            const item = cart[productId];
-            if (!item) {
-                return `<button class="btn-add" onclick="addToCart(${productId})"><i class="fas fa-plus"></i></button>`;
-            } else {
-                return `
-                    <div class="btn-counter">
-                        <button onclick="removeFromCart(${productId})"><i class="fas fa-minus"></i></button>
-                        <span class="btn-counter-value">${item.quantity}</span>
-                        <button onclick="addToCart(${productId})"><i class="fas fa-plus"></i></button>
+            return (
+                <div className="px-4 py-4 max-w-7xl mx-auto overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-2 pb-2">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat.id}
+                                onClick={() => handleSelect(cat.id)}
+                                className={`px-4 py-2 rounded-full whitespace-nowrap font-semibold text-sm transition-all shadow-sm ${
+                                    activeCategory === cat.id
+                                        ? 'bg-emerald-600 text-white'
+                                        : 'bg-white text-slate-800 border border-slate-100'
+                                }`}
+                            >
+                                {cat.label}
+                            </button>
+                        ))}
                     </div>
-                `;
-            }
-        }
-
-        // ==================== SEARCH ==================== 
-        function setupSearch() {
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                if (query === '') {
-                    filterAndRender();
-                } else {
-                    filteredProducts = products.filter(p => 
-                        p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
-                    );
-                    renderProducts();
-                }
-            });
-        }
-
-        function focusSearch() {
-            document.getElementById('searchInput').focus();
-        }
-
-        function filterAndRender() {
-            if (selectedCategory === 'todos') {
-                filteredProducts = products;
-            } else {
-                filteredProducts = products.filter(p => p.category === selectedCategory);
-            }
-            renderCategories();
-            renderProducts();
-        }
-
-        // ==================== NAVIGATION ==================== 
-        function navigateTo(section) {
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-
-            const mainContent = document.getElementById('mainContent');
-
-            switch(section) {
-                case 'home':
-                    selectedCategory = 'todos';
-                    init();
-                    break;
-
-                case 'catalog':
-                    selectedCategory = 'todos';
-                    init();
-                    break;
-
-                case 'favorites':
-                    const favoritesList = products.filter(p => favorites.has(p.id));
-                    if (favoritesList.length === 0) {
-                        mainContent.innerHTML = `
-                            <div class="products-container">
-                                <div class="empty-state">
-                                    <div class="empty-state-icon">💚</div>
-                                    <div class="empty-state-text">Você ainda não tem favoritos.<br>Adicione produtos aqui!</div>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        let html = '<div class="products-container">';
-                        favoritesList.forEach(product => {
-                            html += `
-                                <div class="product-item" data-product-id="${product.id}">
-                                    <div class="product-image">${product.image}</div>
-                                    <div class="product-info">
-                                        <div>
-                                            <div class="product-name">${product.name}</div>
-                                            <div class="product-weight">${product.weight}</div>
-                                            <div class="product-description">${product.description}</div>
-                                            <div class="product-price">R$ ${product.price.toFixed(2)}</div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        ${getAddButtonHTML(product.id)}
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        html += '</div>';
-                        mainContent.innerHTML = html;
-                    }
-                    break;
-
-                case 'orders':
-                    mainContent.innerHTML = `
-                        <div class="products-container">
-                            <div class="empty-state">
-                                <div class="empty-state-icon">🚚</div>
-                                <div class="empty-state-text">Você ainda não fez nenhum pedido.</div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'account':
-                    mainContent.innerHTML = `
-                        <div class="products-container" style="padding-top: 30px;">
-                            <div style="background: var(--branco); padding: 20px; border-radius: 12px; margin: 0 8px; text-align: center;">
-                                <div style="font-size: 36px; margin-bottom: 12px;">👤</div>
-                                <p style="color: var(--cinza-texto); margin-bottom: 16px; font-size: 14px;">Faça login para acessar sua conta</p>
-                                <button style="width: 100%; padding: 12px; background: var(--laranja); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">Entrar</button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-            }
-        }
-
-        function goToCart() {
-            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-            if (totalItems === 0) {
-                alert('Seu carrinho está vazio!');
-                return;
-            }
-
-            const cartContent = Object.values(cart).map(item => 
-                `${item.name} (${item.quantity}x) - R$ ${(item.price * item.quantity).toFixed(2)}`
-            ).join('\n');
-
-            const total = Object.values(cart).reduce((sum, item) => 
-                sum + (item.price * item.quantity), 0
+                </div>
             );
-
-            alert(`🛒 CARRINHO:\n\n${cartContent}\n\nTOTAL: R$ ${total.toFixed(2)}\n\n✓ Prosseguir para checkout?`);
         }
 
-        function toggleMenu() {
-            alert('Menu aberto');
+        // ============ COMPONENTE: BottomNav ============
+        function BottomNav({ activeTab = 'inicio', onSelectTab }) {
+            const items = [
+                { id: 'inicio', label: 'Início', icon: Home },
+                { id: 'cardapio', label: 'Cardápio', icon: Utensils },
+                { id: 'favoritos', label: 'Favoritos', icon: Heart },
+                { id: 'pedidos', label: 'Pedidos', icon: ClipboardList },
+                { id: 'conta', label: 'Conta', icon: User },
+            ];
+
+            return (
+                <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-3 py-2 shadow-lg flex justify-around items-center z-50">
+                    {items.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = activeTab === item.id;
+
+                        return (
+                            <button
+                                key={item.id}
+                                onClick={() => onSelectTab(item.id)}
+                                className={`flex flex-col items-center justify-center px-3 py-1.5 rounded-full transition-all ${
+                                    isActive
+                                        ? 'bg-emerald-600 text-white shadow-sm font-medium'
+                                        : 'text-slate-400 hover:text-slate-600'
+                                }`}
+                            >
+                                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                                <span className="text-[10px] mt-0.5">{item.label}</span>
+                            </button>
+                        );
+                    })}
+                </nav>
+            );
         }
 
-        // Start
-        init();
+        // ============ PÁGINA: Home ============
+        function HomePage() {
+            return (
+                <div className="bg-slate-50 min-h-screen">
+                    <Header cartCount={3} />
+                    <HeroBanner />
+                    <QuickStatus />
+                    <SearchBar />
+                    <CategorySelector onSelectCategory={(id) => console.log('Selected:', id)} />
+
+                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
+                        <h2 className="text-xl font-bold text-slate-900 mb-4">
+                            Destaques para você
+                        </h2>
+                        <div className="grid grid-cols-2 gap-3">
+                            {highlightedProducts.map((product) => (
+                                <ProductCard
+                                    key={product.id}
+                                    title={product.title}
+                                    weight={product.weight}
+                                    price={product.price}
+                                    image={product.image}
+                                    badge={product.badge}
+                                    badgeType={product.badgeType}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ============ PÁGINA: VegetablesCategory ============
+        function VegetablesCategoryPage() {
+            return (
+                <div className="bg-slate-50 min-h-screen">
+                    <Header cartCount={3} />
+
+                    <div className="px-4 py-4 max-w-7xl mx-auto">
+                        <h1 className="text-2xl font-bold text-slate-900">
+                            Legumes e Verduras Picados
+                        </h1>
+                        <p className="text-slate-500 text-sm mt-1">
+                            Vegetais frescos, higienizados e prontos para o preparo
+                        </p>
+                    </div>
+
+                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
+                        <div className="grid grid-cols-2 gap-3">
+                            {vegetablesProducts.map((product) => (
+                                <ProductCard
+                                    key={product.id}
+                                    title={product.title}
+                                    weight={product.weight}
+                                    price={product.price}
+                                    image={product.image}
+                                    badge={product.badge}
+                                    badgeType={product.badgeType}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ============ PÁGINA: SeasonsCategory ============
+        function SeasonsCategoryPage() {
+            return (
+                <div className="bg-slate-50 min-h-screen">
+                    <Header cartCount={3} />
+
+                    <div className="px-4 py-4 max-w-7xl mx-auto">
+                        <h1 className="text-2xl font-bold text-slate-900">
+                            Temperos & Condimentos
+                        </h1>
+                        <p className="text-slate-500 text-sm mt-1">
+                            Especiarias selecionadas para temperar seus pratos
+                        </p>
+                    </div>
+
+                    <div className="px-4 py-6 max-w-7xl mx-auto pb-32">
+                        <div className="grid grid-cols-2 gap-3">
+                            {seasoningsProducts.map((product) => (
+                                <ProductCard
+                                    key={product.id}
+                                    title={product.title}
+                                    weight={product.weight}
+                                    price={product.price}
+                                    image={product.image}
+                                    badge={product.badge}
+                                    badgeType={product.badgeType}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ============ COMPONENTE: App ============
+        function App() {
+            const [activeTab, setActiveTab] = useState('inicio');
+
+            const renderPage = () => {
+                switch (activeTab) {
+                    case 'cardapio':
+                        return <VegetablesCategoryPage />;
+                    case 'seasonings':
+                        return <SeasonsCategoryPage />;
+                    case 'favoritos':
+                    case 'pedidos':
+                    case 'conta':
+                        return <HomePage />;
+                    case 'inicio':
+                    default:
+                        return <HomePage />;
+                }
+            };
+
+            return (
+                <div className="bg-slate-50 min-h-screen">
+                    {renderPage()}
+                    <BottomNav activeTab={activeTab} onSelectTab={setActiveTab} />
+                </div>
+            );
+        }
+
+        // ============ RENDER ============
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
