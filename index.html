@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mercado Fresco</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,1045 +12,1091 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --verde-principal: #2F8F3A;
+            --verde-escuro: #17652A;
+            --fundo: #FAFBF7;
+            --superficie: #FFFFFF;
+            --destaque: #F3A33B;
+            --texto-principal: #1a1a1a;
+            --texto-secundario: #666666;
+            --border-radius: 18px;
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #F8F6F0;
-            color: #1A1A1A;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: 80px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--fundo);
+            color: var(--texto-principal);
+            overflow-x: hidden;
         }
 
-        /* Textura de papel sutil */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* FAIXA DE AVISO TOPO */
-        .top-banner {
-            background: #FF8C00;
-            color: #FFFFFF;
-            text-align: center;
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* HEADER */
+        /* ==================== HEADER ==================== */
         .header {
-            background: #FFFFFF;
-            padding: 20px;
-            border-bottom: 1px solid #E0D8C8;
-        }
-
-        .header__top {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .header__avatar {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #2D5016 0%, #4A7C2E 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(45, 80, 22, 0.2);
-        }
-
-        .header__info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .header__name {
-            font-family: 'Fraunces', serif;
-            font-size: 26px;
-            font-weight: 700;
-            color: #1A1A1A;
-            margin-bottom: 4px;
-            line-height: 1.2;
-        }
-
-        .header__tagline {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .header__hours {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #2D5016;
-            font-weight: 600;
-        }
-
-        .header__login {
-            background: #1A1A1A;
-            color: #FFFFFF;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-        }
-
-        .header__meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 13px;
-            padding-top: 12px;
-            border-top: 1px solid #E0D8C8;
-        }
-
-        .header__meta-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #1A1A1A;
-            font-weight: 500;
-        }
-
-        .header__rating {
-            color: #FF8C00;
-            font-weight: 700;
-        }
-
-        .header__whatsapp {
-            color: #25D366;
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* AVISO AMARELO */
-        .notice-box {
-            background: #FFF9E6;
-            border: 2px solid #FFD700;
-            border-left-width: 6px;
-            margin: 16px;
-            padding: 16px;
-            border-radius: 8px;
-        }
-
-        .notice-box__title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #B8860B;
-            margin-bottom: 8px;
-        }
-
-        .notice-box__list {
-            list-style: none;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .notice-box__list li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 4px;
-        }
-
-        .notice-box__list li::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 8px;
-            width: 4px;
-            height: 4px;
-            background: #B8860B;
-            border-radius: 50%;
-        }
-
-        /* BUSCA */
-        .search {
-            padding: 0 16px 16px;
-        }
-
-        .search__wrapper {
-            position: relative;
-        }
-
-        .search__icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #999;
-        }
-
-        .search__input {
-            width: 100%;
-            padding: 14px 14px 14px 44px;
-            border: 1px solid #D0C8B8;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            background: #FFFFFF;
-            color: #1A1A1A;
-        }
-
-        .search__input::placeholder {
-            color: #999;
-        }
-
-        .search__input:focus {
-            outline: none;
-            border-color: #2D5016;
-        }
-
-        /* CATEGORIAS (CHIPS) */
-        .categories {
-            padding: 0 16px 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .categories__scroll {
-            display: flex;
-            gap: 8px;
-            padding-bottom: 4px;
-        }
-
-        .category-chip {
-            padding: 10px 18px;
-            background: #FFFFFF;
-            border: 1.5px solid #D0C8B8;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            white-space: nowrap;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-        }
-
-        .category-chip:first-child {
-            background: #2D5016;
-            color: #FFFFFF;
-            border-color: #2D5016;
-        }
-
-        .category-chip:active {
-            transform: scale(0.96);
-        }
-
-        /* SEÇÕES DE PRODUTOS */
-        .section {
-            margin-bottom: 28px;
-        }
-
-        .section__header {
-            background: linear-gradient(135deg, #FF8C00 0%, #FF7000 100%);
-            padding: 14px 16px;
-            margin-bottom: 16px;
-        }
-
-        .section__title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #FFFFFF;
-            font-family: 'Fraunces', serif;
-        }
-
-        /* HERO PRODUTO (primeiro item destacado) */
-        .hero-product {
-            margin: 0 16px 16px;
-            background: linear-gradient(135deg, #FFE8CC 0%, #FFD4A3 100%);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            border: 2px solid #FFB366;
-        }
-
-        .hero-product__icon {
-            font-size: 80px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .hero-product__label {
-            display: inline-block;
-            background: #FF8C00;
-            color: #FFFFFF;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .hero-product__name {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1A1A1A;
-            margin-bottom: 6px;
-        }
-
-        .hero-product__description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .hero-product__footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 14px 16px;
+            background-color: var(--superficie);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-light);
         }
 
-        .hero-product__price {
-            font-size: 24px;
+        .header-logo {
+            font-size: 18px;
             font-weight: 700;
-            color: #2D5016;
+            color: var(--verde-principal);
+            letter-spacing: -0.5px;
         }
 
-        .hero-product__add {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #FF8C00;
-            color: #FFFFFF;
-            border: none;
-            font-size: 28px;
-            font-weight: 400;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+        .header-icons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--verde-principal);
+            transition: all 0.2s ease;
         }
 
-        .hero-product__add:active {
-            transform: scale(0.94);
+        .cart-icon:active {
+            transform: scale(0.95);
         }
 
-        /* LISTA DE PRODUTOS */
-        .products {
-            padding: 0 16px;
+        .cart-counter {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--destaque);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            animation: cartBounce 0.4s ease;
+        }
+
+        @keyframes cartBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            padding: 20px 16px;
+            background: linear-gradient(135deg, var(--verde-principal) 0%, var(--verde-escuro) 100%);
+            border-radius: 0 0 24px 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -30px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect fill="%23fff" width="400" height="200"/><circle cx="100" cy="80" r="40" fill="%23FF6B6B"/><circle cx="200" cy="90" r="45" fill="%23FFD93D"/><circle cx="300" cy="75" r="38" fill="%234CAF50"/><ellipse cx="120" cy="150" rx="35" ry="40" fill="%23FFA500"/><ellipse cx="280" cy="140" rx="40" ry="35" fill="%238B4513"/></svg>');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            margin-top: 14px;
+        }
+
+        /* ==================== STATUS CARDS ==================== */
+        .status-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
+            padding: 0 16px 20px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .status-card {
+            background: var(--superficie);
+            padding: 12px 14px;
+            border-radius: 14px;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-card-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-escuro));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ==================== TRUST MESSAGE ==================== */
+        .trust-message {
+            background: rgba(47, 143, 58, 0.08);
+            border-left: 4px solid var(--verde-principal);
+            padding: 14px 16px;
+            margin: 0 16px 20px;
+            border-radius: 0 12px 12px 0;
+            font-size: 13px;
+            color: var(--texto-secundario);
+            line-height: 1.5;
+        }
+
+        .trust-message strong {
+            color: var(--verde-escuro);
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        /* ==================== DESTAQUES (CAROUSEL) ==================== */
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--texto-principal);
+            padding: 0 16px;
+            margin-bottom: 14px;
+            margin-top: 6px;
+        }
+
+        .destaques-scroll {
+            display: flex;
+            gap: 12px;
+            padding: 0 16px 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .destaques-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .destaque-card {
+            flex: 0 0 140px;
+            background: var(--superficie);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .destaque-card:active {
+            transform: scale(0.97);
+        }
+
+        .destaque-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFD9A3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destaque-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .destaque-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--destaque);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .destaque-info {
+            padding: 10px;
+        }
+
+        .destaque-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--texto-principal);
+            margin-bottom: 4px;
+        }
+
+        .destaque-weight {
+            font-size: 11px;
+            color: var(--texto-secundario);
+            margin-bottom: 8px;
+        }
+
+        .destaque-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .destaque-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--verde-principal);
+        }
+
+        /* ==================== SEARCH ==================== */
+        .search-container {
+            padding: 0 16px 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #E8E8E8;
+            border-radius: 14px;
+            font-size: 14px;
+            background: var(--superficie);
+            color: var(--texto-principal);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--verde-principal);
+            box-shadow: 0 0 0 3px rgba(47, 143, 58, 0.1);
+        }
+
+        /* ==================== CATEGORIES ==================== */
+        .categories {
+            display: flex;
+            gap: 10px;
+            padding: 0 16px 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            flex: 0 0 auto;
+            padding: 8px 14px;
+            background: var(--superficie);
+            border: 1.5px solid #E8E8E8;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--texto-principal);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .category-btn:active {
+            transform: scale(0.95);
+        }
+
+        .category-btn.active {
+            background: var(--verde-principal);
+            border-color: var(--verde-principal);
+            color: white;
+        }
+
+        /* ==================== PRODUCTS GRID ==================== */
+        .products-section {
+            padding: 0 16px 100px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
 
         .product-card {
-            background: #FFFFFF;
-            border: 1px solid #E0D8C8;
-            border-radius: 12px;
-            padding: 14px;
+            background: var(--superficie);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
             display: flex;
-            gap: 12px;
+            flex-direction: column;
         }
 
-        .product-card__image {
-            width: 72px;
-            height: 72px;
-            background: #F5F3ED;
+        .product-card:active {
+            transform: scale(0.97);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-size: 50px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--destaque);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            animation: badgePop 0.4s ease;
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .product-info {
+            padding: 12px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--texto-principal);
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .product-weight {
+            font-size: 12px;
+            color: var(--texto-secundario);
+            margin-bottom: 10px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--verde-principal);
+        }
+
+        /* ==================== ADD BUTTON ==================== */
+        .btn-add {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--verde-principal);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .btn-add:active {
+            transform: scale(0.92);
+        }
+
+        .btn-counter {
+            width: 40px;
+            height: 40px;
+            background: var(--verde-principal);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 38px;
-            flex-shrink: 0;
-            border: 1px solid #E0D8C8;
-        }
-
-        .product-card__info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .product-card__badges {
-            display: flex;
             gap: 6px;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
+            animation: counterSlideIn 0.3s ease;
         }
 
-        .badge {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            padding: 3px 8px;
-            border-radius: 4px;
+        @keyframes counterSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .badge--new {
-            background: #FFE8CC;
-            color: #CC6600;
-        }
-
-        .badge--promo {
-            background: #FFE0E0;
-            color: #CC0000;
-        }
-
-        .product-card__name {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1A1A1A;
-            margin-bottom: 3px;
-        }
-
-        .product-card__weight {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 4px;
-        }
-
-        .product-card__description {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .product-card__footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .product-card__price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #2D5016;
-        }
-
-        .product-card__add {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #FF8C00;
-            color: #FFFFFF;
+        .btn-counter button {
+            width: 24px;
+            height: 24px;
             border: none;
-            font-size: 22px;
-            font-weight: 400;
+            background: transparent;
+            color: white;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(255, 140, 0, 0.25);
+            transition: all 0.15s ease;
         }
 
-        .product-card__add:active {
-            transform: scale(0.92);
+        .btn-counter button:active {
+            transform: scale(0.85);
         }
 
-        /* NAVEGAÇÃO INFERIOR */
+        .btn-counter-value {
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ==================== BOTTOM NAVIGATION ==================== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: #FFFFFF;
-            border-top: 1px solid #E0D8C8;
-            padding: 8px 0 max(8px, env(safe-area-inset-bottom));
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            z-index: 100;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            background: var(--superficie);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 8px 0 16px;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+            z-index: 200;
+            border-radius: 20px 20px 0 0;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            padding: 6px 4px;
-            text-decoration: none;
-            color: #999;
-            font-size: 11px;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .nav-item--active {
-            color: #FF8C00;
-        }
-
-        .nav-item__icon {
-            font-size: 22px;
-        }
-
-        .nav-item__badge {
-            position: absolute;
-            top: 0;
-            right: 50%;
-            transform: translateX(14px);
-            background: #FF4444;
-            color: #FFFFFF;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            border: 2px solid #FFFFFF;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 14px;
+            transition: all 0.22s ease;
+            position: relative;
+            color: var(--texto-secundario);
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        /* RESPONSIVO */
-        @media (min-width: 768px) {
-            body {
-                max-width: 480px;
-                margin: 0 auto;
-                box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        .nav-item-icon {
+            font-size: 20px;
+            transition: all 0.22s ease;
+        }
+
+        .nav-item.active {
+            background: rgba(47, 143, 58, 0.1);
+            color: var(--verde-principal);
+        }
+
+        .nav-item.active .nav-item-icon {
+            font-size: 22px;
+            animation: navIconPulse 0.35s ease;
+        }
+
+        @keyframes navIconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 15px;
+            }
+
+            .product-name {
+                font-size: 13px;
+            }
+
+            .destaque-card {
+                flex: 0 0 130px;
             }
         }
 
-        /* Remove scrollbar das categorias */
-        .categories::-webkit-scrollbar {
-            display: none;
+        /* ==================== EMPTY STATE ==================== */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--texto-secundario);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
-
-    <!-- FAIXA TOPO -->
-    <div class="top-banner">PEDIDOS SOMENTE POR ENCOMENDA</div>
-
     <!-- HEADER -->
     <header class="header">
-        <div class="header__top">
-            <div class="header__avatar">🍃</div>
-            <div class="header__info">
-                <h1 class="header__name">Mercado Fresco</h1>
-                <p class="header__tagline">Hortifruti fresco todo dia</p>
-                <div class="header__hours">
-                    <span>Aberto!</span>
-                    <span>00:00 – 23:59</span>
-                </div>
+        <button onclick="toggleMenu()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--verde-principal);">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-logo">MERCADO FRESCO</div>
+        <div class="header-icons">
+            <div class="cart-icon" onclick="goToCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-counter" id="cartCount">0</span>
             </div>
-            <button class="header__login">Login</button>
-        </div>
-        <div class="header__meta">
-            <div class="header__meta-item">
-                Entrega grátis acima de R$ 165,00
-            </div>
-            <div class="header__meta-item">
-                <span class="header__rating">★ 4.8</span>
-            </div>
-            <div class="header__meta-item">
-                Pedido mínimo: R$ 40,00
-            </div>
-            <a href="#" class="header__whatsapp">
-                💬 WhatsApp
-            </a>
         </div>
     </header>
 
-    <!-- AVISO -->
-    <div class="notice-box">
-        <div class="notice-box__title">🍊 Bem-vindo(a) à Mercado Fresco!</div>
-        <ul class="notice-box__list">
-            <li>📦 Pedidos somente por encomenda.</li>
-            <li>📅 Faça seu pedido com antecedência.</li>
-            <li>🚚 Separamos tudo com carinho e enviamos produtos frescos para você.</li>
-        </ul>
-    </div>
+    <!-- MAIN CONTENT -->
+    <main id="mainContent">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Hortifruti fresco todo dia</h1>
+            </div>
+            <div class="hero-image"></div>
+        </section>
 
-    <!-- BUSCA -->
-    <div class="search">
-        <div class="search__wrapper">
-            <span class="search__icon">🔎</span>
-            <input type="search" class="search__input" placeholder="Digite para buscar um item">
-        </div>
-    </div>
-
-    <!-- CATEGORIAS -->
-    <nav class="categories">
-        <div class="categories__scroll">
-            <button class="category-chip">Todos</button>
-            <button class="category-chip">Kit Fruta Semanal</button>
-            <button class="category-chip">Saladas Especiais</button>
-            <button class="category-chip">Frutas Picadas</button>
-            <button class="category-chip">Legumes e Verduras</button>
-            <button class="category-chip">Temperos</button>
-        </div>
-    </nav>
-
-    <!-- SEÇÃO: KIT FRUTA SEMANAL -->
-    <section class="section">
-        <div class="section__header">
-            <h2 class="section__title">Kit Fruta Semanal</h2>
-        </div>
-        
-        <div class="hero-product">
-            <span class="hero-product__icon">🍱</span>
-            <span class="hero-product__label">Novidade!</span>
-            <h3 class="hero-product__name">Kit Fruta Semanal</h3>
-            <p class="hero-product__weight">variado</p>
-            <p class="hero-product__description">Seleção de frutas frescas para a semana, itens variados e higienizados.</p>
-            <div class="hero-product__footer">
-                <span class="hero-product__price">R$ 49,90</span>
-                <button class="hero-product__add">+</button>
+        <!-- STATUS CARDS -->
+        <div class="status-cards">
+            <div class="status-card">
+                <div class="status-card-icon">✓</div>
+                <span><strong>Aberto</strong></span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🚚</div>
+                <span><strong>Frete grátis</strong> acima de R$ 165</span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">💚</div>
+                <span><strong>Mínimo</strong> R$ 40</span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">💬</div>
+                <span><strong>WhatsApp</strong></span>
             </div>
         </div>
-    </section>
 
-    <!-- SEÇÃO: SALADAS DE FRUTAS ESPECIAIS -->
-    <section class="section">
-        <div class="section__header">
-            <h2 class="section__title">Saladas de Frutas Especiais</h2>
-        </div>
-        
-        <div class="products">
-            <article class="product-card">
-                <div class="product-card__image">🍓</div>
-                <div class="product-card__info">
-                    <div class="product-card__badges">
-                        <span class="badge badge--new">Novidade!</span>
-                        <span class="badge badge--promo">Promoção!</span>
-                    </div>
-                    <h3 class="product-card__name">Salada de Frutas Especial</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Mix de frutas frescas selecionadas.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 12,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍓</div>
-                <div class="product-card__info">
-                    <div class="product-card__badges">
-                        <span class="badge badge--promo">Promoção!</span>
-                    </div>
-                    <h3 class="product-card__name">Salada de Frutas Cremosa</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Frutas frescas com toque cremoso.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 14,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- SEÇÃO: FRUTAS HIGIENIZADAS E PICADAS -->
-    <section class="section">
-        <div class="section__header">
-            <h2 class="section__title">Frutas Higienizadas e Picadas</h2>
-        </div>
-        
-        <div class="products">
-            <article class="product-card">
-                <div class="product-card__image">🍋</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Manga Picada</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Manga selecionada, higienizada e pronta para consumir.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 6,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍉</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Melancia Picada</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Melancia doce e fresca, cortada em cubos.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,40</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍓</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Salada de Frutas - opção 1</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Mix de frutas frescas.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 8,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍍</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Abacaxi Fatiado</h3>
-                    <p class="product-card__weight">300g</p>
-                    <p class="product-card__description">Abacaxi doce, selecionado e fatiado.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 10,50</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍍</div>
-                <div class="product-card__info">
-                    <div class="product-card__badges">
-                        <span class="badge badge--new">Novidade!</span>
-                    </div>
-                    <h3 class="product-card__name">Abacaxi Inteiro sem casca</h3>
-                    <p class="product-card__weight">500g</p>
-                    <p class="product-card__description">Pronto para consumir.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 12,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍌</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Banana</h3>
-                    <p class="product-card__weight">1kg</p>
-                    <p class="product-card__description">Bananas selecionadas.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 8,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍇</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Uva</h3>
-                    <p class="product-card__weight">500g</p>
-                    <p class="product-card__description">Uvas frescas.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 12,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍓</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Morangos</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Morangos frescos.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 13,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- SEÇÃO: LEGUMES E VERDURAS PICADOS -->
-    <section class="section">
-        <div class="section__header">
-            <h2 class="section__title">Legumes e Verduras Picados</h2>
-        </div>
-        
-        <div class="products">
-            <article class="product-card">
-                <div class="product-card__image">🧅</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Cebola Picada</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Cebola fresca já higienizada.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🌿</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Salsinha Higienizada</h3>
-                    <p class="product-card__weight">50g</p>
-                    <p class="product-card__description">Salsinha fresca pronta para uso.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 4,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🥦</div>
-                <div class="product-card__info">
-                    <div class="product-card__badges">
-                        <span class="badge badge--new">Novidade!</span>
-                    </div>
-                    <h3 class="product-card__name">Brócolis Higienizado</h3>
-                    <p class="product-card__weight">300g</p>
-                    <p class="product-card__description">Brócolis selecionado e higienizado.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 14,50</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🥦</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Couve Flor Higienizada</h3>
-                    <p class="product-card__weight">300g</p>
-                    <p class="product-card__description">Couve-flor fresca.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 14,50</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🥦</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Mix Brócolis com Couve-flor</h3>
-                    <p class="product-card__weight">300g</p>
-                    <p class="product-card__description">Mix de vegetais frescos.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 15,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🎃</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Abóbora Fatiada</h3>
-                    <p class="product-card__weight">300g</p>
-                    <p class="product-card__description">Abóbora limpa e pronta para cozinhar.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 8,20</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🥒</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Abobrinha Fatiada</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Abobrinha fresca fatiada.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 9,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍆</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Berinjela</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Berinjela selecionada.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 8,50</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🥬</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Repolho Verde ralado</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Repolho fresco ralado.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 9,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🍅</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Tomate fatiado</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Tomates selecionados.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 9,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🫛</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Vagem Picada</h3>
-                    <p class="product-card__weight">250g</p>
-                    <p class="product-card__description">Vagem fresca pronta para preparo.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 11,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- SEÇÃO: TEMPEROS -->
-    <section class="section">
-        <div class="section__header">
-            <h2 class="section__title">Temperos</h2>
-        </div>
-        
-        <div class="hero-product" style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-color: #81C784;">
-            <span class="hero-product__icon">🧂</span>
-            <p class="hero-product__description">Deixe sua comida mais saborosa com nossos temperos</p>
+        <!-- TRUST MESSAGE -->
+        <div class="trust-message">
+            <strong>Bem-vindo ao Mercado Fresco!</strong>
+            Seus alimentos frescos entregues com até 72 horas de antecedência. Qualidade garantida.
         </div>
 
-        <div class="products">
-            <article class="product-card">
-                <div class="product-card__image">🧂</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Páprica</h3>
-                    <p class="product-card__weight">100g</p>
-                    <p class="product-card__description">Tempero selecionado.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,50</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
+        <!-- DESTAQUES -->
+        <h2 class="section-title">Destaques da semana</h2>
+        <div class="destaques-scroll" id="destaques"></div>
 
-            <article class="product-card">
-                <div class="product-card__image">🌶</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Pimenta Calabresa</h3>
-                    <p class="product-card__weight">50g</p>
-                    <p class="product-card__description">Pimenta calabresa.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">⚫</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Pimenta do Reino moída</h3>
-                    <p class="product-card__weight">50g</p>
-                    <p class="product-card__description">Pimenta moída na hora.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🧂</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Sal</h3>
-                    <p class="product-card__weight">500g</p>
-                    <p class="product-card__description">Sal refinado.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 4,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🧂</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Tempero Ana Maria</h3>
-                    <p class="product-card__weight">100g</p>
-                    <p class="product-card__description">Mistura especial de temperos.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 5,00</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-card__image">🧂</div>
-                <div class="product-card__info">
-                    <h3 class="product-card__name">Tempero do Chefe</h3>
-                    <p class="product-card__weight">100g</p>
-                    <p class="product-card__description">Blend de temperos.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">R$ 7,90</span>
-                        <button class="product-card__add">+</button>
-                    </div>
-                </div>
-            </article>
+        <!-- SEARCH -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Digite para buscar um item">
         </div>
-    </section>
 
-    <!-- NAVEGAÇÃO INFERIOR -->
+        <!-- CATEGORIES -->
+        <div class="categories" id="categoriesContainer"></div>
+
+        <!-- PRODUCTS -->
+        <section class="products-section">
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item nav-item--active">
-            <span class="nav-item__icon">⌂</span>
-            Início
-        </a>
-        <a href="#" class="nav-item">
-            <span class="nav-item__icon">▦</span>
-            Cardápio
-        </a>
-        <a href="#" class="nav-item">
-            <span class="nav-item__icon">♡</span>
-            Favoritos
-        </a>
-        <a href="#" class="nav-item">
-            <span class="nav-item__icon">☰</span>
-            Pedidos
-        </a>
-        <a href="#" class="nav-item">
-            <span class="nav-item__icon">🛒</span>
-            <span class="nav-item__badge">0</span>
-            Carrinho
-        </a>
+        <div class="nav-item active" onclick="navigateTo('home')">
+            <div class="nav-item-icon"><i class="fas fa-home"></i></div>
+            <span>Início</span>
+        </div>
+        <div class="nav-item" onclick="navigateTo('catalog')">
+            <div class="nav-item-icon"><i class="fas fa-list"></i></div>
+            <span>Cardápio</span>
+        </div>
+        <div class="nav-item" onclick="navigateTo('favorites')">
+            <div class="nav-item-icon"><i class="fas fa-heart"></i></div>
+            <span>Favoritos</span>
+        </div>
+        <div class="nav-item" onclick="navigateTo('orders')">
+            <div class="nav-item-icon"><i class="fas fa-shopping-bag"></i></div>
+            <span>Pedidos</span>
+        </div>
+        <div class="nav-item" onclick="navigateTo('account')">
+            <div class="nav-item-icon"><i class="fas fa-user"></i></div>
+            <span>Conta</span>
+        </div>
     </nav>
 
+    <script>
+        // ==================== STATE ==================== 
+        const products = [
+            { id: 1, name: 'Kit Fruta Semanal', weight: 'variado', price: 49.90, category: 'kits', image: '🍎🍌🍊', badge: 'Destaque' },
+            { id: 2, name: 'Salada de Frutas Especial', weight: '250g', price: 12.90, category: 'saladas', image: '🥗' },
+            { id: 3, name: 'Manga Picada', weight: '250g', price: 6.90, category: 'frutas', image: '🥭' },
+            { id: 4, name: 'Abacaxi Fatiado', weight: '300g', price: 10.50, category: 'frutas', image: '🍍' },
+            { id: 5, name: 'Banana', weight: '1kg', price: 8.00, category: 'frutas', image: '🍌' },
+            { id: 6, name: 'Morangos', weight: '250g', price: 13.90, category: 'frutas', image: '🍓', badge: 'Novidade' },
+            { id: 7, name: 'Brócolis Higienizado', weight: '300g', price: 14.50, category: 'verduras', image: '🥦' },
+            { id: 8, name: 'Páprica', weight: '100g', price: 5.50, category: 'temperos', image: '🌶️' },
+            { id: 9, name: 'Pimenta Calabresa', weight: '50g', price: 4.80, category: 'temperos', image: '🌶️' },
+            { id: 10, name: 'Pimenta do Reino', weight: '50g', price: 3.90, category: 'temperos', image: '🌶️' },
+            { id: 11, name: 'Sal Refinado', weight: '250g', price: 2.50, category: 'temperos', image: '🧂' },
+            { id: 12, name: 'Tempero Ana Maria', weight: '100g', price: 6.90, category: 'temperos', image: '🧂' },
+            { id: 13, name: 'Tempero do Chefe', weight: '75g', price: 7.50, category: 'temperos', image: '🧂', badge: 'Premium' },
+            { id: 14, name: 'Maçã Vermelha', weight: '1kg', price: 9.90, category: 'frutas', image: '🍎' },
+            { id: 15, name: 'Alface Crespa', weight: '300g', price: 4.50, category: 'verduras', image: '🥬' },
+            { id: 16, name: 'Cenoura Orgânica', weight: '500g', price: 7.80, category: 'verduras', image: '🥕' }
+        ];
+
+        let cart = {};
+        let favorites = new Set();
+        let selectedCategory = 'todos';
+        let filteredProducts = products;
+
+        // ==================== INITIALIZATION ==================== 
+        function init() {
+            loadCart();
+            loadFavorites();
+            renderDestaques();
+            renderCategories();
+            renderProducts();
+            setupSearch();
+        }
+
+        // ==================== CART MANAGEMENT ==================== 
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            if (!cart[productId]) {
+                cart[productId] = {
+                    ...product,
+                    quantity: 1
+                };
+            } else {
+                cart[productId].quantity += 1;
+            }
+
+            saveCart();
+            updateCartDisplay();
+            animateCartButton(productId);
+        }
+
+        function removeFromCart(productId) {
+            if (cart[productId] && cart[productId].quantity > 1) {
+                cart[productId].quantity -= 1;
+            } else {
+                delete cart[productId];
+            }
+            saveCart();
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartCount').style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        function saveCart() {
+            localStorage.setItem('mercadoFrescoCart', JSON.stringify(cart));
+        }
+
+        function loadCart() {
+            const saved = localStorage.getItem('mercadoFrescoCart');
+            cart = saved ? JSON.parse(saved) : {};
+            updateCartDisplay();
+        }
+
+        // ==================== FAVORITES ==================== 
+        function toggleFavorite(productId) {
+            if (favorites.has(productId)) {
+                favorites.delete(productId);
+            } else {
+                favorites.add(productId);
+            }
+            saveFavorites();
+            renderProducts();
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('mercadoFrescoFavorites', JSON.stringify([...favorites]));
+        }
+
+        function loadFavorites() {
+            const saved = localStorage.getItem('mercadoFrescoFavorites');
+            favorites = new Set(saved ? JSON.parse(saved) : []);
+        }
+
+        // ==================== RENDER DESTAQUES ==================== 
+        function renderDestaques() {
+            const destaques = products.filter(p => p.badge).slice(0, 5);
+            const container = document.getElementById('destaques');
+            container.innerHTML = destaques.map(product => `
+                <div class="destaque-card">
+                    <div class="destaque-image">
+                        <span>${product.image}</span>
+                        ${product.badge ? `<span class="destaque-badge">${product.badge}</span>` : ''}
+                    </div>
+                    <div class="destaque-info">
+                        <div class="destaque-name">${product.name}</div>
+                        <div class="destaque-weight">${product.weight}</div>
+                        <div class="destaque-footer">
+                            <div class="destaque-price">R$ ${product.price.toFixed(2)}</div>
+                            ${getAddButtonHTML(product.id)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== RENDER CATEGORIES ==================== 
+        function renderCategories() {
+            const categories = [
+                { id: 'todos', name: 'Todos' },
+                { id: 'frutas', name: 'Frutas' },
+                { id: 'verduras', name: 'Legumes e Verduras' },
+                { id: 'saladas', name: 'Saladas' },
+                { id: 'kits', name: 'Kits' },
+                { id: 'temperos', name: 'Temperos' }
+            ];
+
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = categories.map(cat => `
+                <button class="category-btn ${selectedCategory === cat.id ? 'active' : ''}" 
+                        onclick="selectCategory('${cat.id}')">
+                    ${cat.name}
+                </button>
+            `).join('');
+        }
+
+        function selectCategory(categoryId) {
+            selectedCategory = categoryId;
+            filterAndRender();
+        }
+
+        // ==================== RENDER PRODUCTS ==================== 
+        function renderProducts() {
+            const container = document.getElementById('productsGrid');
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-state-icon">🔍</div>
+                        <div class="empty-state-text">Nenhum produto encontrado</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>${product.image}</span>
+                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-weight">${product.weight}</div>
+                        <div class="product-footer">
+                            <span class="product-price">R$ ${product.price.toFixed(2)}</span>
+                            ${getAddButtonHTML(product.id)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getAddButtonHTML(productId) {
+            const item = cart[productId];
+            if (!item) {
+                return `<button class="btn-add" onclick="addToCart(${productId})"><i class="fas fa-plus"></i></button>`;
+            } else {
+                return `
+                    <div class="btn-counter">
+                        <button onclick="removeFromCart(${productId})"><i class="fas fa-minus"></i></button>
+                        <span class="btn-counter-value">${item.quantity}</span>
+                        <button onclick="addToCart(${productId})"><i class="fas fa-plus"></i></button>
+                    </div>
+                `;
+            }
+        }
+
+        function animateCartButton(productId) {
+            const button = event.currentTarget;
+            const cartIcon = document.querySelector('.cart-icon');
+            
+            cartIcon.style.animation = 'none';
+            setTimeout(() => {
+                cartIcon.style.animation = 'cartBounce 0.4s ease';
+            }, 10);
+        }
+
+        // ==================== SEARCH ==================== 
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query === '') {
+                    filterAndRender();
+                } else {
+                    filteredProducts = products.filter(p => 
+                        p.name.toLowerCase().includes(query)
+                    );
+                    renderProducts();
+                }
+            });
+        }
+
+        function filterAndRender() {
+            if (selectedCategory === 'todos') {
+                filteredProducts = products;
+            } else {
+                filteredProducts = products.filter(p => p.category === selectedCategory);
+            }
+            renderCategories();
+            renderProducts();
+        }
+
+        // ==================== NAVIGATION ==================== 
+        function navigateTo(section) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            const mainContent = document.getElementById('mainContent');
+            
+            switch(section) {
+                case 'home':
+                    mainContent.innerHTML = `
+                        <section class="hero">
+                            <div class="hero-content">
+                                <h1 class="hero-title">Hortifruti fresco todo dia</h1>
+                            </div>
+                            <div class="hero-image"></div>
+                        </section>
+                        <div class="status-cards">
+                            <div class="status-card">
+                                <div class="status-card-icon">✓</div>
+                                <span><strong>Aberto</strong></span>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-card-icon">🚚</div>
+                                <span><strong>Frete grátis</strong> acima de R$ 165</span>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-card-icon">💚</div>
+                                <span><strong>Mínimo</strong> R$ 40</span>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-card-icon">💬</div>
+                                <span><strong>WhatsApp</strong></span>
+                            </div>
+                        </div>
+                        <div class="trust-message">
+                            <strong>Bem-vindo ao Mercado Fresco!</strong>
+                            Seus alimentos frescos entregues com até 72 horas de antecedência. Qualidade garantida.
+                        </div>
+                        <h2 class="section-title">Destaques da semana</h2>
+                        <div class="destaques-scroll" id="destaques"></div>
+                        <div class="search-container">
+                            <input type="text" class="search-input" id="searchInput" placeholder="Digite para buscar um item">
+                        </div>
+                        <div class="categories" id="categoriesContainer"></div>
+                        <section class="products-section">
+                            <div class="products-grid" id="productsGrid"></div>
+                        </section>
+                    `;
+                    selectedCategory = 'todos';
+                    init();
+                    break;
+
+                case 'catalog':
+                    mainContent.innerHTML = `
+                        <div style="padding: 20px 16px;">
+                            <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">Catálogo Completo</h1>
+                            <div class="categories" id="categoriesContainer"></div>
+                            <div class="search-container">
+                                <input type="text" class="search-input" id="searchInput" placeholder="Buscar produto...">
+                            </div>
+                            <section class="products-section">
+                                <div class="products-grid" id="productsGrid"></div>
+                            </section>
+                        </div>
+                    `;
+                    selectedCategory = 'todos';
+                    init();
+                    break;
+
+                case 'favorites':
+                    const favoritesList = products.filter(p => favorites.has(p.id));
+                    mainContent.innerHTML = `
+                        <div style="padding: 20px 16px; padding-bottom: 100px;">
+                            <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">❤️ Favoritos</h1>
+                            ${favoritesList.length === 0 ? `
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">💚</div>
+                                    <div class="empty-state-text">Você ainda não tem favoritos.<br>Adicione produtos aqui!</div>
+                                </div>
+                            ` : `
+                                <div class="products-grid" id="favGrid"></div>
+                            `}
+                        </div>
+                    `;
+                    if (favoritesList.length > 0) {
+                        document.getElementById('favGrid').innerHTML = favoritesList.map(product => `
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <span>${product.image}</span>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">${product.name}</h3>
+                                    <div class="product-weight">${product.weight}</div>
+                                    <div class="product-footer">
+                                        <span class="product-price">R$ ${product.price.toFixed(2)}</span>
+                                        ${getAddButtonHTML(product.id)}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                    break;
+
+                case 'orders':
+                    mainContent.innerHTML = `
+                        <div style="padding: 20px 16px; padding-bottom: 100px;">
+                            <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">📦 Pedidos</h1>
+                            <div class="empty-state">
+                                <div class="empty-state-icon">🚚</div>
+                                <div class="empty-state-text">Você ainda não fez nenhum pedido.</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'account':
+                    mainContent.innerHTML = `
+                        <div style="padding: 20px 16px; padding-bottom: 100px;">
+                            <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">👤 Minha Conta</h1>
+                            <div style="background: var(--superficie); padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: var(--shadow-light);">
+                                <p style="color: var(--texto-secundario); margin-bottom: 12px;">Faça login para acessar sua conta</p>
+                                <button style="width: 100%; padding: 12px; background: var(--verde-principal); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Entrar</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function goToCart() {
+            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            const cartContent = Object.values(cart).map(item => 
+                `${item.name} (${item.quantity}x) - R$ ${(item.price * item.quantity).toFixed(2)}`
+            ).join('\n');
+
+            const total = Object.values(cart).reduce((sum, item) => 
+                sum + (item.price * item.quantity), 0
+            );
+
+            alert(`CARRINHO:\n\n${cartContent}\n\nTOTAL: R$ ${total.toFixed(2)}\n\nProsseguir para checkout?`);
+        }
+
+        function toggleMenu() {
+            alert('Menu de navegação aberto');
+        }
+
+        // Start
+        init();
+    </script>
 </body>
 </html>
